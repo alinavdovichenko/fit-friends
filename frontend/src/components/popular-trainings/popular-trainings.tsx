@@ -1,12 +1,18 @@
-
+import { useNavigate } from 'react-router-dom';
+import { AppRoute} from '../../consts';
 function PopularTrainings(): JSX.Element {
+  const navigate = useNavigate();
   return (
     <section className="popular-trainings">
       <div className="container">
         <div className="popular-trainings__wrapper">
           <div className="popular-trainings__title-wrapper">
             <h2 className="popular-trainings__title">Популярные тренировки</h2>
-            <button className="btn-flat popular-trainings__button" type="button">
+            <button
+              className="btn-flat popular-trainings__button"
+              type="button"
+              onClick={() => navigate(AppRoute.TrainingCatalog)}
+            >
               <span>Смотреть все</span>
               <svg width={14} height={10} aria-hidden="true">
                 <use xlinkHref="#arrow-right" />
@@ -189,7 +195,7 @@ function PopularTrainings(): JSX.Element {
                     <span className="thumbnail-training__price-value">2200</span>
                     <span>₽</span>
                   </p>
-                  <h3 className="thumbnail-training__title">devil's cindy</h3>
+                  <h3 className="thumbnail-training__title">devils cindy</h3>
                   <div className="thumbnail-training__info">
                     <ul className="thumbnail-training__hashtags-list">
                       <li className="thumbnail-training__hashtags-item">

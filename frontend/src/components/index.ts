@@ -1,4 +1,8 @@
 export { default as Layout } from './layout/layout';
+export { default as Logo } from './logo/logo';
+export { default as MainNavigation } from './main-navigation/main-navigation';
+export { default as NotificationCard } from './notification-card/notification-card';
+export { default as NotificationsList } from './notifications-list/notifications-list';
 export { default as SpecialForYou } from './special-for-you/special-for-you';
 export { default as SpecialOffers } from './special-offers/special-offers';
 export { default as PopularTrainings } from './popular-trainings/popular-trainings';
@@ -15,3 +19,5 @@ export { default as AvatarInput } from './avatar-input/avatar-input';
 export { default as CustomInput } from './custom-input/custom-input';
 export { default as BirthDayInput } from './birth-day-input/birth-day-input';
 export { default as SelectInput } from './select-input/select-input';
+export { default as RadioInput } from './radio-input/radio-input';
+export { default as RoleInput } from './role-input/role-input';

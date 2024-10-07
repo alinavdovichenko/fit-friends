@@ -1,13 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import {
   AvatarInput,
   CustomInput,
   BirthDayInput,
-  SelectInput
+  SelectInput,
+  RadioInput,
+  RoleInput
 } from '../../components';
+import { AppRoute} from '../../consts';
 import { FormEvent, useState } from 'react';
 import { CustomInputType } from '../custom-input/cuctom-input.const';
 import { SelectInputType } from '../select-input/select-input.const';
+import { RadioInputType } from '../radio-input/radio-input.const';
 function RegisterForm(): JSX.Element {
+  const navigate = useNavigate();
   const [isAgree, setAgreement] = useState(true);
   const [file, setFile] = useState<Blob | null>(null);
 
@@ -32,87 +38,18 @@ function RegisterForm(): JSX.Element {
           <CustomInput type={CustomInputType.Name} />
           <CustomInput type={CustomInputType.Email} />
           <BirthDayInput />
-          <div className="custom-select custom-select--not-selected">
-            <span className="custom-select__label">Ваша локация</span>
-            <button
-              className="custom-select__button"
-              type="button"
-              aria-label="Выберите одну из опций"
-            >
-              <span className="custom-select__text" />
-              <span className="custom-select__icon">
-                <svg width={15} height={6} aria-hidden="true">
-                  <use xlinkHref="#arrow-down" />
-                </svg>
-              </span>
-            </button>
-            <ul className="custom-select__list" role="listbox"></ul>
-          </div>
+          <SelectInput
+            type={SelectInputType.Location}
+            label="Ваша локация"
+            styleClass="sing-up"
+          />
           <CustomInput type={CustomInputType.Password} />
           <div className="sign-up__radio">
             <span className="sign-up__label">Пол</span>
-            <div className="custom-toggle-radio custom-toggle-radio--big">
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="sex" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Мужской</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="sex" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Женский</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="sex" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Неважно</span>
-                </label>
-              </div>
-            </div>
+            <RadioInput type={RadioInputType.Sex} />
           </div>
         </div>
-        <div className="sign-up__role">
-          <h2 className="sign-up__legend">Выберите роль</h2>
-          <div className="role-selector sign-up__role-selector">
-            <div className="role-btn">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="radio"
-                  name="role"
-                  defaultValue="coach"
-                />
-                <span className="role-btn__icon">
-                  <svg width={12} height={13} aria-hidden="true">
-                    <use xlinkHref="#icon-cup" />
-                  </svg>
-                </span>
-                <span className="role-btn__btn">Я хочу тренировать</span>
-              </label>
-            </div>
-            <div className="role-btn">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="radio"
-                  name="role"
-                  defaultValue="sportsman"
-                />
-                <span className="role-btn__icon">
-                  <svg width={12} height={13} aria-hidden="true">
-                    <use xlinkHref="#icon-weight" />
-                  </svg>
-                </span>
-                <span className="role-btn__btn">Я хочу тренироваться</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <RoleInput />
         <div className="sign-up__checkbox">
           <label>
             <input
@@ -134,7 +71,12 @@ function RegisterForm(): JSX.Element {
             </span>
           </label>
         </div>
-        <button className="btn sign-up__button" type="submit" disabled={!isAgree}>
+        <button
+          className="btn sign-up__button"
+          type="submit"
+          disabled={!isAgree}
+          onClick={() => navigate(AppRoute.Questionary)}
+        >
           Продолжить
         </button>
       </div>

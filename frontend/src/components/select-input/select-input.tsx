@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 type SelectInputProps = {
   type: SelectInputType;
+  styleClass?: string;
   label?: string;
   isActive?: boolean;
 };
@@ -11,6 +12,7 @@ type SelectInputProps = {
 function SelectInput({
   type,
   label,
+  styleClass,
   isActive = true,
 }: SelectInputProps): JSX.Element {
   const {
@@ -31,6 +33,7 @@ function SelectInput({
   return (
     <div
       className={cn('custom-select', {
+        [`${styleClass ?? ''}__input`]: styleClass,
         'custom-select--not-selected': isActive && !value,
         'custom-select--readonly': !isActive,
         'is-open': isOpen,

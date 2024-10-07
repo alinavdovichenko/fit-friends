@@ -1,5 +1,9 @@
+import { useRef } from 'react';
+import Slider from 'react-slick';
 
 function SpecialForYou(): JSX.Element {
+  const sliderRef = useRef<Slider>(null);
+
   return (
     <section className="special-for-you">
       <div className="container">

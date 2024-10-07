@@ -24,9 +24,9 @@ function BirthDayInput(): JSX.Element {
             }
             max="2099-12-31"
           />
-          <p className={!validateBirthDay(value) ? 'sign-in__error' : 'sign-in__success'}>
-            {!validateBirthDay(value) ? 'Заполните поле' : 'Поле заполненно правильно!'}
-          </p>
+          {!validateBirthDay(value) && (
+            <span className="custom-input__error">validateBirthDay(value)</span>
+          )}
         </span>
       </label>
     </div>

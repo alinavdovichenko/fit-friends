@@ -1,5 +1,8 @@
-
+import { useNavigate } from 'react-router-dom';
+import { AppRoute} from '../../consts';
 function QuestionaryForm(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <form method="get">
       <div className="questionnaire-user">
@@ -190,7 +193,11 @@ function QuestionaryForm(): JSX.Element {
             </div>
           </div>
         </div>
-        <button className="btn questionnaire-user__button" type="submit">
+        <button
+          className="btn questionnaire-user__button"
+          type="submit"
+          onClick={() => navigate(AppRoute.Main)}
+        >
           Продолжить
         </button>
       </div>
