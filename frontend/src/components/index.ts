@@ -21,3 +21,5 @@ export { default as BirthDayInput } from './birth-day-input/birth-day-input';
 export { default as SelectInput } from './select-input/select-input';
 export { default as RadioInput } from './radio-input/radio-input';
 export { default as RoleInput } from './role-input/role-input';
+export { default as SliderButtons } from './slider-buttons/slider-buttons';
+export { default as SpecialForYouCard } from './special-for-you-card/special-for-you-card';

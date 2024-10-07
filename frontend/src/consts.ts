@@ -10,6 +10,7 @@ export const AppRoute = {
   Account: '/account',
   TrainingCatalog: '/training-сatalog',
   CardUser: '/card-user',
+  Trainings: '/trainings',
 } as const;
 
 export enum PopupKey {
