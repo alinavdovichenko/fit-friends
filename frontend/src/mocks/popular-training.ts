@@ -1,0 +1,65 @@
+import { PopularTraining } from '../types/popular-training';
+import { TrainingType } from '../consts';
+
+export const popularTrainings: PopularTraining[] = [
+  {
+    id: '1',
+    title: 'run, forrest, run',
+    backgroundImage: 'img/content/thumbnails/training-06.jpg',
+    type: TrainingType.Running,
+    description: 'Узнайте правильную технику бега, развивайте выносливость и откройте для себя все секреты длительных пробежек.',
+    price: 1600,
+    calories: 500,
+    rating: 5,
+  },
+  {
+    id: '2',
+    title: 'fitball',
+    backgroundImage: 'img/content/thumbnails/training-07.jpg',
+    type: TrainingType.Pilates,
+    description: 'Тренировка на фитболе — отличном тренажере дляразвития чувства баланса и равновесия, улучшения координации.',
+    price: 1600,
+    calories: 200,
+    rating: 5,
+  },
+  {
+    id: '3',
+    title: 'devils cindy',
+    backgroundImage: 'img/content/thumbnails/training-11.jpg',
+    type: TrainingType.Crossfit,
+    description: 'Знаменитый кроссфит комплекс. Синди — универсальная тренировка для развития функциональной силы.',
+    price: 2200,
+    calories: 950,
+    rating: 5,
+  },
+  {
+    id: '4',
+    title: 'full body stretch',
+    backgroundImage: 'img/content/thumbnails/training-09.jpg',
+    type: TrainingType.Strength,
+    description: 'Комплекс упражнений на растяжку всего тела для новичков. Плавное погружение в стретчинг и умеренная нагрузка.',
+    price: 1800,
+    calories: 400,
+    rating: 5,
+  },
+  {
+    id: '5',
+    title: 'run, forrest, run',
+    backgroundImage: 'img/content/thumbnails/training-06.jpg',
+    type: TrainingType.Running,
+    description: 'Узнайте правильную технику бега, развивайте выносливость и откройте для себя все секреты длительных пробежек.',
+    price: 1600,
+    calories: 500,
+    rating: 5,
+  },
+  {
+    id: '6',
+    title: 'fitball',
+    backgroundImage: 'img/content/thumbnails/training-07.jpg',
+    type: TrainingType.Pilates,
+    description: 'Тренировка на фитболе — отличном тренажере дляразвития чувства баланса и равновесия, улучшения координации.',
+    price: 1600,
+    calories: 200,
+    rating: 5,
+  }
+];

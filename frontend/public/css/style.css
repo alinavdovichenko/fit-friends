@@ -10170,12 +10170,24 @@ input:active + .custom-textarea__text {
   list-style: none;
 }
 
-.look-for-company__item {
-  margin-right: 20px;
+.look-for-company__list .slick-list {
+  margin: 0 -10px;
+  height: 100%;
+  box-sizing: content-box;
 }
 
-.look-for-company__item:last-child {
-  margin-right: 0;
+.look-for-company__list .slick-track {
+  margin: 0;
+  display: flex;
+  display: flex;
+}
+
+.look-for-company__list .slick-slide {
+  height: auto;
+}
+
+.look-for-company__item {
+  margin: 0 10px;
 }
 
 .users-catalog {

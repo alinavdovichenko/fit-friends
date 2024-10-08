@@ -40,7 +40,6 @@ function AvatarInput({
             required
             ref={fileInput}
             onChange={handleFileChange}
-            data-testid="fileInput"
           />
           <span className="input-load-avatar__btn">
             <svg width={20} height={20} aria-hidden="true">
@@ -55,7 +54,6 @@ function AvatarInput({
             className="user-info-edit__control-btn"
             aria-label="обновить"
             onClick={() => fileInput.current?.click()}
-            data-testid="changeButton"
           >
             <svg width={16} height={16} aria-hidden="true">
               <use xlinkHref="#icon-change" />
@@ -65,7 +63,6 @@ function AvatarInput({
             className="user-info-edit__control-btn"
             aria-label="удалить"
             onClick={handleDeleteButtonClick}
-            data-testid="deleteButton"
           >
             <svg width={14} height={16} aria-hidden="true">
               <use xlinkHref="#icon-trash" />

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { AppRoute} from '../../consts';
-import { TrainingCatologFilterForm } from '../../components';
+import { TrainingCatologFilterForm, TrainingCatalogList } from '../../components';
+import { TrainingsListType } from '../../components/training-catalog-list/training-catalog-list.const';
 
 function TrainingCatalogPage(): JSX.Element {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function TrainingCatalogPage(): JSX.Element {
               <button
                 className="btn-flat btn-flat--underlined gym-catalog-form__btnback"
                 type="button"
-                onClick={() => navigate(AppRoute.Account)}
+                onClick={() => navigate(AppRoute.Main)}
               >
                 <svg width={14} height={10} aria-hidden="true">
                   <use xlinkHref="#arrow-left" />
@@ -27,6 +28,7 @@ function TrainingCatalogPage(): JSX.Element {
             </div>
           </div>
           <div className="training-catalog">
+            <TrainingCatalogList type={TrainingsListType.TrainingsCatalog} />
             <ul className="training-catalog__list">
               <li className="training-catalog__item">
                 <div className="thumbnail-training">

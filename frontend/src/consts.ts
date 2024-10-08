@@ -1,5 +1,7 @@
 import { Location } from './types/location';
 
+export const SALE_PERCENT = 20;
+
 export const AppRoute = {
   Root: '/',
   Login: '/login',
@@ -11,6 +13,7 @@ export const AppRoute = {
   TrainingCatalog: '/training-сatalog',
   CardUser: '/card-user',
   Trainings: '/trainings',
+  Users: '/users',
 } as const;
 
 export enum PopupKey {
@@ -59,7 +62,7 @@ export const MetroLocation: MetroLocation = {
   },
 } as const;
 
-export const WORKOUT_TYPE_MAX_AMOUNT = 3;
+export const TRAINING_TYPE_MAX_AMOUNT = 3;
 
 export enum UserRole {
   Coach = 'тренер',
@@ -123,4 +126,54 @@ export const RoleInputLabel = {
   [UserRole.Default]: 'Я хочу тренироваться',
   [UserRole.Coach]: 'Я хочу тренировать',
 } as const;
+
+export enum TrainingType {
+  Yoga = 'йога',
+  Running = 'бег',
+  Box = 'бокс',
+  Stretching = 'стрейчинг',
+  Crossfit = 'кроссфит',
+  Aerobic = 'аэробика',
+  Pilates = 'пилатес',
+  Strength = 'силовые',
+}
+
+export enum TrainingDuration {
+  Short = '10-30',
+  Medium = '30-50',
+  Long = '50-80',
+  Extra = '80-100',
+}
+
+export enum TrainingSexFor {
+  Male = 'мужчинам',
+  Female = 'женщинам',
+  All = 'всем',
+}
+
+export enum TrainingTitleLength {
+  Min = 1,
+  Max = 15,
+}
+
+export enum TrainingDescriptionLength {
+  Min = 10,
+  Max = 140,
+}
+
+export enum PriceValue {
+  Min = 0,
+  Max = 50000,
+}
+
+export enum RatingValue {
+  Default = 0,
+  Min = 1,
+  Max = 5,
+}
+
+export enum CommentTextLength {
+  Min = 10,
+  Max = 140,
+}
 

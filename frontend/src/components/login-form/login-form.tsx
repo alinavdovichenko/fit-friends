@@ -1,10 +1,10 @@
-import { User } from '../../types/user';
+import { AuthUser } from '../../types/user';
 import { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute} from '../../consts';
 import { validateEmail, validatePassword } from '../../utils/validation';
 
-const validate = (formData: User): boolean => {
+const validate = (formData: AuthUser): boolean => {
   if (!validateEmail(formData.email)) {
     return false;
   }
@@ -18,7 +18,7 @@ const validate = (formData: User): boolean => {
 function LoginForm(): JSX.Element {
   const navigate = useNavigate();
   const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<AuthUser>({
     email: '',
     password: '',
   });

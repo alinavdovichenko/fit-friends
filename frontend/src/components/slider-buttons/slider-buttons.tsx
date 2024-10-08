@@ -51,7 +51,6 @@ function SliderButtons({
           setLastSlide(lastSlide + 1);
           sliderRef.current?.slickNext();
         }}
-        data-testid="nextButton"
       >
         <svg width={width} height={height} aria-hidden="true">
           <use xlinkHref="#arrow-right" />

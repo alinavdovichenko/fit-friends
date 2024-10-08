@@ -7,3 +7,4 @@ export { default as QuestionaryUserPage } from './questionary-user-page/question
 export { default as TrainingCatalogPage } from './training-catalog-page/training-catalog-page';
 export { default as MyPurchasesPage } from './my-purchases-page/my-purchases-page';
 export { default as UserCardUserPage } from './user-card-user-page/user-card-user-page';
+

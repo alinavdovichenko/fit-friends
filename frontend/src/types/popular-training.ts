@@ -1,13 +1,15 @@
-import { TrainingType } from '../consts';
+import {
+  TrainingType,
+} from '../consts';
 
-export type Training = {
+export type PopularTraining = {
   id: string;
   title: string;
   backgroundImage: string;
   type: TrainingType;
+  price: number;
   calories: number;
   description: string;
-  price: number;
   rating: number;
 };
 
