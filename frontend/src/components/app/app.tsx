@@ -10,7 +10,9 @@ import { IntroPage,
   AccountUserPage,
   TrainingCatalogPage,
   MyPurchasesPage,
-  UserCardUserPage
+  UserCardUserPage,
+  TrainingPage,
+  TestPage
 } from '../../pages';
 
 function App(): JSX.Element {
@@ -33,6 +35,11 @@ function App(): JSX.Element {
             <Route path={AppRoute.TrainingCatalog} element={<TrainingCatalogPage />} />
             <Route path={AppRoute.MyPurchases} element={<MyPurchasesPage />} />
             <Route path={AppRoute.CardUser} element={<UserCardUserPage />} />
+            <Route path={AppRoute.Test} element={<TestPage />} />
+            <Route
+              path={`${AppRoute.Trainings}/:trainingId`}
+              element={<TrainingPage />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

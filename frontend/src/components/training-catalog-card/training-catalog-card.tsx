@@ -14,7 +14,7 @@ type TrainingCatalogCardProps = {
 function TrainingCatalogCard({
   training,
   styleClass,
-  withButtons = true,
+  withButtons = false,
   ordersInfo,
 }: TrainingCatalogCardProps): JSX.Element {
   const {

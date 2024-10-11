@@ -1,6 +1,10 @@
 import { Location } from './types/location';
 
+export const BACKEND_URL = 'http://localhost:3000';
+export const REQUEST_TIMEOUT = 5000;
+export const STATIC_URL = `${BACKEND_URL}/static`;
 export const SALE_PERCENT = 20;
+export const IMAGE_PLACEHOLDER = 'https://placehold.co/600x600.png';
 
 export const AppRoute = {
   Root: '/',
@@ -13,12 +17,14 @@ export const AppRoute = {
   TrainingCatalog: '/training-сatalog',
   CardUser: '/card-user',
   Trainings: '/trainings',
+  Test: '/test',
   Users: '/users',
 } as const;
 
 export enum PopupKey {
   Feedback = 'popup-feedback',
   Buy = 'popup-buy',
+  DefaultPopup ='popup-default',
 }
 
 export const AvatarMaxSize = {
@@ -172,8 +178,9 @@ export enum RatingValue {
   Max = 5,
 }
 
-export enum CommentTextLength {
+export enum FeedbackTextLength {
   Min = 10,
   Max = 140,
 }
+
 

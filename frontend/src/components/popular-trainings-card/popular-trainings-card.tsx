@@ -14,7 +14,7 @@ type PopularTrainingsCardProps = {
 function PopularTrainingsCard({
   training,
   styleClass,
-  withButtons = true,
+  withButtons = false,
   ordersInfo,
 }: PopularTrainingsCardProps): JSX.Element {
   const {

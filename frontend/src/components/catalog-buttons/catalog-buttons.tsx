@@ -5,7 +5,7 @@ export interface CatalogButtonsProps {
 }
 
 function CatalogButtons({ styleClass }: CatalogButtonsProps) {
-  const isAll = true;
+  const isAll = false;
   const isDisabled = true;
 
   return (

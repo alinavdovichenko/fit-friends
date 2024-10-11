@@ -1,4 +1,4 @@
-
+import { useCallback, useEffect } from 'react';
 import { PopupKey } from '../../consts';
 import FocusLock from 'react-focus-lock';
 import cn from 'classnames';
@@ -8,10 +8,31 @@ type PopupProps = {
   title: string;
   children: JSX.Element;
   extraLabel?: string;
+  activePopup: PopupKey;
 };
 
-function Popup({ type, title, children, extraLabel }: PopupProps): JSX.Element {
-  const isActive = type;
+function Popup({ type, title, children, extraLabel, activePopup }: PopupProps): JSX.Element {
+  const isActive = activePopup === type;
+  // const activePopup = useAppSelector(getActivePopup);
+  const handleKeydownEvent = useCallback(
+    (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        activePopup = PopupKey.DefaultPopup;
+      }
+    },
+    [activePopup],
+  );
+
+  useEffect(() => {
+    if (isActive) {
+      window.scrollTo({ top: 0 });
+      document.body.classList.add('with-popup');
+      document.addEventListener('keydown', handleKeydownEvent);
+      return;
+    }
+    document.body.classList.remove('with-popup');
+    document.removeEventListener('keydown', handleKeydownEvent);
+  }, [handleKeydownEvent, isActive]);
 
   return (
     <FocusLock disabled={!isActive}>
