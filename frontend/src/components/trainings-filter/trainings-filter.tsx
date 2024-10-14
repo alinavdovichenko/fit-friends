@@ -1,9 +1,19 @@
-function TrainingsFilter(): JSX.Element {
 
+import { TrainingsFilterType, TrainingsFilterTypeDiffs } from './trainings-filter.const';
+
+type TrainingsFilterProps = {
+  type: TrainingsFilterType;
+};
+
+function TrainingsFilter({ type }: TrainingsFilterProps): JSX.Element {
+  const isDisabled = true;
+  const { styleClass } = TrainingsFilterTypeDiffs[type];
   return (
-    <form className="gym-catalog-form__form">
-      <div className="gym-catalog-form__block gym-catalog-form__block--price">
-        <h4 className="gym-catalog-form__block-title">Цена, ₽</h4>
+    <form className={`${styleClass}-form__form`}>
+      <div
+        className={`${styleClass}-form__block ${styleClass}-form__block--price`}
+      >
+        <h4 className={`${styleClass}-form__block-title`}>Цена, ₽</h4>
         <div className="filter-price">
           <div className="filter-price__input-text filter-price__input-text--min">
             <input
@@ -11,6 +21,7 @@ function TrainingsFilter(): JSX.Element {
               id="text-min"
               name="text-min"
               defaultValue={0}
+              disabled={isDisabled}
             />
             <label htmlFor="text-min">от</label>
           </div>
@@ -20,6 +31,7 @@ function TrainingsFilter(): JSX.Element {
               id="text-max"
               name="text-max"
               defaultValue={3200}
+              disabled={isDisabled}
             />
             <label htmlFor="text-max">до</label>
           </div>

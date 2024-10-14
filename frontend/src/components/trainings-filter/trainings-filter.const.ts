@@ -1,21 +1,21 @@
-export enum WorkoutsFilterType {
-  CoachWorkouts = 'coach-workouts',
-  WorkoutsCatalog = 'workouts-catalog',
+export enum TrainingsFilterType {
+  CoachTrainings = 'coach-trainings',
+  TrainingsCatalog = 'trainings-catalog',
 }
 
-type WorkoutsFilterTypeDiff = {
+type TrainingsFilterTypeDiff = {
   styleClass: string;
 };
 
-type WorkoutsFilterTypeDiffs = {
-  [type: string]: WorkoutsFilterTypeDiff;
+type TrainingsFilterTypeDiffs = {
+  [type: string]: TrainingsFilterTypeDiff;
 };
 
-export const WorkoutsFilterTypeDiffs: WorkoutsFilterTypeDiffs = {
-  [WorkoutsFilterType.CoachWorkouts]: {
+export const TrainingsFilterTypeDiffs: TrainingsFilterTypeDiffs = {
+  [TrainingsFilterType.CoachTrainings]: {
     styleClass: 'my-trainings',
   },
-  [WorkoutsFilterType.WorkoutsCatalog]: {
+  [TrainingsFilterType.TrainingsCatalog]: {
     styleClass: 'gym-catalog',
   },
 };

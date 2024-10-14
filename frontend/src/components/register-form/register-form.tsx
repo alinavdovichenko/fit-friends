@@ -75,7 +75,7 @@ function RegisterForm(): JSX.Element {
           className="btn sign-up__button"
           type="submit"
           disabled={!isAgree}
-          onClick={() => navigate(AppRoute.Questionary)}
+          onClick={() => navigate(AppRoute.Main)}
         >
           Продолжить
         </button>
