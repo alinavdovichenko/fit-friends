@@ -11,13 +11,13 @@ export const AppRoute = {
   Login: '/login',
   Register: '/register',
   Questionary: '/questionary',
-  MyPurchases: '/my-purchases',
+  MyPurchases: '/account/my-purchases',
+  Orders: '/account/my-orders',
   Main: '/main',
   Account: '/account',
   TrainingCatalog: '/training-сatalog',
   CardUser: '/card-user',
   Trainings: '/trainings',
-  Test: '/test',
   Users: '/users',
 } as const;
 

@@ -28,4 +28,6 @@ export type User = {
   level: UserLevel;
   trainingTypes: TrainingType[];
   trainingRequest?: WorkoutRequest;
+  description?: string;
+  images?: string[];
 };

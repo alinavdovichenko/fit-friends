@@ -7,12 +7,11 @@ import { IntroPage,
   LoginPage,
   RegisterPage,
   QuestionaryUserPage,
-  AccountUserPage,
+  AccountPage,
   TrainingCatalogPage,
   MyPurchasesPage,
-  UserCardUserPage,
+  UserPage,
   TrainingPage,
-  TestPage
 } from '../../pages';
 
 function App(): JSX.Element {
@@ -31,11 +30,10 @@ function App(): JSX.Element {
           </Route>
           <Route element={<Layout />} >
             <Route path={AppRoute.Main} element={<MainPage />} />
-            <Route path={AppRoute.Account} element={<AccountUserPage />} />
+            <Route path={AppRoute.Account} element={<AccountPage />} />
             <Route path={AppRoute.TrainingCatalog} element={<TrainingCatalogPage />} />
             <Route path={AppRoute.MyPurchases} element={<MyPurchasesPage />} />
-            <Route path={AppRoute.CardUser} element={<UserCardUserPage />} />
-            <Route path={AppRoute.Test} element={<TestPage />} />
+            <Route path={`${AppRoute.Users}/:userId`} element={<UserPage />} />
             <Route
               path={`${AppRoute.Trainings}/:trainingId`}
               element={<TrainingPage />}

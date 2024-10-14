@@ -1,6 +1,6 @@
 
 function UserForm(): JSX.Element {
-
+  const isDisabled = true;
   return (
     <section className="user-info">
       <div className="user-info__header">
@@ -29,6 +29,7 @@ function UserForm(): JSX.Element {
           className="btn-flat btn-flat--underlined user-info__edit-button"
           type="button"
           aria-label="Редактировать"
+          disabled={isDisabled}
         >
           <svg width={12} height={12} aria-hidden="true">
             <use xlinkHref="#icon-edit" />
@@ -41,7 +42,7 @@ function UserForm(): JSX.Element {
             <label>
               <span className="custom-input__label">Имя</span>
               <span className="custom-input__wrapper">
-                <input type="text" name="name" defaultValue="Валерия" />
+                <input type="text" name="name" defaultValue="Валерия" disabled={isDisabled}/>
               </span>
             </label>
           </div>
@@ -54,6 +55,7 @@ function UserForm(): JSX.Element {
                 defaultValue={
                   'Персональный тренер и инструктор групповых программ с опытом  более 4х лет. Специализация: коррекция фигуры и осанки, снижение веса, восстановление после травм, пилатес.'
                 }
+                disabled={isDisabled}
               />
             </label>
           </div>

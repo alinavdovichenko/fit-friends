@@ -1,4 +1,5 @@
 export enum SlidesAmount {
+  AccountCertificates = 3,
   SpecialForYou = 3,
   SpecialOffers = 1,
   PopularTrainings = 4,

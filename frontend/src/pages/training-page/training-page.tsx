@@ -28,7 +28,7 @@ function TrainingPage(): JSX.Element {
             <button
               className="btn-flat btn-flat--underlined reviews-side-bar__back"
               type="button"
-              onClick={() => navigate(AppRoute.Trainings)}
+              onClick={() => navigate(AppRoute.TrainingCatalog)}
             >
               <svg width={14} height={10} aria-hidden="true">
                 <use xlinkHref="#arrow-left" />

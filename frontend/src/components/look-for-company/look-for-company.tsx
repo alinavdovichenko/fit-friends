@@ -1,6 +1,4 @@
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute} from '../../consts';
 import { SliderButtons, UserCard } from '../index';
 import { SliderConfig, SlidesAmount } from '../../types/slider';
 import Slider from 'react-slick';
@@ -12,7 +10,7 @@ function LookForCompany(): JSX.Element {
     className: 'look-for-company__list',
     slidesToShow: SlidesAmount.LookForCompany,
   };
-  const navigate = useNavigate();
+  const isDisabled = true;
   return (
     <section className="look-for-company">
       <div className="container">
@@ -24,7 +22,7 @@ function LookForCompany(): JSX.Element {
             <button
               className="btn-flat btn-flat--light look-for-company__button"
               type="button"
-              onClick={() => navigate(AppRoute.Users)}
+              disabled={isDisabled}
             >
               <span>Смотреть все</span>
               <svg width={14} height={10} aria-hidden="true">

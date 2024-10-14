@@ -1,0 +1,73 @@
+import { Link } from 'react-router-dom';
+import {
+  CaloriesPlan,
+  AccountCertificates,
+  UserForm,
+  NewFeatureFiller,
+} from '../../components';
+import { CustomerLinks } from './account-page.const';
+
+function AccountPage(): JSX.Element {
+  const isCoach = false;
+
+  const getAccountLinks = () => {
+    const list = CustomerLinks;
+    return list.map((link) => (
+      <Link
+        key={`link-${link.Icon}`}
+        to={link.Route}
+        className="thumbnail-link thumbnail-link--theme-light"
+      >
+        <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
+          <svg width={30} height={26} aria-hidden="true">
+            <use xlinkHref={link.Icon} />
+          </svg>
+        </div>
+        <span className="thumbnail-link__text">{link.Label}</span>
+      </Link>
+    ));
+  };
+
+  return (
+    <section className="inner-page">
+      <div className="container">
+        <div className="inner-page__wrapper">
+          <h1 className="visually-hidden">Личный кабинет</h1>
+          <UserForm />
+          <div className="inner-page__content">
+            <div className={`personal-account-${isCoach ? 'coach' : 'user'}`}>
+              {isCoach ? (
+                <div className="personal-account-coach__navigation">
+                  {getAccountLinks()}
+                  <div className="personal-account-coach__calendar">
+                    <NewFeatureFiller />
+                  </div>
+                </div>
+              ) : (
+                <div className="personal-account-user__schedule">
+                  <CaloriesPlan />
+                </div>
+              )}
+              <div
+                className={`personal-account-${
+                  isCoach ? 'coach' : 'user'
+                }__additional-info`}
+              >
+                {isCoach ? (
+                  <AccountCertificates />
+                ) : (
+                  <>
+                    {getAccountLinks()}
+                    <NewFeatureFiller />
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default AccountPage;

@@ -10,7 +10,6 @@ function UserCard({
   user,
 }: UserCardProps): JSX.Element {
   const { id, trainingTypes, avatar, name, location } = user;
-
   const userLink = `${AppRoute.Users}/${id}`;
 
   return (

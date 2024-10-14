@@ -14,7 +14,7 @@ import { SelectInputType } from '../select-input/select-input.const';
 import { RadioInputType } from '../radio-input/radio-input.const';
 function RegisterForm(): JSX.Element {
   const navigate = useNavigate();
-  const [isAgree, setAgreement] = useState(true);
+  const [isAgree, setAgreement] = useState(false);
   const [file, setFile] = useState<Blob | null>(null);
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {

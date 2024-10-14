@@ -18,6 +18,8 @@ export const users: User[] = [
     location: MetroStation.Pionerskaya,
     level: UserLevel.Beginner,
     trainingTypes: [TrainingType.Pilates],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   },
   {
     id: '2',
@@ -29,6 +31,8 @@ export const users: User[] = [
     location: MetroStation.Sportivnaya,
     level: UserLevel.Pro,
     trainingTypes: [TrainingType.Strength],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   },
   {
     id: '3',
@@ -40,6 +44,8 @@ export const users: User[] = [
     location: MetroStation.Udelnaya,
     level: UserLevel.Beginner,
     trainingTypes: [TrainingType.Running],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   },
   {
     id: '4',
@@ -51,6 +57,8 @@ export const users: User[] = [
     location: MetroStation.Zvyozdnaya,
     level: UserLevel.Amateur,
     trainingTypes: [TrainingType.Pilates],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   },
   {
     id: '5',
@@ -62,6 +70,8 @@ export const users: User[] = [
     location: MetroStation.Pionerskaya,
     level: UserLevel.Beginner,
     trainingTypes: [TrainingType.Pilates],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   },
   {
     id: '6',
@@ -73,5 +83,7 @@ export const users: User[] = [
     location: MetroStation.Pionerskaya,
     level: UserLevel.Beginner,
     trainingTypes: [TrainingType.Pilates],
+    description: 'Описание',
+    images: ['img/content/user-card-photo1.jpg', 'img/content/user-card-photo2.jpg'],
   }
 ];
