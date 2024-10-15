@@ -1,7 +1,9 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import {HelmetProvider} from 'react-helmet-async';
+import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../consts';
 import { Layout, SignLayout } from '../index';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../browser-history';
 import { IntroPage,
   MainPage,
   LoginPage,
@@ -17,7 +19,7 @@ import { IntroPage,
 function App(): JSX.Element {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root} element={<IntroPage />} />
           <Route element={<SignLayout />} >
@@ -40,7 +42,7 @@ function App(): JSX.Element {
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

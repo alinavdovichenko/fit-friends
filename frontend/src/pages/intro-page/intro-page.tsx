@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import { AppRoute } from '../../consts';
 function IntroPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>Разводящая страница</title>
+      </Helmet>
       <main>
         <div className="intro">
           <div className="intro__background">

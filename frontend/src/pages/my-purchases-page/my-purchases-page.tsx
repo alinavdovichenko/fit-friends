@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import { MyPurchasesList, MyPurchasesSorting } from '../../components';
 import { AppRoute } from '../../consts';
 function MyPurchasesPage(): JSX.Element {
@@ -6,6 +7,9 @@ function MyPurchasesPage(): JSX.Element {
 
   return (
     <section className="my-purchases">
+      <Helmet>
+        <title>Мои покупки</title>
+      </Helmet>
       <div className="container">
         <div className="my-purchases__wrapper">
           <button

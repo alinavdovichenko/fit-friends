@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import { UserInfo } from '../../components';
 import { AppRoute } from '../../consts';
 import { NotFoundPage } from '../../pages';
@@ -13,6 +14,9 @@ function UserPage(): JSX.Element {
 
   return (
     <div className="inner-page inner-page--no-sidebar">
+      <Helmet>
+        <title>Карточка пользователя</title>
+      </Helmet>
       <div className="container">
         <div className="inner-page__wrapper">
           <button

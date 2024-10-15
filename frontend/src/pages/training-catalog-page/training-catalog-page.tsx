@@ -1,3 +1,4 @@
+import {Helmet} from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute} from '../../consts';
 import { TrainingsFilter, TrainingCatalogList } from '../../components';
@@ -8,6 +9,9 @@ function TrainingCatalogPage(): JSX.Element {
   const navigate = useNavigate();
   return (
     <section className="inner-page">
+      <Helmet>
+        <title>Каталог тренировок</title>
+      </Helmet>
       <div className="container">
         <div className="inner-page__wrapper">
           <h1 className="visually-hidden">Каталог тренировок</h1>

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import { AppRoute, PopupKey } from '../../consts';
 import {
   FeedbackForm,
@@ -21,6 +22,9 @@ function TrainingPage(): JSX.Element {
 
   return (
     <section className="inner-page">
+      <Helmet>
+        <title>Карточка тренировки</title>
+      </Helmet>
       <div className="container">
         <div className="inner-page__wrapper">
           <h1 className="visually-hidden">Карточка тренировки</h1>

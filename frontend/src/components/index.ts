@@ -45,3 +45,4 @@ export { default as NewFeatureFiller } from './new-feature-filler/new-feature-fi
 export { default as MyPurchasesList } from './my-purchases-list/my-purchases-list';
 export { default as MyPurchasesSorting } from './my-purchases-sorting/my-purchases-sorting';
 export { default as UserInfo } from './user-info/user-info';
+export { default as HistoryRouter } from './history-router/history-router';

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import {
   CaloriesPlan,
   AccountCertificates,
@@ -30,6 +31,9 @@ function AccountPage(): JSX.Element {
 
   return (
     <section className="inner-page">
+      <Helmet>
+        <title>Личный кабинет</title>
+      </Helmet>
       <div className="container">
         <div className="inner-page__wrapper">
           <h1 className="visually-hidden">Личный кабинет</h1>
