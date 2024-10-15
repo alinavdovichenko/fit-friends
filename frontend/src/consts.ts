@@ -183,4 +183,14 @@ export enum FeedbackTextLength {
   Max = 140,
 }
 
+export enum NameSpace {
+  AppData = 'APP_DATA',
+  MainData = 'MAIN_DATA',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
