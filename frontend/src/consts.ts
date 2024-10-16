@@ -1,5 +1,6 @@
 import { Location } from './types/location';
 
+export const REQUIRED_INPUT_MESSAGE = 'Поле обязательно для заполнения';
 export const BACKEND_URL = 'http://localhost:3000';
 export const REQUEST_TIMEOUT = 5000;
 export const STATIC_URL = `${BACKEND_URL}/static`;
@@ -186,6 +187,7 @@ export enum FeedbackTextLength {
 export enum NameSpace {
   AppData = 'APP_DATA',
   MainData = 'MAIN_DATA',
+  UserForm = 'USER_FORM'
 }
 
 export enum AuthorizationStatus {
@@ -193,4 +195,11 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const APIRoute = {
+  CheckAuth: '/auth/login',
+  Login: '/auth/login',
+  Register: '/auth/register'
+} as const;
+
 

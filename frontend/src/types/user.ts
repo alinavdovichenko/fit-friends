@@ -12,7 +12,7 @@ export type AuthUser = {
   password: string;
 };
 
-export type WorkoutRequest = {
+export type TrainingRequest = {
   id: string;
   status: RequestStatus;
 };
@@ -27,7 +27,7 @@ export type User = {
   location: MetroStation;
   level: UserLevel;
   trainingTypes: TrainingType[];
-  trainingRequest?: WorkoutRequest;
+  trainingRequest?: TrainingRequest;
   description?: string;
   images?: string[];
 };
