@@ -37,7 +37,7 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
     this.trainingTypes = user.trainingTypes;
     this.trainingRequest = user.trainingRequest;
     this.description = user.description;
-    this.images = user.images;
+    this.images = user.images ?? [];
     this.email = user.email;
     this.passwordHash = user.passwordHash;
   }
