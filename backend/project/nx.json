@@ -44,7 +44,9 @@
         "apps/auth-e2e/**/*",
         "apps/auth-e2e/**/*",
         "apps/account-e2e/**/*",
-        "apps/training-e2e/**/*"
+        "apps/training-e2e/**/*",
+        "apps/auth-e2e/**/*",
+        "apps/user-e2e/**/*"
       ]
     }
   ]
