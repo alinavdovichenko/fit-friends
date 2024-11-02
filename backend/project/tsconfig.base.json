@@ -40,7 +40,8 @@
         "libs/notify/notify-newsletter/src/index.ts"
       ],
       "@project/pipes": ["libs/shared/pipes/src/index.ts"],
-      "@project/posts": ["libs/blog/posts/src/index.ts"]
+      "@project/posts": ["libs/blog/posts/src/index.ts"],
+      "@project/shared-core": ["libs/shared/core/shared-core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
