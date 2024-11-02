@@ -11,3 +11,5 @@ _`.editorconfig`, `.gitattributes`, `.gitignore`._
 1. Перейдите в диретокрию `backend\project`.
 
 2. Установите зависимости, выполнив команду `npm install`.
+
+3. npx nx run auth:serve
