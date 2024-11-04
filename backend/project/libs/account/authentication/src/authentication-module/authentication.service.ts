@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepository, UserEntity } from '@project/user';
 import { UserMessage, UserLevel } from '@project/core';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { LoginUserDto } from '../dto/login-user.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -65,5 +66,30 @@ export class AuthenticationService {
 
     return this.userRepository
       .save(userEntity);
+  }
+
+  public async verifyUser(dto: LoginUserDto): Promise<UserEntity> {
+    const { email, password } = dto;
+    const existUser = await this.userRepository.findByEmail(email);
+
+    if (!existUser) {
+      throw new NotFoundException(UserMessage.NotFound);
+    }
+
+    if (!(await existUser.comparePassword(password))) {
+      throw new UnauthorizedException(UserMessage.PasswordWrong);
+    }
+
+    return existUser;
+  }
+
+  public async getUser(id: string) {
+    const user = await this.userRepository.findById(id);
+
+    if (! user) {
+      throw new NotFoundException(UserMessage.NotFound);
+    }
+
+    return user;
   }
 }

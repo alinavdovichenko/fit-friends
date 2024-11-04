@@ -4,10 +4,9 @@ import { UserSex } from './user-sex';
 import { UserLevel } from './user-level';
 import { TrainingType } from './training-type';
 import { TrainingRequest } from './training-request';
-import { TrainingDuration} from './training-duration'
 
 export type User = {
-  userId: string;
+  id: string;
   name: string;
   avatar?: string;
   sex: UserSex;

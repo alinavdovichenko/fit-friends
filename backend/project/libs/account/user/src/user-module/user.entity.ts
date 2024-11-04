@@ -1,6 +1,16 @@
 import { Entity } from '@project/core';
 import { compare, genSalt, hash } from 'bcrypt';
-import { StorableEntity, AuthUser, UserRole, UserSex, MetroStation, UserLevel, TrainingType, TrainingRequest, TrainingDuration} from '@project/core';
+import { StorableEntity,
+  AuthUser,
+  UserRole,
+  UserSex,
+  MetroStation,
+  UserLevel,
+  TrainingType,
+  TrainingRequest,
+  Client,
+  Trainer
+} from '@project/core';
 
 const SALT_ROUNDS = 10;
 
@@ -15,13 +25,11 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
   public backgroundImage: string;
   public level: UserLevel;
   public trainingTypes: TrainingType[];
-  public trainingDuration: TrainingDuration;
-  public caloriesToLose: number;
-  public caloriesToDay: number;
+  public client?: Client | null;
+  public trainer?: Trainer | null;
   public trainingRequest?: TrainingRequest;
   public email: string;
   public passwordHash: string;
-  public isReady: boolean;
 
   constructor(user?: AuthUser) {
     super();
@@ -44,14 +52,12 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
     this.backgroundImage = user.backgroundImage;
     this.level = user.level;
     this.trainingTypes = user.trainingTypes;
-    this.trainingDuration = user.trainingDuration;
-    this.caloriesToLose = user.caloriesToLose;
-    this.caloriesToDay = user.caloriesToDay;
+    this.client = user.client;
+    this.trainer = user.trainer;
     this.trainingRequest = user.trainingRequest;
 
     this.email = user.email;
     this.passwordHash = user.passwordHash;
-    this.isReady = user.isReady;
   }
 
   public toPOJO(): AuthUser {
@@ -67,14 +73,12 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
       backgroundImage: this.backgroundImage,
       level: this.level,
       trainingTypes: this.trainingTypes,
-      trainingDuration: this.trainingDuration,
-      caloriesToLose: this.caloriesToLose,
-      caloriesToDay: this.caloriesToDay,
+      client: this.client,
+      trainer: this.trainer,
       trainingRequest: this.trainingRequest,
 
       email: this.email,
       passwordHash: this.passwordHash,
-      isReady: this.isReady,
     }
   }
 
