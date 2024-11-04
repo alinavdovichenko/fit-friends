@@ -6,7 +6,6 @@ import { MetroStation,
   DtoValidationMessage,
   UserLevel,
   TrainingType,
-  TrainingDuration,
   TrainingDescriptionLength,
   Trainer,
   Client
