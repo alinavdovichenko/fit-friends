@@ -1,23 +1,27 @@
 import { Entity } from '@project/core';
-import { genSalt, hash } from 'bcrypt';
-import { StorableEntity, AuthUser, UserRole, UserSex, MetroStation, UserLevel, TrainingType, TrainingRequest} from '@project/core';
+import { compare, genSalt, hash } from 'bcrypt';
+import { StorableEntity, AuthUser, UserRole, UserSex, MetroStation, UserLevel, TrainingType, TrainingRequest, TrainingDuration} from '@project/core';
 
 const SALT_ROUNDS = 10;
 
 export class UserEntity extends Entity implements StorableEntity<AuthUser> {
-  public avatar?: string;
   public name: string;
+  public avatar?: string;
   public role: UserRole;
   public sex: UserSex;
-  public isReady: boolean;
+  public dateOfBirth: Date;
+  public description?: string;
   public location: MetroStation;
+  public backgroundImage: string;
   public level: UserLevel;
   public trainingTypes: TrainingType[];
+  public trainingDuration: TrainingDuration;
+  public caloriesToLose: number;
+  public caloriesToDay: number;
   public trainingRequest?: TrainingRequest;
-  public description?: string;
-  public images?: string[];
   public email: string;
   public passwordHash: string;
+  public isReady: boolean;
 
   constructor(user?: AuthUser) {
     super();
@@ -34,15 +38,20 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
     this.name = user.name;
     this.role = user.role;
     this.sex = user.sex;
-    this.isReady = user.isReady;
+    this.dateOfBirth = user.dateOfBirth ?? new Date();
+    this.description = user.description;
     this.location = user.location;
+    this.backgroundImage = user.backgroundImage;
     this.level = user.level;
     this.trainingTypes = user.trainingTypes;
+    this.trainingDuration = user.trainingDuration;
+    this.caloriesToLose = user.caloriesToLose;
+    this.caloriesToDay = user.caloriesToDay;
     this.trainingRequest = user.trainingRequest;
-    this.description = user.description;
-    this.images = user.images ?? [];
+
     this.email = user.email;
     this.passwordHash = user.passwordHash;
+    this.isReady = user.isReady;
   }
 
   public toPOJO(): AuthUser {
@@ -52,15 +61,20 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
       name: this.name,
       role: this.role,
       sex: this.sex,
-      isReady: this.isReady,
+      dateOfBirth: this.dateOfBirth,
+      description: this.description,
       location: this.location,
+      backgroundImage: this.backgroundImage,
       level: this.level,
       trainingTypes: this.trainingTypes,
+      trainingDuration: this.trainingDuration,
+      caloriesToLose: this.caloriesToLose,
+      caloriesToDay: this.caloriesToDay,
       trainingRequest: this.trainingRequest,
-      description: this.description,
-      images: this.images,
+
       email: this.email,
       passwordHash: this.passwordHash,
+      isReady: this.isReady,
     }
   }
 
@@ -68,5 +82,9 @@ export class UserEntity extends Entity implements StorableEntity<AuthUser> {
     const salt = await genSalt(SALT_ROUNDS);
     this.passwordHash = await hash(password, salt);
     return this;
+  }
+
+  public async comparePassword(password: string): Promise<boolean> {
+    return compare(password, this.passwordHash);
   }
 }
