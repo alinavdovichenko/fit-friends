@@ -18,8 +18,10 @@
     "paths": {
       "@project/authentication": ["libs/account/authentication/src/index.ts"],
       "@project/core": ["libs/shared/core/src/index.ts"],
+      "@project/models": ["libs/models/src/index.ts"],
       "@project/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@project/shared/helpers": ["libs/shared/helpers/src/index.ts"],
+      "@project/training": ["libs/training/src/index.ts"],
       "@project/user": ["libs/account/user/src/index.ts"]
     }
   },
