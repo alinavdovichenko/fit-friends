@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../node_modules/.prisma/client"
+  output   = "../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,97 +15,48 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-enum UserLevel {
-  Beginner
-  Amateur
-  Pro
-}
-
-enum TrainingType {
-  Yoga
-  Running
-  Box
-  Stretching
-  Crossfit
-  Aerobic
-  Pilates
-  Strength
-}
-
-enum TrainingDuration {
-  Short
-  Medium
-  Long
-  Extra
-}
-
-enum TrainingSexFor {
-  Male
-  Female
-  All
-}
-
-enum UserRole {
-  Coach
-  Default
-}
-
-enum UserSex {
-  Male
-  Female
-  Other
-}
-
-enum MetroStation {
-  Petrogadskaya
-  Pionerskaya
-  Sportivnaya
-  Udelnaya
-  Zvyozdnaya
-}
-
 model User {
-  userId          String         @id @default(uuid()) @map("user_id")
-  name            String         @default("") @map("user_name")
-  avatar          String?        @default("") @map("user_avatar")
-  role            UserRole       @map("user_role")
-  email           String         @unique @default("") @map("user_mail")
-  backgroundImage String         @default("") @map("backgraund_image")
-  sex             UserSex        @map("user_sex")
-  dateOfBirth     DateTime?      @map("birth_day")
-  description     String?        @default("")
-  location        MetroStation
-  createdAt       DateTime       @default(now()) @map("created_at")
-  level           String         @default("") @map("user_level")
-  trainingTypes   TrainingType[] @map("types_of_traning")
+  userId          String    @id @default(uuid()) @map("user_id")
+  name            String    @default("") @map("user_name")
+  avatar          String?   @default("") @map("user_avatar")
+  role            String    @default("")
+  email           String    @unique @default("") @map("user_mail")
+  backgroundImage String    @default("") @map("backgraund_image")
+  sex             String    @default("")
+  dateOfBirth     DateTime? @map("birth_day")
+  description     String?   @default("")
+  location        String    @default("")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  level           String    @default("") @map("user_level")
+  trainingTypes   String[]  @map("types_of_traning")
 
-  passwordHash    String           @default("") @map("password_hash")
-  isReady         Boolean          @default(false) @map("is_ready")
+  passwordHash    String   @default("") @map("password_hash")
+  isReady         Boolean  @default(false) @map("is_ready")
   certificates    String[]
-  achievements    String?          @default("")
-  caloriesToLose  Int              @default(0) @map("calories_lose")
-  caloriesPerDay  Int              @default(0) @map("calories_day")
-  timeForTraining TrainingDuration @map("time_trining")
+  achievements    String?  @default("")
+  caloriesToLose  Int      @default(0) @map("calories_lose")
+  caloriesPerDay  Int      @default(0) @map("calories_day")
+  timeForTraining String   @default("") @map("time_training")
 
   @@map("users")
 }
 
 model Training {
-  id              String           @id @default(uuid()) @map("id")
-  title           String           @default("")
-  backgroundImage String           @default("") @map("backgraund_image")
-  level           UserLevel
-  type            TrainingType
-  duration        TrainingDuration
-  price           Int              @default(0)
-  calories        Int              @default(0)
-  description     String           @default("")
-  createdAt       DateTime         @default(now()) @map("created_at")
-  userSex         TrainingSexFor
-  video           String           @default("")
-  rating          Float            @default(0)
-  coachId         String           @map("coach_id")
-  isSpecial       Boolean          @default(false) @map("is_special")
+  id              String    @id @default(uuid()) @map("id")
+  title           String    @default("")
+  backgroundImage String    @default("") @map("backgraund_image")
+  level           String    @default("")
+  type            String    @default("")
+  duration        String    @default("")
+  price           Int       @default(0)
+  calories        Int       @default(0)
+  description     String    @default("")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  userSex         String    @default("")
+  video           String    @default("")
+  rating          Float     @default(0)
+  coachId         String    @map("coach_id")
+  isSpecial       Boolean   @default(false) @map("is_special")
   comments        Comment[]
 
   @@map("trainings")
@@ -113,12 +64,13 @@ model Training {
 
 model Comment {
   id         String   @id @default(uuid())
-  message    String
   userId     String   @map("user_id")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
   training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   trainingId String   @map("training_id")
+  message    String
+  rating     Float    @default(0)
 
   @@index([trainingId])
   @@map("comments")
