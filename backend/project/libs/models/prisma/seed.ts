@@ -4,6 +4,9 @@ import { TrainingType } from '../../shared/core/src/lib/types/training-type';
 import { TrainingDuration } from '../../shared/core/src/lib/types/training-duration';
 import { TrainingSexFor } from '../../shared/core/src/lib/types/training-sex-for';
 import { UserLevel } from '../../shared/core/src/lib/types/user-level';
+import { UserRole } from '../../shared/core/src/lib/types/user-role';
+import { UserSex } from '../../shared/core/src/lib/types/user-sex';
+import { MetroStation } from '../../shared/core/src/lib/types/metro-station';
 
 const mockUsersId = [
   '6d308040-06a2-4162-bea6-2398e9976520',
@@ -65,6 +68,52 @@ const mockComments = [
   },
 ];
 
+const mockUsers = mockUsersId.map((id) => {
+  const level = getRandomElement(Object.keys(UserLevel));
+  const role = getRandomElement(Object.keys(UserRole));
+  const location = getRandomElement(Object.keys(MetroStation));
+  const sex = getRandomElement(Object.keys(UserSex));
+  const timeForTraining = getRandomElement(Object.keys(TrainingDuration));
+  return {
+      id: id,
+      name: faker.internet.userName(),
+      avatar: faker.image.avatar(),
+      role,
+      email: faker.internet.email(),
+      backgroundImage: faker.image.avatar(),
+      sex,
+      dateOfBirth: faker.date.birthdate(),
+      createdAt: new Date(),
+      description: faker.lorem.paragraph(4),
+      location,
+      level,
+      trainingTypes: faker.helpers.arrayElements(
+        ['бокс', 'аэробика', 'силовые', 'стрейчинг', 'фитнес', 'йога', 'бег', 'кроссфит', 'пилатес'],
+        { min: 1, max: 3 },
+      ),
+      passwordHash: faker.internet.password(),
+      isReady: faker.helpers.arrayElement([true, false]),
+      certificates: faker.helpers.arrayElements(
+        [
+          'sertificate1.pdf',
+          'sertificate2.pdf',
+          'sertificate3.pdf',
+        ],
+        { min: 1, max: 3 },
+      ),
+      achievements: faker.lorem.paragraph(1),
+      caloriesToLose: faker.number.int({
+        min: 1000,
+        max: 5000,
+      }),
+      caloriesPerDay: faker.number.int({
+        min: 1000,
+        max: 5000,
+      }),
+      timeForTraining
+  }
+})
+
 const mockTrainings = mockTrainingId.map((id) => {
   const randomNumber = randomInt(0, mockComments.length);
   const userId = getRandomElement(mockUsersId);
@@ -99,12 +148,41 @@ const mockTrainings = mockTrainingId.map((id) => {
 })
 
 async function seedDb(prismaClient: PrismaClient) {
-  for (const training of mockTrainings) {
-    await prismaClient.training.upsert({
-      where: { id: training.id },
+  for (const user of mockUsers) {
+    await prismaClient.user.upsert({
+      where: { userId: user.id },
       update: {},
       create: {
-        id: training.id,
+        userId: user.id,
+        name: user.name,
+        avatar: user.avatar,
+        role: user.role,
+        email: user.email,
+        backgroundImage: user.backgroundImage,
+        sex: user.sex,
+        dateOfBirth: user.dateOfBirth,
+        createdAt: user.createdAt,
+        description: user.description,
+        location: user.location,
+        level: user.level,
+        trainingTypes: user.trainingTypes,
+        passwordHash: user.passwordHash,
+        isReady: user.isReady,
+        certificates: user.certificates,
+        achievements: user.achievements,
+        caloriesToLose: user.caloriesToLose,
+        caloriesPerDay: user.caloriesPerDay,
+        timeForTraining: user.timeForTraining
+      }
+    })
+  }
+
+  for (const training of mockTrainings) {
+    await prismaClient.training.upsert({
+      where: { trainingId: training.id },
+      update: {},
+      create: {
+        trainingId: training.id,
         title: training.title,
         backgroundImage: training.backgroundImage,
         level: training.level,
@@ -118,9 +196,6 @@ async function seedDb(prismaClient: PrismaClient) {
         video: training.video,
         coachId: training.coachId,
         isSpecial: training.isSpecial,
-        comments: training.comments ? {
-          create: training.comments
-        } : undefined,
       }
     })
   }

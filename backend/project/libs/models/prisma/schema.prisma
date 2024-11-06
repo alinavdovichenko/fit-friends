@@ -42,7 +42,7 @@ model User {
 }
 
 model Training {
-  id              String    @id @default(uuid()) @map("id")
+  trainingId      String    @id @default(uuid()) @map("training_id")
   title           String    @default("")
   backgroundImage String    @default("") @map("backgraund_image")
   level           String    @default("")
@@ -57,21 +57,7 @@ model Training {
   rating          Float     @default(0)
   coachId         String    @map("coach_id")
   isSpecial       Boolean   @default(false) @map("is_special")
-  comments        Comment[]
 
   @@map("trainings")
 }
 
-model Comment {
-  id         String   @id @default(uuid())
-  userId     String   @map("user_id")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-  training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  trainingId String   @map("training_id")
-  message    String
-  rating     Float    @default(0)
-
-  @@index([trainingId])
-  @@map("comments")
-}
