@@ -7,8 +7,6 @@ import { MetroStation,
   UserLevel,
   TrainingType,
   TrainingDescriptionLength,
-  Trainer,
-  Client
 } from '@project/core';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
@@ -142,28 +140,4 @@ export class CreateUserDto {
   @IsEnum(TrainingType, { each: true })
   public trainingTypes?: TrainingType[];
 
-  @ApiProperty({
-    description: 'User of Trainer',
-    example: [
-      {
-        certificate: ['certificate.pdf'],
-        merits: 'Вырастил двоих олимпиадников',
-        isPersonalTraining: true,
-      },
-    ],
-  })
-  public trainer?: Trainer;
-
-  @ApiProperty({
-    description: 'User of Client',
-    example: [
-      {
-        timeOfTraining: '10-30 мин',
-        caloryLosingPlanTotal: 1500,
-        caloryLosingPlanDaily: 1000,
-        isReady: true,
-      },
-    ],
-  })
-  public client?: Client;
 }

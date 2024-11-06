@@ -12,4 +12,11 @@ _`.editorconfig`, `.gitattributes`, `.gitignore`._
 
 2. Установите зависимости, выполнив команду `npm install`.
 
-3. npx nx run auth:serve
+3. npx nx run app:serve
+
+4. docker compose \
+--file ./apps/blog/docker-compose.dev.yml \
+--env-file ./apps/blog/blog.env \
+--project-name "typoteka-blog" \
+up \
+-d

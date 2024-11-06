@@ -4,9 +4,11 @@ import { UserSex } from './user-sex';
 import { UserLevel } from './user-level';
 import { TrainingType } from './training-type';
 import { TrainingRequest } from './training-request';
+import { TrainingDuration } from './training-duration';
 
 export type User = {
   id: string;
+  email: string;
   name: string;
   avatar?: string;
   sex: UserSex;
@@ -18,25 +20,25 @@ export type User = {
 
   level: UserLevel;
   trainingTypes: TrainingType[];
+  isReady: boolean;
   trainingRequest?: TrainingRequest;
-
-  client?: Client | null;
-  trainer?: Trainer | null;
 };
 
-export type Client = {
-  id?: number;
-  userId?: number;
-  timeOfTraining?: string;
-  caloryLosingPlanTotal?: number;
-  caloryLosingPlanDaily?: number;
-  isReady?: boolean;
+export interface CoachUser extends User {
+  certificates?: string[];
+  achievements?: string;
 }
 
-export type Trainer = {
-  id?: number;
-  userId?: number;
-  certificate?: string[];
-  merits?: string;
-  isPersonalTraining?: boolean;
+export interface DefaultUser extends User {
+  caloriesToLose?: number;
+  caloriesPerDay?: number;
+  timeForTraining?: TrainingDuration;
+}
+
+export interface FullUser extends CoachUser, DefaultUser {
+  passwordHash?: string;
+}
+
+export interface AuthUser extends FullUser {
+  passwordHash: string;
 }
