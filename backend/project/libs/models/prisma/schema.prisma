@@ -15,6 +15,12 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
+enum UserLevel {
+  Beginner
+  Amateur
+  Pro
+}
+
 model User {
   userId          String    @id @default(uuid()) @map("user_id")
   name            String    @default("") @map("user_name")

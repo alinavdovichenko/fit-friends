@@ -35,3 +35,7 @@ export { StorableEntity } from './lib/types/storable-entity';
 export { EntityFactory } from './lib/types/entity-factory';
 export { DtoValidationMessage } from './lib/messages/dto-validation';
 export { UserMessage, FileMessage } from './lib/messages/user-common';
+export { PaginationResult } from './lib/types/pagination';
+export { BasePaginationRdo } from './lib/pagination/base-pagination.rdo';
+export { FieldRange } from './lib/types/field-range';
+export { Training } from './lib/types/training';

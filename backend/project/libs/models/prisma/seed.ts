@@ -3,10 +3,15 @@ import { faker } from '@faker-js/faker';
 import { TrainingType } from '../../shared/core/src/lib/types/training-type';
 import { TrainingDuration } from '../../shared/core/src/lib/types/training-duration';
 import { TrainingSexFor } from '../../shared/core/src/lib/types/training-sex-for';
-import { UserLevel } from '../../shared/core/src/lib/types/user-level';
 import { UserRole } from '../../shared/core/src/lib/types/user-role';
 import { UserSex } from '../../shared/core/src/lib/types/user-sex';
 import { MetroStation } from '../../shared/core/src/lib/types/metro-station';
+
+enum UserLevel {
+  Beginner = 'новичок',
+  Amateur = 'любитель',
+  Pro = 'профессионал',
+}
 
 const mockUsersId = [
   '6d308040-06a2-4162-bea6-2398e9976520',
@@ -69,7 +74,7 @@ const mockComments = [
 ];
 
 const mockUsers = mockUsersId.map((id) => {
-  const level = getRandomElement(Object.keys(UserLevel));
+  const level = getRandomElement(Object.values(UserLevel));
   const role = getRandomElement(Object.keys(UserRole));
   const location = getRandomElement(Object.keys(MetroStation));
   const sex = getRandomElement(Object.keys(UserSex));
@@ -118,7 +123,7 @@ const mockTrainings = mockTrainingId.map((id) => {
   const randomNumber = randomInt(0, mockComments.length);
   const userId = getRandomElement(mockUsersId);
   const type = getRandomElement(Object.keys(TrainingType));
-  const level = getRandomElement(Object.keys(UserLevel));
+  const level = getRandomElement(Object.values(UserLevel));
   const duration = getRandomElement(Object.keys(TrainingDuration));
   const userSex = getRandomElement(Object.keys(TrainingSexFor));
   return {
