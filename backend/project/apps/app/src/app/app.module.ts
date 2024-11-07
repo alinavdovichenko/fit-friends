@@ -11,7 +11,8 @@ import { AuthenticationModule } from '@project/authentication';
     AuthenticationModule,
     UserModule,
     TrainingModule,
-    AccountConfigModule,],
+    AccountConfigModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
