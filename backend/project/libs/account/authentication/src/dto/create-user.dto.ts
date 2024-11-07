@@ -7,6 +7,7 @@ import { MetroStation,
   UserLevel,
   TrainingType,
   TrainingDescriptionLength,
+  TrainingDuration
 } from '@project/core';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
@@ -19,16 +20,34 @@ import {
   Matches,
   IsArray,
   ArrayNotEmpty,
-  ArrayMaxSize
+  ArrayMaxSize,
+  IsBoolean,
+  IsNumber
 } from 'class-validator';
 import { Expose, Transform } from 'class-transformer';
 
 export class CreateUserDto {
   @ApiProperty({
-    description: 'User avatar',
+    description: 'User name',
+    example: 'Alina',
+    required: true,
+    minLength: UserNameLength.Min,
+    maxLength: UserNameLength.Max,
   })
-  @Expose()
-  public avatar: File;
+  @IsString()
+  @Length(UserNameLength.Min, UserNameLength.Max, {
+    message: DtoValidationMessage.name.length,
+  })
+  @Matches(/[a-zа-яё\s]+/i)
+  public name: string;
+
+  @ApiProperty({
+    description: 'User avatar',
+    example: 'my-avatar.png',
+  })
+  @IsOptional()
+  @IsString()
+  public avatar?: string;
 
   @ApiPropertyOptional({
     description: 'User birth date',
@@ -47,19 +66,6 @@ export class CreateUserDto {
   @IsEmail({}, { message: DtoValidationMessage.email.invalidFormat })
   @Expose()
   public email: string;
-
-  @ApiProperty({
-    description: 'User name',
-    example: 'Alina',
-  })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsString()
-  @Length(UserNameLength.Min, UserNameLength.Max, {
-    message: DtoValidationMessage.name.length,
-  })
-  @Matches(/^[a-zа-яё]+$/i)
-  @Expose()
-  public name: string;
 
   @ApiProperty({
     description: 'User password',
@@ -116,8 +122,6 @@ export class CreateUserDto {
   })
   public description?: string;
 
-  public backgroundImage: string;
-
   @ApiProperty({
     description: 'User level',
     example: 'любитель',
@@ -140,4 +144,51 @@ export class CreateUserDto {
   @IsEnum(TrainingType, { each: true })
   public trainingTypes?: TrainingType[];
 
+  @ApiProperty({
+    description: 'Ready flag',
+    example: 'true',
+  })
+  @IsOptional()
+  @IsBoolean()
+  public isReady?: boolean;
+
+  @ApiProperty({
+    description: 'Ready flag',
+    example: 'true',
+  })
+  @IsOptional()
+  @IsBoolean()
+  public certificates?: boolean;
+
+  @ApiProperty({
+    description: 'Achievements',
+    example: 'Raised two Olympians.',
+  })
+  @IsOptional()
+  @IsString()
+  public achievements?: string;
+
+  @ApiProperty({
+    description: 'Number of calories to spend per day',
+    example: '1200',
+  })
+  @IsOptional()
+  @IsNumber()
+  public caloriesPerDay?: number;
+
+  @ApiProperty({
+    description: 'Number of calories to lose',
+    example: '1200',
+  })
+  @IsOptional()
+  @IsNumber()
+  public caloriesToLose?: number;
+
+  @ApiProperty({
+    description: 'Time for training',
+    example: '30-50',
+  })
+  @IsOptional()
+  @IsEnum(TrainingDuration, { each: true })
+  public timeForTraining?: TrainingDuration;
 }

@@ -1,15 +1,4 @@
-import {
-  RequestStatus,
-  SortDirection,
-  UserSex,
-  TrainingSexFor,
-} from '@project/core';
-
 export const MAX_TRAININGS_TYPES = 3;
-
-export const DEFAULT_SORT_DIRECTION = SortDirection.Down;
-
-export const DEFAULT_REQUEST_STATUS = RequestStatus.Default;
 
 export const LIST_LIMIT = 50;
 
@@ -71,8 +60,3 @@ export enum CommentTextLength {
   Max = 140,
 }
 
-export const SexEnumsRelation = {
-  [UserSex.Male]: [TrainingSexFor.Male, TrainingSexFor.All],
-  [UserSex.Female]: [TrainingSexFor.Female, TrainingSexFor.All],
-  [UserSex.Other]: [TrainingSexFor.All],
-};

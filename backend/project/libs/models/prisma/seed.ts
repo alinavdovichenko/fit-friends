@@ -172,7 +172,7 @@ async function seedDb(prismaClient: PrismaClient) {
         achievements: user.achievements,
         caloriesToLose: user.caloriesToLose,
         caloriesPerDay: user.caloriesPerDay,
-        timeForTraining: user.timeForTraining
+        timeForTraining: user.role === UserRole.Coach ? user.timeForTraining : ''
       }
     })
   }

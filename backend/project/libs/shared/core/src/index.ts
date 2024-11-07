@@ -1,8 +1,6 @@
 // Ре-экспорт модулей из `./lib`
 export {
       MAX_TRAININGS_TYPES,
-      DEFAULT_SORT_DIRECTION,
-      DEFAULT_REQUEST_STATUS,
       LIST_LIMIT,
       DEFAULT_PAGE,
       DEFAULT_RATING,
@@ -17,7 +15,6 @@ export {
       TrainingTitleLength,
       TrainingDescriptionLength,
       CommentTextLength,
-      SexEnumsRelation
   } from './lib/consts/common';
 
 export { Entity } from './lib/base/entity';

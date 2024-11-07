@@ -1,1 +1,1 @@
-export * from './lib/training';
+export { TrainingModule } from './training-module/training.module';
