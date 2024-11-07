@@ -7,13 +7,13 @@ import { TrainingRequest } from './training-request';
 import { TrainingDuration } from './training-duration';
 
 export type User = {
-  id: string;
+  id?: string;
   email: string;
   name: string;
   avatar?: string;
   sex: UserSex;
   role: UserRole;
-  dateOfBirth: Date;
+  dateOfBirth?: Date;
   description?: string;
   location: MetroStation;
   backgroundImage?: string;
