@@ -1,96 +1,67 @@
-import { Entity } from '@project/core';
 import { compare, genSalt, hash } from 'bcrypt';
-import { StorableEntity,
-  FullUser,
-  UserRole,
-  UserSex,
-  MetroStation,
-  UserLevel,
-  TrainingType,
-  TrainingRequest,
-  TrainingDuration
+import {
+  Balance,
+  Client,
+  Entity,
+  Friend,
+  Order,
+  PersonalOrder,
+  Trainer,
+  User,
 } from '@project/core';
 
 const SALT_ROUNDS = 10;
 
-export class UserEntity extends Entity implements StorableEntity<FullUser> {
+export class UserEntity implements Entity<UserEntity>, User {
   public name: string;
-  public avatar?: string;
-  public role: UserRole;
-  public sex: UserSex;
-  public dateOfBirth: Date;
-  public description?: string;
-  public location: MetroStation;
-  public backgroundImage?: string;
-  public level: UserLevel;
-  public trainingTypes: TrainingType[];
-  public trainingRequest?: TrainingRequest;
-  public isReady: boolean;
   public email: string;
+  public avatar?: string;
   public passwordHash: string;
-  public certificates?: string[];
-  public achievements?: string;
-  public caloriesToLose?: number;
-  public caloriesPerDay?: number;
-  public timeForTraining?: TrainingDuration;
+  public sex: string;
+  public birthDate?: Date;
+  public role: string;
+  public description?: string;
+  public location: string;
+  public createdAt?: Date;
+  public updatedAt?: Date;
+  public level?: string;
+  public typesOfTraining?: string[];
+  public client?: Client | null;
+  public trainer?: Trainer | null;
+  public refreshTokenHash?: string;
+  public orders?: Order[];
+  public personalOrders?: PersonalOrder[];
+  public balance?: Balance[];
+  public friends?: Friend[];
 
-  constructor(user?: FullUser) {
-    super();
-    this.populate(user);
+  constructor(user: User) {
+    this.fillEntity(user);
   }
 
-  public populate(user?: FullUser): void {
-    if (! user) {
-      return;
-    }
+  public toObject() {
+    return { ...this };
+  }
 
-    this.id = user.id ?? '';
-    this.avatar = user.avatar;
+  public fillEntity(user: User) {
     this.name = user.name;
-    this.role = user.role;
-    this.sex = user.sex;
-    this.dateOfBirth = user.dateOfBirth ?? new Date();
-    this.description = user.description;
-    this.location = user.location;
-    this.backgroundImage = user.backgroundImage;
-    this.level = user.level;
-    this.trainingTypes = user.trainingTypes;
-    this.trainingRequest = user.trainingRequest;
-
     this.email = user.email;
+    this.avatar = user.avatar || '';
     this.passwordHash = user.passwordHash;
-    this.isReady = user.isReady;
-    this.certificates = user.certificates ?? [];
-    this.achievements = user.achievements ?? '';
-    this.caloriesToLose = user.caloriesToLose ?? 0;
-    this.caloriesPerDay = user.caloriesPerDay ?? 0;
-    this.timeForTraining = user.timeForTraining;
-  }
-
-  public toPOJO(): FullUser {
-    return {
-      id: this.id,
-      avatar: this.avatar,
-      name: this.name,
-      role: this.role,
-      sex: this.sex,
-      dateOfBirth: this.dateOfBirth,
-      description: this.description,
-      location: this.location,
-      backgroundImage: this.backgroundImage,
-      level: this.level,
-      trainingTypes: this.trainingTypes,
-      trainingRequest: this.trainingRequest,
-      isReady: this.isReady,
-
-      email: this.email,
-      passwordHash: this.passwordHash,
-      certificates: this.certificates,
-      achievements: this.achievements,
-      caloriesToLose: this.caloriesToLose,
-      caloriesPerDay: this.caloriesPerDay,
-      timeForTraining: this.timeForTraining
-    }
+    this.sex = user.sex;
+    this.birthDate = user.birthDate;
+    this.role = user.role;
+    this.description = user.description || '';
+    this.location = user.location;
+    this.createdAt = user.createdAt || new Date();
+    this.updatedAt = user.updatedAt || new Date();
+    this.level = user.level || '';
+    this.typesOfTraining = user.typesOfTraining || [];
+    this.client = user.client;
+    this.trainer = user.trainer;
+    this.orders = user.orders || [];
+    this.personalOrders = user.personalOrders || [];
+    this.balance = user.balance || [];
+    this.friends = user.friends || [];
   }
 
   public async setPassword(password: string): Promise<UserEntity> {
@@ -101,9 +72,5 @@ export class UserEntity extends Entity implements StorableEntity<FullUser> {
 
   public async comparePassword(password: string): Promise<boolean> {
     return compare(password, this.passwordHash);
-  }
-
-  static fromObject(data: FullUser): UserEntity {
-    return new UserEntity(data);
   }
 }

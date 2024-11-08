@@ -1,44 +1,46 @@
-import { UserRole } from './user-role';
-import { MetroStation } from './metro-station';
-import { UserSex } from './user-sex';
-import { UserLevel } from './user-level';
-import { TrainingType } from './training-type';
-import { TrainingRequest } from './training-request';
-import { TrainingDuration } from './training-duration';
+import { Alert } from './alert';
+import { Order } from './order';
+import { PersonalOrder } from './personal-order';
+import { Balance } from './balance';
+import { Friend } from './friend';
 
-export type User = {
-  id?: string;
-  email: string;
+export interface User {
+  userId?: number;
   name: string;
+  email: string;
   avatar?: string;
-  sex: UserSex;
-  role: UserRole;
-  dateOfBirth?: Date;
+  passwordHash: string;
+  sex: string;
+  birthDate?: Date;
+  role: string;
   description?: string;
-  location: MetroStation;
-  backgroundImage?: string;
-
-  level: UserLevel;
-  trainingTypes: TrainingType[];
-  isReady: boolean;
-  trainingRequest?: TrainingRequest;
-};
-
-export interface CoachUser extends User {
-  certificates?: string[];
-  achievements?: string;
+  location: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  level?: string;
+  typesOfTraining?: string[];
+  client?: Client | null;
+  trainer?: Trainer | null;
+  alerts?: Alert[];
+  orders?: Order[];
+  personalOrders?: PersonalOrder[];
+  balance?: Balance[];
+  friends?: Friend[];
 }
 
-export interface DefaultUser extends User {
+export interface Client {
+  id?: number;
+  userId?: number;
+  timeForTraining?: string;
   caloriesToLose?: number;
   caloriesPerDay?: number;
-  timeForTraining?: TrainingDuration;
+  isReady?: boolean;
 }
 
-export interface FullUser extends CoachUser, DefaultUser {
-  passwordHash?: string;
-}
-
-export interface AuthUser extends FullUser {
-  passwordHash: string;
+export interface Trainer {
+  id?: number;
+  userId?: number;
+  certificates?: string[];
+  merits?: string;
+  isPersonalTraining?: boolean;
 }

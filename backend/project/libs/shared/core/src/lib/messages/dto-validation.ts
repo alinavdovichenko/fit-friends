@@ -23,9 +23,12 @@ import {
   TrainingTitleLength,
 } from '@project/core';
 
+export const MAXIMUM_TRAINING_TYPES_CHOICE = 3;
+
 export const DtoValidationMessage = {
   name: {
     length: `Name length min is ${UserNameLength.Min}, max is ${UserNameLength.Max}`,
+    meritsLengthNotValid: 'Trainer merits min length is 10, max length is 140 symbols',
   },
   email: {
     invalidFormat: `Field value must be valid email`,
@@ -89,3 +92,13 @@ export const DtoValidationMessage = {
     invalidFormat: `Field value must be from options: ${transformObjectValuesToString(RequestStatus)}`,
   },
 };
+
+export enum TrainerMeritLength {
+  Min = 10,
+  Max = 140,
+}
+
+export enum CaloriesOfDay {
+  Min = 1000,
+  Max = 5000,
+}

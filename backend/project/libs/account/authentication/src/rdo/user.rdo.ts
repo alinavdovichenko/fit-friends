@@ -2,6 +2,9 @@ import {
   TrainingDuration,
   UserRole,
   TrainingType,
+  Alert,
+  Order,
+  PersonalOrder,
 } from '@project/core';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
@@ -12,7 +15,7 @@ export class UserRdo {
     example: '13',
   })
   @Expose()
-  public id!: number;
+  public userId: number;
 
   @ApiProperty({
     description: 'User name',
@@ -36,7 +39,7 @@ export class UserRdo {
   public avatar?: string;
 
   @ApiProperty({
-    description: 'Human gender',
+    description: 'Human sex',
     example: 'неважно',
   })
   @Expose()
@@ -47,7 +50,7 @@ export class UserRdo {
     example: '01.01.2000',
   })
   @Expose()
-  public dateOfBirth: string;
+  public birthDate: string;
 
   @ApiProperty({
     description: 'User role',
@@ -89,7 +92,20 @@ export class UserRdo {
     example: 'йога, бег, аэробика',
   })
   @Expose()
-  public trainingTypes: TrainingType[];
+  public typesOfTraining: TrainingType[];
+
+  @ApiProperty({
+    description: 'User alerts',
+    example: [
+      {
+        text: 'Вам пора на тренировку',
+        date: '2023-02-25T14:07:27.554Z',
+      },
+    ],
+    required: true,
+  })
+  @Expose()
+  public alerts: Alert[];
 
   @ApiProperty({
     description: 'User of Client',
@@ -134,4 +150,18 @@ export class UserRdo {
     merits?: string;
     isPersonalTraining?: boolean;
   };
+
+  @ApiProperty({
+    description: 'User orders',
+    example: 'order',
+  })
+  @Expose()
+  public orders?: Order[];
+
+  @ApiProperty({
+    description: 'User personal orders',
+    example: 'order',
+  })
+  @Expose()
+  public personalOrders?: PersonalOrder[];
 }

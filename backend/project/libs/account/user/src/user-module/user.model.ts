@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {
-  AuthUser,
+  User,
   MetroStation,
   UserLevel,
   UserRole,
@@ -14,7 +14,7 @@ import {
   collection: 'users',
   timestamps: true,
 })
-export class UserModel extends Document implements AuthUser {
+export class UserModel extends Document implements User {
   @Prop()
   public avatar?: string;
 

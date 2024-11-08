@@ -1,19 +1,21 @@
-import { User } from './user';
+import { Feedback } from './feedback';
 
-export type Training = {
-  id?: string;
+export interface Training {
+  id?: number;
   title: string;
-  backgroundImage: string;
-  level: string;
-  type: string;
+  backgroundPicture?: string;
+  levelOfUser: string;
+  typeOfTraining: string;
   duration: string;
   price: number;
-  calories: number;
+  caloriesQtt: number;
   description: string;
-  userSex: string;
+  createdAt?: Date;
+  sex: string;
   video: string;
-  coachId: string;
-  coach?: User;
-  isSpecial: boolean;
-  rating: number;
+  rating?: number;
+  trainerId: number;
+  isPromo?: boolean;
+  feedbacks?: Feedback[];
 }
+

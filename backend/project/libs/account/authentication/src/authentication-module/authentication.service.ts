@@ -1,97 +1,94 @@
-import dayjs from 'dayjs';
-import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepository, UserEntity } from '@project/user';
-import { UserMessage, UserLevel } from '@project/core';
+import { User, AuthErrorMessage } from '@project/core';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
+
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import * as crypto from 'node:crypto';
+import { createJWTPayload } from '@project/shared/helpers';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UserRepository,
+    private readonly jwtService: JwtService,
+    private readonly refreshTokenService: RefreshTokenService,
+    private readonly configService: ConfigService,
   ) {}
 
-  public async register(dto: CreateUserDto): Promise<UserEntity> {
-    const { email, name, sex, dateOfBirth, role, location, avatar, password } = dto;
-
-    const userInfo = {
-      email,
-      name,
-      avatar,
-      sex,
-      dateOfBirth: dateOfBirth ? dayjs(dateOfBirth).toDate() : undefined,
-      role,
-      location,
-      backgroundImage: avatar,
-      level: UserLevel.Amateur,
-      trainingTypes: [],
-      isReady: true,
-      passwordHash: '',
-      createdAt: new Date(),
-    };
-
-    const existUser = await this.userRepository
-      .findByEmail(email);
-
-    if (existUser) {
-      throw new ConflictException(UserMessage.Exists);
-    }
-
-    const userEntity = await new UserEntity(
-      Object.assign(userInfo),
-    ).setPassword(password);
-
-    this.userRepository
-      .save(userEntity);
-
-      return userEntity;
-  }
-
-  public async createUser(dto: CreateUserDto) {
-    const { password, dateOfBirth } = dto;
+  public async createUser(dto: CreateUserDto): Promise<User> {
     const newUser = {
       ...dto,
       passwordHash: '',
-      createdAt: new Date(),
-      dateOfBirth: dateOfBirth ? dayjs(dateOfBirth).toDate() : undefined,
+      orders: [],
+      personalOrders: [],
+      balance: [],
+      friends: [],
     };
 
     const existUser = await this.userRepository.findByEmail(dto.email);
 
     if (existUser) {
-      throw new ConflictException(UserMessage.Exists);
+      throw new ConflictException(AuthErrorMessage.UserAlreadyExist);
     }
 
-    const userEntity = await new UserEntity(
-      Object.assign(newUser),
-    ).setPassword(password);
+    const userEntity = await new UserEntity(newUser).setPassword(dto.password);
 
-    return this.userRepository
-      .save(userEntity);
+    return await this.userRepository.create(userEntity);
   }
 
-  public async verifyUser(dto: LoginUserDto): Promise<UserEntity> {
+  public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
     const existUser = await this.userRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(UserMessage.NotFound);
+      throw new NotFoundException(AuthErrorMessage.UserNotFound);
     }
 
-    if (!(await existUser.comparePassword(password))) {
-      throw new UnauthorizedException(UserMessage.PasswordWrong);
+    const userEntity = new UserEntity(existUser);
+    if (!(await userEntity.comparePassword(password))) {
+      throw new UnauthorizedException(
+        AuthErrorMessage.UserPasswordOrEmailWrong,
+      );
     }
 
     return existUser;
   }
 
-  public async getUser(id: string) {
-    const user = await this.userRepository.findById(id);
+  public async logout(id: number) {
+    await this.refreshTokenService.deleteByUserId(id);
+  }
 
-    if (! user) {
-      throw new NotFoundException(UserMessage.NotFound);
-    }
+  public async createUserToken(user: User) {
+    const accessTokenPayload = createJWTPayload(user);
+    const refreshTokenPayload = {
+      ...accessTokenPayload,
+      tokenId: crypto.randomUUID(),
+    };
 
-    return user;
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { passwordHash, ...userInfo } = user;
+
+    return {
+      userInfo,
+      access_token: await this.jwtService.signAsync(accessTokenPayload, {
+        secret: this.configService.get<string>('jwt.accessTokenSecret'),
+        expiresIn: this.configService.get<string>('jwt.accessTokenExpiresIn'),
+      }),
+      refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
+        secret: this.configService.get<string>('jwt.refreshTokenSecret'),
+        expiresIn: this.configService.get<string>('jwt.refreshTokenExpiresIn'),
+      }),
+    };
   }
 }

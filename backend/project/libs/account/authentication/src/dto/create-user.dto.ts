@@ -1,4 +1,5 @@
-import { MetroStation,
+import {
+  MetroStation,
   UserRole,
   UserSex,
   UserNameLength,
@@ -6,10 +7,11 @@ import { MetroStation,
   DtoValidationMessage,
   UserLevel,
   TrainingType,
-  TrainingDescriptionLength,
-  TrainingDuration
+  UserDescriptionLength,
+  Client,
+  Trainer,
 } from '@project/core';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsString,
@@ -21,10 +23,8 @@ import {
   IsArray,
   ArrayNotEmpty,
   ArrayMaxSize,
-  IsBoolean,
-  IsNumber
+  IsAlphanumeric
 } from 'class-validator';
-import { Expose, Transform } from 'class-transformer';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -42,6 +42,14 @@ export class CreateUserDto {
   public name: string;
 
   @ApiProperty({
+    description: 'User unique email',
+    example: 'alina@mail.ru',
+    required: true,
+  })
+  @IsEmail({}, { message: DtoValidationMessage.email.invalidFormat })
+  public email: string;
+
+  @ApiProperty({
     description: 'User avatar',
     example: 'my-avatar.png',
   })
@@ -49,82 +57,71 @@ export class CreateUserDto {
   @IsString()
   public avatar?: string;
 
-  @ApiPropertyOptional({
-    description: 'User birth date',
-    example: '1996-09-17',
-  })
-  @IsISO8601()
-  @IsOptional()
-  @Expose()
-  public dateOfBirth?: Date;
-
-  @ApiProperty({
-    description: 'User email',
-    example: 'user@user.ru',
-  })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsEmail({}, { message: DtoValidationMessage.email.invalidFormat })
-  @Expose()
-  public email: string;
-
   @ApiProperty({
     description: 'User password',
-    example: '1234567',
+    example: '12345a',
+    required: true,
+    minLength: UserPasswordLength.Min,
+    maxLength: UserPasswordLength.Max,
   })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsString()
+  @IsAlphanumeric()
   @Length(UserPasswordLength.Min, UserPasswordLength.Max, {
     message: DtoValidationMessage.password.length,
   })
-  @Expose()
   public password: string;
-
-  @ApiProperty({
-    description: 'User role',
-    example: 'пользователь',
-  })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsEnum(UserRole, { message: DtoValidationMessage.role.invalidFormat })
-  @Expose()
-  public role: UserRole;
 
   @ApiProperty({
     description: 'User sex',
     example: 'мужской',
+    enum: UserSex,
+    required: true,
   })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsEnum(UserSex, { message: DtoValidationMessage.sex.invalidFormat })
-  @Expose()
+  @IsEnum(UserSex)
   public sex: UserSex;
 
   @ApiProperty({
-    description: 'User location - metro station',
-    example: 'Пионерская',
+    description: 'User birth date',
+    example: '1993-01-11',
   })
-  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
-  @IsEnum(MetroStation, {
-    message: DtoValidationMessage.location.invalidFormat,
+  @IsOptional()
+  @IsISO8601()
+  public birthDate?: Date;
+
+  @ApiProperty({
+    description: 'User role',
+    example: 'тренер',
+    enum: UserRole,
+    required: true,
   })
-  @Expose()
-  public location: MetroStation;
+  @IsEnum(UserRole)
+  public role: UserRole;
 
   @ApiProperty({
     description: 'User description',
     example: 'Я собираюсь стать лучшим в этом сфере, когда-нибудь.',
-    minLength: TrainingDescriptionLength.Min,
-    maxLength: TrainingDescriptionLength.Max,
+    minLength: UserDescriptionLength.Min,
+    maxLength: UserDescriptionLength.Max,
     required: true,
   })
   @IsString()
   @IsOptional()
-  @Length(TrainingDescriptionLength.Min, TrainingDescriptionLength.Max, {
-    message: DtoValidationMessage.trainingDescription.length,
+  @Length(UserDescriptionLength.Min, UserDescriptionLength.Max, {
+    message: DtoValidationMessage.userDescription.length,
   })
   public description?: string;
 
   @ApiProperty({
+    description: 'The nearest metro station to the place of training',
+    example: 'Пионерская',
+    enum: MetroStation,
+    required: true,
+  })
+  @IsEnum(MetroStation)
+  public location!: MetroStation;
+
+  @ApiProperty({
     description: 'User level',
-    example: 'любитель',
+    example: 'Любитель',
     enum: UserLevel,
     required: true,
   })
@@ -134,7 +131,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'Training type',
-    example: 'кроссфит',
+    example: 'Кроссфит',
     required: true,
   })
   @IsArray()
@@ -142,53 +139,30 @@ export class CreateUserDto {
   @ArrayMaxSize(3)
   @IsOptional()
   @IsEnum(TrainingType, { each: true })
-  public trainingTypes?: TrainingType[];
+  public typesOfTraining?: TrainingType[];
 
   @ApiProperty({
-    description: 'Ready flag',
-    example: 'true',
+    description: 'User of Trainer',
+    example: [
+      {
+        certificates: ['certificate.pdf'],
+        merits: 'Вырастил двоих олимпиадников',
+        isPersonalTraining: true,
+      },
+    ],
   })
-  @IsOptional()
-  @IsBoolean()
-  public isReady?: boolean;
+  public trainer?: Trainer;
 
   @ApiProperty({
-    description: 'Ready flag',
-    example: 'true',
+    description: 'User of Client',
+    example: [
+      {
+        timeOfTraining: '10-30 мин',
+        caloryLosingPlanTotal: 1500,
+        caloryLosingPlanDaily: 1000,
+        isReady: true,
+      },
+    ],
   })
-  @IsOptional()
-  @IsBoolean()
-  public certificates?: boolean;
-
-  @ApiProperty({
-    description: 'Achievements',
-    example: 'Raised two Olympians.',
-  })
-  @IsOptional()
-  @IsString()
-  public achievements?: string;
-
-  @ApiProperty({
-    description: 'Number of calories to spend per day',
-    example: '1200',
-  })
-  @IsOptional()
-  @IsNumber()
-  public caloriesPerDay?: number;
-
-  @ApiProperty({
-    description: 'Number of calories to lose',
-    example: '1200',
-  })
-  @IsOptional()
-  @IsNumber()
-  public caloriesToLose?: number;
-
-  @ApiProperty({
-    description: 'Time for training',
-    example: '30-50',
-  })
-  @IsOptional()
-  @IsEnum(TrainingDuration, { each: true })
-  public timeForTraining?: TrainingDuration;
+  public client?: Client;
 }

@@ -1,4 +1,4 @@
-import { ClassTransformOptions, plainToInstance } from 'class-transformer';
+import { ClassTransformOptions, plainToInstance, ClassConstructor } from 'class-transformer';
 import { ValidationError } from 'class-validator';
 import dayjs from 'dayjs';
 
@@ -59,16 +59,6 @@ export function getRandomItem<T>(items: T[]): T {
   return items[generateRandomValue(0, items.length - 1)];
 }
 
-export function getMongoConnectionString({
-  username,
-  password,
-  host,
-  port,
-  databaseName,
-  authDatabase,
-}): string {
-  return `mongodb://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
-}
 
 export function transformObjectValuesToString(items: object) {
   return Object.values(items).join(', ');
@@ -81,4 +71,33 @@ export function transformValidationErrors(errors: ValidationError[]) {
     messages: constraints ? Object.values(constraints) : [],
   }));
 }
+
+export function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
+  return plainToInstance(someDto, plainObject, {
+    excludeExtraneousValues: true,
+  });
+}
+
+export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
+export type TimeAndUnit = { value: number; unit: DateTimeUnit };
+
+export function parseTime(time: string): TimeAndUnit {
+  const regex = /^(\d+)([shdmy])/;
+  const match = regex.exec(time);
+
+  if (!match) {
+    throw new Error(`[parseTime] Bad time string: ${time}`);
+  }
+
+  const [, valueRaw, unitRaw] = match;
+  const value = parseInt(valueRaw, 10);
+  const unit = unitRaw as DateTimeUnit;
+
+  if (isNaN(value)) {
+    throw new Error(`[parseTime] Can't parse value count. Result is NaN.`);
+  }
+
+  return { value, unit };
+}
+
 

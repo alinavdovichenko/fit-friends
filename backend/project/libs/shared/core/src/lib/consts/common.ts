@@ -60,3 +60,9 @@ export enum CommentTextLength {
   Max = 140,
 }
 
+export enum DefaultUsersQuery {
+  maxLimit = 50,
+  minLimit = 1,
+  sortDesc = 'desc',
+  sortAsc = 'asc',
+}
