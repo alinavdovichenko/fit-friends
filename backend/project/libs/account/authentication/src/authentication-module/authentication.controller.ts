@@ -7,15 +7,11 @@ import {
   HttpStatus,
   Post,
   Req,
-  UseGuards,
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
-import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 import { RequestWithTokenPayload, RequestWithUser } from '@project/core';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { UserService } from '@project/user';
 
 @ApiTags('Authentication')
@@ -37,7 +33,6 @@ export class AuthenticationController {
     return this.authService.createUserToken(newUser);
   }
 
-  @UseGuards(LocalAuthGuard)
   @ApiResponse({
     type: LoggedUserRdo,
     status: HttpStatus.OK,
@@ -53,7 +48,6 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
-  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
@@ -64,7 +58,6 @@ export class AuthenticationController {
     return this.authService.logout(user.user.userId);
   }
 
-  @UseGuards(JwtRefreshGuard)
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get a new access/refresh tokens',
@@ -75,7 +68,6 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
-  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Checkig token availibility',

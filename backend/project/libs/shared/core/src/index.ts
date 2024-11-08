@@ -59,3 +59,5 @@ export { RefreshTokenPayload } from './lib/types/refresh-token-payload';
 export { AccessErrorType } from './lib/types/access-error-type';
 export { RequestWithUser } from './lib/types/request-with-user';
 export { RequestWithTokenPayload } from './lib/types/request-with-token-payload';
+
+export { getJwtOptions } from './lib/config/get-jwt-options';
