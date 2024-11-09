@@ -7,12 +7,14 @@ import {
   HttpStatus,
   Post,
   Req,
+  UseGuards
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
 import { RequestWithTokenPayload, RequestWithUser } from '@project/core';
 import { UserService } from '@project/user';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -48,6 +50,7 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiResponse({
     status: HttpStatus.NO_CONTENT,
@@ -68,6 +71,7 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Checkig token availibility',
