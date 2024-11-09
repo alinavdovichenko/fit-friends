@@ -6,7 +6,7 @@ import { HttpModule } from '@nestjs/axios';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
-import { getJwtOptions } from '@project/core';
+import { getJwtOptions } from '@project/account-config';
 import { LocalStrategy } from '../strategies/local-strategy';
 import { JwtRefreshStrategy } from '../strategies/jwt.refresh.strategy';
 import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
@@ -32,8 +32,6 @@ const HttpClient = {
   providers: [
     AuthenticationService,
     JwtAccessStrategy,
-    LocalStrategy,
-    JwtRefreshStrategy,
   ]
 })
 export class AuthenticationModule {}
