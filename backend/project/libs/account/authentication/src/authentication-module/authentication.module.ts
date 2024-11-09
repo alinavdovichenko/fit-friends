@@ -32,6 +32,7 @@ const HttpClient = {
   providers: [
     AuthenticationService,
     JwtAccessStrategy,
+    LocalStrategy
   ]
 })
 export class AuthenticationModule {}

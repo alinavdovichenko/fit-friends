@@ -15,6 +15,7 @@ import { UserRdo } from '../rdo/user.rdo';
 import { RequestWithTokenPayload, RequestWithUser } from '@project/core';
 import { UserService } from '@project/user';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { LocalAuthGuard } from '../guards/local-auth.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -35,6 +36,7 @@ export class AuthenticationController {
     return this.authService.createUserToken(newUser);
   }
 
+  @UseGuards(LocalAuthGuard)
   @ApiResponse({
     type: LoggedUserRdo,
     status: HttpStatus.OK,
