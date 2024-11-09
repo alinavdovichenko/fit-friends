@@ -16,6 +16,7 @@ import { RequestWithTokenPayload, RequestWithUser } from '@project/core';
 import { UserService } from '@project/user';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { JwtRefreshGuard } from '../guards/jwt-refresh.guard';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -63,6 +64,7 @@ export class AuthenticationController {
     return this.authService.logout(user.user.userId);
   }
 
+  @UseGuards(JwtRefreshGuard)
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Get a new access/refresh tokens',
