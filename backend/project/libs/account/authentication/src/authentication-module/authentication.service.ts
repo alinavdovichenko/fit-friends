@@ -2,18 +2,20 @@ import { UserRepository, UserEntity } from '@project/user';
 import { User, AuthErrorMessage } from '@project/core';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { LoginUserDto } from '../dto/login-user.dto';
-
+import { ConfigType } from '@nestjs/config';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  Inject,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as crypto from 'node:crypto';
 import { createJWTPayload } from '@project/shared/helpers';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
+import { jwtConfig } from '@project/account-config';
 
 @Injectable()
 export class AuthenticationService {
@@ -22,6 +24,7 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
     private readonly refreshTokenService: RefreshTokenService,
     private readonly configService: ConfigService,
+    @Inject(jwtConfig.KEY) private readonly jwtOptions: ConfigType<typeof jwtConfig>,
   ) {}
 
   public async createUser(dto: CreateUserDto): Promise<User> {
@@ -86,8 +89,8 @@ export class AuthenticationService {
         expiresIn: this.configService.get<string>('jwt.accessTokenExpiresIn'),
       }),
       refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
-        secret: this.configService.get<string>('jwt.refreshTokenSecret'),
-        expiresIn: this.configService.get<string>('jwt.refreshTokenExpiresIn'),
+        secret: this.jwtOptions.refreshTokenSecret,
+        expiresIn: this.jwtOptions.refreshTokenExpiresIn,
       }),
     };
   }
