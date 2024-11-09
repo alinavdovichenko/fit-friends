@@ -4,11 +4,15 @@ import { registerAs } from '@nestjs/config';
 export interface JWTConfig {
   accessTokenSecret: string;
   accessTokenExpiresIn: string;
+  refreshTokenSecret: string;
+  refreshTokenExpiresIn: string;
 }
 
 const validationSchema = Joi.object({
   accessTokenSecret: Joi.string().required(),
   accessTokenExpiresIn: Joi.string().required(),
+  refreshTokenSecret: Joi.string().required(),
+  refreshTokenExpiresIn: Joi.string().required(),
 });
 
 
@@ -21,8 +25,10 @@ function validateConfig(config: JWTConfig): void {
 
 function getConfig(): JWTConfig {
   const config: JWTConfig = {
-    accessTokenSecret: 'fkbyfDljdbxtyrj17',
-    accessTokenExpiresIn: '1d',
+    accessTokenSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
+    accessTokenExpiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN,
+    refreshTokenSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
+    refreshTokenExpiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN,
   };
 
   validateConfig(config);
