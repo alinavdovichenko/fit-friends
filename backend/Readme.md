@@ -15,14 +15,14 @@ _`.editorconfig`, `.gitattributes`, `.gitignore`._
 3. Запуск проекта npx nx run app:serve
 
 4. docker compose \
---file ./apps/app/docker-compose.dev.yml \
+--file ./apps/app/docker-compose.ayml \
 --env-file ./apps/app/app.env \
 --project-name "fitfriends" \
 up \
 -d
 
-5. npx nx run app:db:reset
+5. Удалите все данные из базы данных: `npx nx run app:db:reset`
 
-6. npx nx run app:db:generate
+6. Сгенерируйте базу: `npx nx run app:db:generate`
 
-7. npx nx run app:db:seed
+7. Заполните базу данными: `npx nx run app:db:seed`
