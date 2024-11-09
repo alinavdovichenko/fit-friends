@@ -15,7 +15,7 @@ Content-Type: application/json
   "trainingTypes": ["бокс", "бег"],
   "caloriesToLose": 5000,
   "isReady": false,
-  "email": "alina@gmail.com",
+  "email": "dina@gmail.com",
   "password": "1234567"
 }
 

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import applicationConfig from './configurations/app.config';
+import jwtConfig from './configurations/jwt.config';
 
 const ENV_USERS_FILE_PATH = 'apps/app/app.env';
 
@@ -9,7 +10,7 @@ const ENV_USERS_FILE_PATH = 'apps/app/app.env';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [applicationConfig],
+      load: [applicationConfig, jwtConfig],
       envFilePath: ENV_USERS_FILE_PATH
     }),
   ]
