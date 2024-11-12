@@ -3,7 +3,7 @@ import { Expose, Type } from 'class-transformer';
 import { UserRdo } from '@project/authentication';
 import { TrainingRdo } from './training.rdo';
 
-export class FullWorkoutRdo extends TrainingRdo {
+export class FullTrainingRdo extends TrainingRdo {
   @ApiProperty({
     description: 'Training`s coach',
     type: UserRdo,

@@ -1,19 +1,11 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
+import { TrainingRepository } from './training.repository';
 
-const HttpClient = {
-  MaxRedirects: 5,
-  Timeout: 3000
-}
 @Module({
   imports: [
-    HttpModule.register({
-      timeout: HttpClient.Timeout,
-      maxRedirects: HttpClient.MaxRedirects,
-    }),
   ],
   controllers: [],
-  providers: [],
-  exports: [],
+  providers: [TrainingRepository],
+  exports: [TrainingRepository],
 })
 export class TrainingModule {}

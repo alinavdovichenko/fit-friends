@@ -111,6 +111,6 @@ Authorization: Bearer {{token}}
 ###
 
 # Subscribe to trainer
-POST {{baseUrl}}/users/subscribe/101 HTTP/1.1
+POST {{baseUrl}}/users/subscribe/1 HTTP/1.1
 Authorization: Bearer {{token}}
 

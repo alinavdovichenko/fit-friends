@@ -7,6 +7,7 @@ import {
   Patch,
   Query,
   Req,
+  UseGuards
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserRdo, UpdateUserDto } from '@project/authentication';
@@ -14,12 +15,15 @@ import { UserService } from './user.service';
 import { UserQuery } from './query/user.query';
 import { RequestWithTokenPayload } from '@project/core';
 import { fillObject } from '@project/shared/helpers';
+import { JwtAuthGuard } from '../../../authentication/src/guards/jwt-auth.guard';
+import { RoleClientGuard } from '../../../authentication/src/guards/role-client.guard';
 
 @ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard, RoleClientGuard)
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.OK,
@@ -31,6 +35,7 @@ export class UserController {
     return fillObject(UserRdo, users);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.OK,
@@ -42,6 +47,7 @@ export class UserController {
     return fillObject(UserRdo, user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.OK,

@@ -1,74 +1,45 @@
-import { Entity } from '@project/core';
-import {
-  StorableEntity,
-  Training,
-} from '@project/core';
-import { UserEntity } from '@project/user';
+import { Entity, Feedback, Training } from '@project/core';
 
-export class TrainingEntity extends Entity implements StorableEntity<Training> {
+export class TrainingEntity implements Entity<TrainingEntity>, Training {
   public title: string;
-  public backgroundImage: string;
-  public level: string;
-  public type: string;
+  public backgroundPicture?: string;
+  public levelOfUser: string;
+  public typeOfTraining: string;
   public duration: string;
   public price: number;
-  public calories: number;
+  public caloriesQtt: number;
+  public createdAt: Date;
   public description: string;
-  public userSex: string;
+  public sex: string;
   public video: string;
-  public coachId: string;
-  public coach?: UserEntity;
-  public isSpecial: boolean;
-  public rating: number;
+  public rating?: number;
+  public trainerId: number;
+  public isPromo?: boolean;
+  public feedbacks?: Feedback[];
 
-  constructor(training?: Training) {
-    super();
-    this.populate(training);
+  constructor(fitnessTraining: Training) {
+    this.fillEntity(fitnessTraining);
   }
 
-  public toPOJO() {
-    return {
-      id: this.id,
-      title: this.title,
-      backgroundImage: this.backgroundImage,
-      level: this.level,
-      type: this.type,
-      duration: this.duration,
-      price: this.price,
-      calories: this.calories,
-      description: this.description,
-      userSex: this.userSex,
-      video: this.video,
-      coachId: this.coachId,
-      coach: this.coach ? this.coach.toPOJO() : undefined,
-      isSpecial: this.isSpecial,
-      rating: this.rating,
-    };
+  public fillEntity(entity: Training): void {
+    this.title = entity.title;
+    this.backgroundPicture = entity.backgroundPicture;
+    this.levelOfUser = entity.levelOfUser;
+    this.typeOfTraining = entity.typeOfTraining;
+    this.duration = entity.duration;
+    this.price = entity.price;
+    this.caloriesQtt = entity.caloriesQtt;
+    this.createdAt = new Date();
+    this.description = entity.description;
+    this.sex = entity.sex;
+    this.video = entity.video;
+    this.rating = entity.rating ? entity.rating : 0;
+    this.trainerId = entity.trainerId;
+    this.isPromo = entity.isPromo;
+    this.feedbacks = [];
   }
 
-  public populate(data: Training): void {
-    if (!data) {
-      return;
-    }
-
-    this.id = data.id ?? undefined;
-    this.title = data.title;
-    this.backgroundImage = data.backgroundImage;
-    this.level = data.level;
-    this.type = data.type;
-    this.duration = data.duration;
-    this.price = data.price;
-    this.calories = data.calories;
-    this.description = data.description;
-    this.userSex = data.userSex;
-    this.video = data.video;
-    this.coachId = data.coachId ?? undefined;
-    this.coach = data.coach ? UserEntity.fromObject(data.coach) : undefined;
-    this.isSpecial = data.isSpecial;
-    this.rating = data.rating;
-  }
-
-  static fromObject(data: Training): TrainingEntity {
-    return new TrainingEntity(data);
+  public toObject(): TrainingEntity {
+    return { ...this };
   }
 }
