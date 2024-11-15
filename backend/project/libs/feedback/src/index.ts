@@ -1,1 +1,1 @@
-export * from './lib/feedback';
+export { FeedbackModule } from './feedback-module/feedback.module';

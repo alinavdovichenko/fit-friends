@@ -1,1 +1,1 @@
-export * from './lib/balance';
+export { BalanceModule } from './balance-module/balance.module';

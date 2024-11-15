@@ -1,1 +1,1 @@
-export * from './lib/client-room';
+export { ClientRoomModule } from './client-room-module/client-room.module';

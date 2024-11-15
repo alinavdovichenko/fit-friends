@@ -1,1 +1,1 @@
-export * from './lib/order';
+export { OrderModule } from './order-module/order.module';

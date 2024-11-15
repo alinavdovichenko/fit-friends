@@ -1,1 +1,1 @@
-export * from './lib/trainer-room';
+export { TrainerRoomModule } from './trainer-room-module/trainer-room.module';

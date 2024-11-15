@@ -1,1 +1,1 @@
-export * from './lib/personal-order';
+export { PersonalOrderModule } from './personal-order-module/personal-order.module';
