@@ -25,6 +25,22 @@ import {
 
 export const MAXIMUM_TRAINING_TYPES_CHOICE = 3;
 
+export enum TrainerMeritLength {
+  Min = 10,
+  Max = 140,
+}
+
+export enum FeedbackLength {
+  Min = 100,
+  Max = 1024,
+}
+
+export enum CaloriesOfDay {
+  Min = 1000,
+  Max = 5000,
+}
+
+
 export const DtoValidationMessage = {
   name: {
     length: `Name length min is ${UserNameLength.Min}, max is ${UserNameLength.Max}`,
@@ -91,14 +107,9 @@ export const DtoValidationMessage = {
   requestStatus: {
     invalidFormat: `Field value must be from options: ${transformObjectValuesToString(RequestStatus)}`,
   },
+  feedback: {
+    length: `Feedback length min is ${FeedbackLength.Min}, max is ${FeedbackLength.Max}`,
+  },
+
 };
 
-export enum TrainerMeritLength {
-  Min = 10,
-  Max = 140,
-}
-
-export enum CaloriesOfDay {
-  Min = 1000,
-  Max = 5000,
-}

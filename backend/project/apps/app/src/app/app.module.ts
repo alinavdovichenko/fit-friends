@@ -5,13 +5,15 @@ import { AccountConfigModule } from '@project/account-config';
 import { AuthenticationModule } from '@project/authentication';
 import { TrainingModule } from '@project/training';
 import { BalanceModule } from '@project/balance';
+import { FeedbackModule } from '@project/feedback';
 
 @Module({
   imports: [
     AuthenticationModule,
     AccountConfigModule,
     TrainingModule,
-    BalanceModule
+    BalanceModule,
+    FeedbackModule
   ],
   controllers: [AppController],
   providers: [AppService],

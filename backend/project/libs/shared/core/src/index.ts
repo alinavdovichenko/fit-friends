@@ -37,7 +37,8 @@ export {
   DtoValidationMessage,
   MAXIMUM_TRAINING_TYPES_CHOICE,
   TrainerMeritLength,
-  CaloriesOfDay
+  CaloriesOfDay,
+  FeedbackLength
 } from './lib/messages/dto-validation';
 export { UserMessage, FileMessage, AuthErrorMessage } from './lib/messages/user-common';
 export { PaginationResult } from './lib/types/pagination';
@@ -48,6 +49,7 @@ export { CrudRepository } from './lib/types/crud-repository';
 export { Alert } from './lib/types/alert';
 export { Order } from './lib/types/order';
 export { PersonalOrder } from './lib/types/personal-order';
+export { Subscriber } from './lib/types/subscriber';
 export { Balance } from './lib/types/balance';
 export { Friend } from './lib/types/friend';
 export { Entity } from './lib/types/entity';
