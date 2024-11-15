@@ -1,1 +1,1 @@
-export * from './lib/mail';
+export { MailModule } from './mail-module/mail.module';

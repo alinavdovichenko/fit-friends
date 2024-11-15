@@ -1,1 +1,1 @@
-export * from './lib/subscriber';
+export { SubscriberModule } from './subscriber-module/subscriber.module';

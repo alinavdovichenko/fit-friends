@@ -1,1 +1,1 @@
-export * from './lib/friend';
+export { FriendModule } from './friend-module/friend.module';

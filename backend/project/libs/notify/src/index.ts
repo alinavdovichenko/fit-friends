@@ -1,1 +1,1 @@
-export * from './lib/notify';
+export { NotifyModule } from './notify-module/notify.module';
