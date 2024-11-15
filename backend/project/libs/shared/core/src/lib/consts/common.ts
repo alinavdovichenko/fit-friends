@@ -25,6 +25,11 @@ export enum OrderCountValue {
   Max = 50,
 }
 
+export enum OrderQueryDefault {
+  SortDirection = 'desc',
+  Limit = 50,
+}
+
 export enum UserNameLength {
   Min = 1,
   Max = 15,

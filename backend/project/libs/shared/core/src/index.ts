@@ -16,6 +16,7 @@ export {
       TrainingTitleLength,
       TrainingDescriptionLength,
       CommentTextLength,
+      OrderQueryDefault
   } from './lib/consts/common';
 
 export { UserRole } from './lib/types/user-role';

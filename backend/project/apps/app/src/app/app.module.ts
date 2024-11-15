@@ -6,6 +6,7 @@ import { AuthenticationModule } from '@project/authentication';
 import { TrainingModule } from '@project/training';
 import { BalanceModule } from '@project/balance';
 import { FeedbackModule } from '@project/feedback';
+import { PersonalOrderModule } from '@project/personal-order';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { FeedbackModule } from '@project/feedback';
     AccountConfigModule,
     TrainingModule,
     BalanceModule,
-    FeedbackModule
+    FeedbackModule,
+    PersonalOrderModule
   ],
   controllers: [AppController],
   providers: [AppService],
