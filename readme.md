@@ -30,4 +30,23 @@
 
 ### backend
 
-Директория для бэкенда проекта. В разработке.
+## Алгоритм работы над бэкендом
+
+1. Перейдите в диретокрию `backend\project`.
+
+2. Установите зависимости, выполнив команду `npm install`.
+
+3. Запуск проекта npx nx run app:serve
+
+4. docker compose \
+--file ./apps/app/docker-compose.ayml \
+--env-file ./apps/app/app.env \
+--project-name "fitfriends" \
+up \
+-d
+
+5. Удалите все данные из базы данных: `npx nx run app:db:reset`
+
+6. Сгенерируйте базу: `npx nx run app:db:generate`
+
+7. Заполните базу данными: `npx nx run app:db:seed`
