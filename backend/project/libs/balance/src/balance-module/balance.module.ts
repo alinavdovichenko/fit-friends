@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { BalanceRepository } from './balance.repository';
 
-@Module({})
+@Module({
+  providers: [BalanceRepository],
+  exports: [BalanceRepository],
+})
 export class BalanceModule {}
