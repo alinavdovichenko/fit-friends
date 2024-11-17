@@ -16,14 +16,18 @@ export {
       TrainingTitleLength,
       TrainingDescriptionLength,
       CommentTextLength,
-      OrderQueryDefault
+      OrderQueryDefault,
+      DefaultPorts
   } from './lib/consts/common';
-
 export { UserRole } from './lib/types/user-role';
+export { NewTrainingInfo } from './lib/types/new-training-info';
+export { FriendInfo } from './lib/types/friend-info';
+export { NotifyText } from './lib/consts/files.const';
 export { UserSex } from './lib/types/user-sex';
 export { MetroStation } from './lib/types/metro-station';
 export { UserLevel } from './lib/types/user-level';
 export { RequestStatus } from './lib/types/request-status';
+export { Notify } from './lib/types/notify';
 export { TrainingType } from './lib/types/training-type';
 export { TrainingDuration } from './lib/types/training-duration';
 export { SortDirection } from './lib/types/sort-direction';

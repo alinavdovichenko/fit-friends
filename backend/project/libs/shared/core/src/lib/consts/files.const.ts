@@ -10,3 +10,8 @@ export const DocumentFile = {
 export const VideoFile = {
   MimeTypes: ['video/mov', 'video/mp4', 'video/avi', 'video/quicktime'],
 };
+
+export enum NotifyText {
+  Min = 10,
+  Max = 140,
+}

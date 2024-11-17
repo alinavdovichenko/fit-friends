@@ -71,3 +71,9 @@ export enum DefaultUsersQuery {
   sortDesc = 'desc',
   sortAsc = 'asc',
 }
+
+export enum DefaultPorts {
+  DefaultPort = 4000,
+  DefaultPostgresPort = 5432,
+  DefaultSmtpPort = 8025,
+}
