@@ -10,25 +10,25 @@ export class CreateOrderDto {
     required: true,
   })
   @IsEnum(OrderType)
-  public type: OrderType;
+  public type!: OrderType;
 
   @ApiProperty({
     description: 'Trainer id',
-    example: 1,
+    example: '1',
     required: true,
   })
   @IsOptional()
   @IsNumber()
-  public trainerId: number;
+  public trainerId!: number;
 
   @ApiProperty({
     description: 'Training id',
-    example: 1,
+    example: '1',
     required: true,
   })
   @IsOptional()
   @IsNumber()
-  public trainingId: number;
+  public trainingId!: number;
 
   @ApiProperty({
     description: 'Subscription price',
@@ -37,7 +37,7 @@ export class CreateOrderDto {
   })
   @IsNumber()
   @Min(0)
-  public price: number;
+  public price!: number;
 
   @ApiProperty({
     description: 'Trainings quantity',
@@ -48,7 +48,14 @@ export class CreateOrderDto {
   @IsNumber()
   @Min(1)
   @IsPositive()
-  public quantity: number;
+  public quantity!: number;
+
+  @ApiProperty({
+    description: 'Payment sum',
+    example: '1234',
+    required: true,
+  })
+  public sumPrice!: number;
 
   @ApiProperty({
     description: 'Payment method',
@@ -56,5 +63,5 @@ export class CreateOrderDto {
     enum: PaymentType,
     required: true,
   })
-  public typeOfPayment: PaymentType;
+  public typeOfPayment!: PaymentType;
 }

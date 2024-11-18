@@ -77,3 +77,9 @@ export enum DefaultPorts {
   DefaultPostgresPort = 5432,
   DefaultSmtpPort = 8025,
 }
+
+export enum DefaultTraining {
+  Limit = 50,
+  SortDirection = 'desc',
+  Page = 1,
+}

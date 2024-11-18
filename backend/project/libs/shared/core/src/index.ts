@@ -17,7 +17,8 @@ export {
       TrainingDescriptionLength,
       CommentTextLength,
       OrderQueryDefault,
-      DefaultPorts
+      DefaultPorts,
+      DefaultTraining
   } from './lib/consts/common';
 export { UserRole } from './lib/types/user-role';
 export { NewTrainingInfo } from './lib/types/new-training-info';
