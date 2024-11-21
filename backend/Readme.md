@@ -14,7 +14,9 @@ _`.editorconfig`, `.gitattributes`, `.gitignore`._
 
 3. Запуск проекта npx nx run app:serve
 
-4. docker compose \
+4. Для создания контейнера базы данных в докере выполните команду:
+
+docker compose \
 --file ./apps/app/docker-compose.ayml \
 --env-file ./apps/app/app.env \
 --project-name "fitfriends" \
@@ -26,3 +28,5 @@ up \
 6. Сгенерируйте базу: `npx nx run app:db:generate`
 
 7. Заполните базу данными: `npx nx run app:db:seed`
+
+8. Запустите бэкенд: `npx nx run app:serve`

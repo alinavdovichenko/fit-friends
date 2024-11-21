@@ -21,6 +21,7 @@ export {
       DefaultTraining
   } from './lib/consts/common';
 export { UserRole } from './lib/types/user-role';
+export { TotalOrder } from './lib/types/total-order';
 export { NewTrainingInfo } from './lib/types/new-training-info';
 export { FriendInfo } from './lib/types/friend-info';
 export { NotifyText } from './lib/consts/files.const';

@@ -9,6 +9,7 @@ import { BalanceModule } from '@project/balance';
 import { FeedbackModule } from '@project/feedback';
 import { PersonalOrderModule } from '@project/personal-order';
 import { ClientRoomModule } from '@project/client-room';
+import { TrainerRoomModule } from '@project/trainer-room';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ClientRoomModule } from '@project/client-room';
     PersonalOrderModule,
     MailConfigModule,
     ClientRoomModule,
+    TrainerRoomModule
   ],
   controllers: [AppController],
   providers: [AppService],

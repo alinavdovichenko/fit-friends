@@ -26,7 +26,7 @@ export class OrderRdo {
     required: true,
   })
   @Expose()
-  public type!: OrderType;
+  public type: OrderType;
 
   @ApiProperty({
     description: 'Subscription price',
