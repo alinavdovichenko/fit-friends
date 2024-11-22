@@ -47,3 +47,4 @@ export { default as MyPurchasesSorting } from './my-purchases-sorting/my-purchas
 export { default as UserInfo } from './user-info/user-info';
 export { default as HistoryRouter } from './history-router/history-router';
 export { default as Preloader } from './preloader/preloader';
+export { default as TrainingInput } from './training-input/training-input';

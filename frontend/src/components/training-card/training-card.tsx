@@ -3,9 +3,18 @@ import { PopupKey } from '../../consts';
 import {
   BuyForm,
   Popup,
+  TrainingInput
 } from '../../components';
+import { TrainingInputType } from '../training-input/training-input.const';
+import Coach from './coach';
+import Rating from './rating';
+import Hashtags from './hashtags';
+import SpecialStatus from './special-status';
+import cn from 'classnames';
 function TrainingCard(): JSX.Element {
-  const isActive = true;
+  const isEdited = true;
+  const isCoach = true;
+  const isBalanceActive = true;
   let activePopup = PopupKey.DefaultPopup;
 
   const handleBuyButtonClick = (): void => {
@@ -16,127 +25,76 @@ function TrainingCard(): JSX.Element {
       <BuyForm />
     </Popup>;
   };
+  const handleEditButtonClick = (
+    evt: React.MouseEvent<HTMLButtonElement>,
+  ): void => {
+    evt.preventDefault();
+    if (!isEdited) {
+      return;
+    }
+
+  };
 
   return (
-    <div className="training-card">
+    <div
+      className={cn('training-card', {
+        'training-card--edit': isEdited,
+      })}
+    >
       <div className="training-info">
         <h2 className="visually-hidden">Информация о тренировке</h2>
         <div className="training-info__header">
-          <div className="training-info__coach">
-            <div className="training-info__photo">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcSet="img/content/avatars/coaches//photo-1.webp, img/content/avatars/coaches//photo-1@2x.webp 2x"
-                />
-                <img
-                  src="img/content/avatars/coaches//photo-1.png"
-                  srcSet="img/content/avatars/coaches//photo-1@2x.png 2x"
-                  width={64}
-                  height={64}
-                  alt="Изображение тренера"
-                />
-              </picture>
-            </div>
-            <div className="training-info__coach-info">
-              <span className="training-info__label">Тренер</span>
-              <span className="training-info__name">Валерия</span>
-            </div>
-          </div>
+          <Coach />
+          {isCoach ? (
+            <button
+              className={cn(
+                'btn-flat btn-flat--light training-info__edit training-info__edit--edit',
+                { 'btn-flat--underlined': isEdited },
+              )}
+              type="button"
+              aria-label={isEdited ? 'Сохранить' : 'Редактировать'}
+              onClick={handleEditButtonClick}
+            >
+              <svg width="12" height="12" aria-hidden="true">
+                <use xlinkHref="#icon-edit"></use>
+              </svg>
+              <span>{isEdited ? 'Сохранить' : 'Редактировать'}</span>
+            </button>
+          ) : undefined}
         </div>
         <div className="training-info__main-content">
-          <form action="#" method="get">
+          <form method="post">
             <div className="training-info__form-wrapper">
               <div className="training-info__info-wrapper">
-                <div className="training-info__input training-info__input--training">
-                  <label>
-                    <span className="training-info__label">
-                      Название тренировки
-                    </span>
-                    <input
-                      type="text"
-                      name="training"
-                      defaultValue="energy"
-                      disabled={isActive}
-                    />
-                  </label>
-                  <div className="training-info__error">Обязательное поле</div>
-                </div>
-                <div className="training-info__textarea">
-                  <label>
-                    <span className="training-info__label">
-                      Описание тренировки
-                    </span>
-                    <textarea
-                      name="description"
-                      defaultValue={
-                        'Упражнения укрепляют мышечный корсет, делают суставы более гибкими, улучшают осанку и координацию.'
-                      }
-                      disabled={isActive}
-                    />
-                  </label>
-                </div>
+                <TrainingInput
+                  type={TrainingInputType.Title}
+                  isActive={isEdited}
+                />
+                <TrainingInput
+                  type={TrainingInputType.Description}
+                  isActive={isEdited}
+                />
               </div>
               <div className="training-info__rating-wrapper">
-                <div className="training-info__input training-info__input--rating">
-                  <label>
-                    <span className="training-info__label">Рейтинг</span>
-                    <span className="training-info__rating-icon">
-                      <svg width={18} height={18} aria-hidden="true">
-                        <use xlinkHref="#icon-star" />
-                      </svg>
-                    </span>
-                    <input
-                      type="number"
-                      name="rating"
-                      defaultValue={4}
-                      disabled={isActive}
-                    />
-                  </label>
-                </div>
-                <ul className="training-info__list">
-                  <li className="training-info__item">
-                    <div className="hashtag hashtag--white">
-                      <span>#пилатес</span>
-                    </div>
-                  </li>
-                  <li className="training-info__item">
-                    <div className="hashtag hashtag--white">
-                      <span>#для_всех</span>
-                    </div>
-                  </li>
-                  <li className="training-info__item">
-                    <div className="hashtag hashtag--white">
-                      <span>#320ккал</span>
-                    </div>
-                  </li>
-                  <li className="training-info__item">
-                    <div className="hashtag hashtag--white">
-                      <span>#30_50минут</span>
-                    </div>
-                  </li>
-                </ul>
+                <Rating />
+                <Hashtags />
               </div>
               <div className="training-info__price-wrapper">
-                <div className="training-info__input training-info__input--price">
-                  <label>
-                    <span className="training-info__label">Стоимость</span>
-                    <input
-                      type="text"
-                      name="price"
-                      defaultValue="800 ₽"
-                      disabled={isActive}
-                    />
-                  </label>
-                  <div className="training-info__error">Введите число</div>
-                </div>
-                <button
-                  className="btn training-info__buy"
-                  type="button"
-                  onClick={handleBuyButtonClick}
-                >
-                  Купить
-                </button>
+                <TrainingInput
+                  type={TrainingInputType.Price}
+                  isActive={isEdited}
+                />
+                {isEdited ? <SpecialStatus /> : undefined}
+                {isCoach ? undefined : (
+                  <button
+                    className="btn training-info__buy"
+                    type="button"
+                    disabled={isBalanceActive}
+                    onClick={handleBuyButtonClick}
+                  >
+                    Купить
+                  </button>
+                )}
               </div>
             </div>
           </form>
@@ -170,7 +128,7 @@ function TrainingCard(): JSX.Element {
           <button
             className="btn training-video__button training-video__button--start"
             type="button"
-            disabled={isActive}
+            disabled={isBalanceActive}
           >
             Приступить
           </button>

@@ -1,11 +1,19 @@
 import Joi from 'joi';
-import { FeedbackTextLength } from '../consts';
+import {
+        FeedbackTextLength,
+        TrainingTitleLength,
+        PriceValue,
+        TrainingDescriptionLength
+ } from '../consts';
 
 export const REQUIRED_INPUT_MESSAGE = 'Поле обязательно для заполнения';
 
 type ValidationData = {
   birthDay: string;
   feedbackText: string;
+  trainingTitle: string;
+  trainingPrice: number;
+  trainingDescription: string;
 };
 
 export const ValidationSchema = {
@@ -22,6 +30,35 @@ export const ValidationSchema = {
     .max(FeedbackTextLength.Max)
     .message(
       `Рекомендуемая длина ${FeedbackTextLength.Min} - ${FeedbackTextLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  trainingTitle: Joi.string()
+    .min(TrainingTitleLength.Min)
+    .message(
+      `Рекомендуемая длина ${TrainingTitleLength.Min} - ${TrainingTitleLength.Max} символов`,
+    )
+    .max(TrainingTitleLength.Max)
+    .message(
+      `Рекомендуемая длина ${TrainingTitleLength.Min} - ${TrainingTitleLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  trainingPrice: Joi.number()
+    .integer()
+    .message('Введите целое число')
+    .min(PriceValue.Min)
+    .message(`Минимальная цена: ${PriceValue.Min}`)
+    .required()
+    .messages({ 'number.base': REQUIRED_INPUT_MESSAGE }),
+  trainingDescription: Joi.string()
+    .min(TrainingDescriptionLength.Min)
+    .message(
+      `Рекомендуемая длина ${TrainingDescriptionLength.Min} - ${TrainingDescriptionLength.Max} символов`,
+    )
+    .max(TrainingDescriptionLength.Max)
+    .message(
+      `Рекомендуемая длина ${TrainingDescriptionLength.Min} - ${TrainingDescriptionLength.Max} символов`,
     )
     .required()
     .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
@@ -47,5 +84,14 @@ export const validatePassword = (password: string): boolean =>
 
 export const validateName = (name: string): boolean =>
   /^[A-ZА-ЯЁ]{1,15}$/i.test(name);
+
+export const validateTrainingTitle = (value: unknown) =>
+  validateProperty('trainingTitle', value);
+
+export const validateTrainingPrice = (value: unknown) =>
+  validateProperty('trainingPrice', value);
+
+export const validateTrainingDescription = (value: unknown) =>
+  validateProperty('trainingDescription', value);
 
 
