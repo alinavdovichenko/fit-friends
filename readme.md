@@ -36,7 +36,7 @@
 
 2. Установите зависимости, выполнив команду `npm install`.
 
-3. Запуск проекта npx nx run app:serve
+3. Запуск проекта `npx nx run app:serve`.
 
 4. docker compose \
 --file ./apps/app/docker-compose.ayml \
