@@ -5,14 +5,39 @@ import {
   AccountCertificates,
   UserForm,
   NewFeatureFiller,
+  Preloader
 } from '../../components';
-import { CustomerLinks } from './account-page.const';
+import {
+  isUserCoach,
+  isUserDataReady,
+  isUserDataUpdating,
+  setActiveRoute,
+} from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { AppRoute } from '../../consts';
+import { CustomerLinks, CoachLinks } from './account-page.const';
+import { getAuthUserAction } from '../../store/api-actions';
 
 function AccountPage(): JSX.Element {
-  const isCoach = false;
+  const dispatch = useAppDispatch();
+  const isCoach = useAppSelector(isUserCoach);
+  const isDataReady = useAppSelector(isUserDataReady);
+  const isDataUpdating = useAppSelector(isUserDataUpdating);
+
+  useEffect(() => {
+    if (!isDataReady) {
+      dispatch(getAuthUserAction());
+    }
+    dispatch(setActiveRoute(AppRoute.Account));
+  }, [dispatch, isDataReady]);
+
+  if (!isDataReady || isDataUpdating) {
+    return <Preloader />;
+  }
 
   const getAccountLinks = () => {
-    const list = CustomerLinks;
+    const list = isCoach ? CoachLinks : CustomerLinks;
     return list.map((link) => (
       <Link
         key={`link-${link.Icon}`}

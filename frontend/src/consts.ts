@@ -1,7 +1,7 @@
 import { Location } from './types/location';
 
 export const REQUIRED_INPUT_MESSAGE = 'Поле обязательно для заполнения';
-export const BACKEND_URL = 'http://localhost:3000';
+export const BACKEND_URL = 'http://localhost:4000';
 export const REQUEST_TIMEOUT = 5000;
 export const STATIC_URL = `${BACKEND_URL}/static`;
 export const SALE_PERCENT = 20;
@@ -20,6 +20,7 @@ export const AppRoute = {
   CardUser: '/card-user',
   Trainings: '/trainings',
   Users: '/users',
+  CoachTrainings: '/account/my-trainings',
 } as const;
 
 export enum PopupKey {
@@ -187,8 +188,28 @@ export enum FeedbackTextLength {
 export enum NameSpace {
   AppData = 'APP_DATA',
   MainData = 'MAIN_DATA',
-  UserForm = 'USER_FORM'
+  UserForm = 'USER_FORM',
+  UserData = 'USER_DATA',
+  BalancesList = 'BALANCES_LIST',
+  CatalogData = 'CATALOG_DATA',
+  UsersList = 'USERS_LIST',
+  UserInfo = 'USER_INFO',
+  TrainingForm = 'TRAINING_FORM',
+  TrainingInfo = 'TRAINING_INFO',
+  TrainingsList = 'TRAININGS_LIST',
+  OrdersList = 'ORDERS_LIST',
+  OrderForm = 'ORDER_FORM',
 }
+
+export const ListItemsPortion = {
+  Default: 6,
+  CoachTrainings: 6,
+  CoachOrders: 4,
+  UserBalances: 8,
+  Friends: 9,
+  AllTrainings: 6,
+  AllUsers: 12,
+};
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -199,7 +220,35 @@ export enum AuthorizationStatus {
 export const APIRoute = {
   CheckAuth: '/auth/login',
   Login: '/auth/login',
-  Register: '/auth/register'
+  Register: '/auth/register',
+  AuthUser: '/users/my-data',
+  UpdateUser: '/users/update',
+  UploadCertificate: '/users/certificates/upload',
+  DeleteCertificate: '/users/certificates/delete',
+  UpdateCertificate: '/users/certificates/update',
+  TrainingsForUser: '/trainings/for-user',
+  SpecialTrainings: '/trainings/special',
+  PopularTrainings: '/trainings/popular',
+  ReadyUsers: '/users/ready-users',
+  Balances: '/balance',
+  DecreaseBalance: '/balance/decrease',
+  Users: '/users',
+  Trainings: '/trainings',
+  Friends: '/friends',
+  CheckSubscription: '/subscribe/check',
+  TrainingsFromCoach: '/trainings/from-coach',
+  Comments: '/comments',
+  CoachTrainings: '/trainings/my-trainings',
+  UpdateTraining: '/trainings/update',
+  UpdateTrainingVideo: '/trainings/update-video',
+  CoachOrders: '/orders/my-orders',
+  CreateOrder: '/orders',
+  AddFriend: '/friends/add',
+  RemoveFriend: '/friends/remove',
+  CreateTrainingRequest: '/training-requests',
+  UpdateTrainingRequest: '/training-requests',
+  SubscribeTo: '/subscribe/add',
+  UnsubscribeFrom: '/subscribe/remove',
 } as const;
 
 

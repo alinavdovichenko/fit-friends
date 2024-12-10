@@ -6,11 +6,8 @@ import {
   UserSex,
   TrainingType,
 } from '../consts';
-
-export type AuthUser = {
-  email: string;
-  password: string;
-};
+import { FileData } from './file-data';
+import { Training } from './training';
 
 export type TrainingRequest = {
   id: string;
@@ -19,7 +16,7 @@ export type TrainingRequest = {
 
 export type User = {
   id: string;
-  avatar?: string;
+  avatar?: FileData;
   name: string;
   role: UserRole;
   sex: UserSex;
@@ -28,6 +25,29 @@ export type User = {
   level: UserLevel;
   trainingTypes: TrainingType[];
   trainingRequest?: TrainingRequest;
-  description?: string;
-  images?: string[];
 };
+
+export type SubscriptionStatus = {
+  subscriptionStatus: boolean;
+};
+
+export type FriendshipStatus = {
+  isFriend: boolean;
+};
+
+export type CoachInfo = SubscriptionStatus & {
+  trainings: Training[];
+};
+
+export type FullUser = User &
+  FriendshipStatus & {
+    description: string;
+    backgroundImage: FileData;
+    certificates?: FileData[];
+  };
+
+  export type AuthUser = FullUser & {
+    caloriesToLose?: number;
+    caloriesPerDay?: number;
+    certificates?: FileData[];
+  };

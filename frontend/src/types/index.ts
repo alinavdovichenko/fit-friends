@@ -5,3 +5,8 @@ export * from './user';
 export * from './logged-user';
 export * from './user-form-data';
 export * from './notification';
+export * from './main-page-data';
+export * from './file-data';
+export * from './order';
+export * from './comment';
+export * from './lists-with-pagination';

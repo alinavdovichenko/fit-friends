@@ -1,7 +1,9 @@
 import {
   appData,
+  mainData,
+  userForm
 } from './index';
 
-const reducer = appData.reducer
+const reducer = userForm.reducer
 
 export {reducer};
