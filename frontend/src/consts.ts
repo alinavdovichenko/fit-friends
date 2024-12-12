@@ -199,6 +199,7 @@ export enum NameSpace {
   TrainingsList = 'TRAININGS_LIST',
   OrdersList = 'ORDERS_LIST',
   OrderForm = 'ORDER_FORM',
+  CommentForm = 'COMMENT_FORM',
 }
 
 export const ListItemsPortion = {
@@ -251,4 +252,28 @@ export const APIRoute = {
   UnsubscribeFrom: '/subscribe/remove',
 } as const;
 
+export enum TrainingsSortType {
+  PriceDown = 'down',
+  PriceUp = 'up',
+  Free = 'free',
+}
 
+export enum OrdersSortType {
+  Sum = 'sum',
+  Count = 'count',
+}
+
+export enum OrderType {
+  Default = 'абонемент',
+}
+
+export enum PaymentType {
+  Visa = 'visa',
+  Mir = 'mir',
+  Umoney = 'umoney',
+}
+
+export enum OrderCountValue {
+  Min = 1,
+  Max = 50,
+}

@@ -13,8 +13,8 @@ import {
   trainingInfo,
   trainingsList,
   ordersList,
-  orderForm
-
+  orderForm,
+  commentForm
 } from './index';
 
 export const rootReducer = combineReducers({
@@ -31,5 +31,5 @@ export const rootReducer = combineReducers({
   [NameSpace.TrainingsList]: trainingsList.reducer,
   [NameSpace.OrdersList]: ordersList.reducer,
   [NameSpace.OrderForm]: orderForm.reducer,
-
+  [NameSpace.CommentForm]: commentForm.reducer,
 });

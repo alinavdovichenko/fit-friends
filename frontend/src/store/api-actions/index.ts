@@ -7,3 +7,4 @@ export * from './trainings-api-actions';
 export * from './orders-api-actions';
 export * from './friends-api-actions';
 export * from './subscribe-api-actions';
+export * from './comments-api-actions';

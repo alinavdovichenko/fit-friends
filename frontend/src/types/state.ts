@@ -6,10 +6,13 @@ import {
   TrainingType,
   MetroStation,
   UserLevel,
-  UserSex
+  UserSex,
+  OrdersSortType,
+  OrderType,
+  PaymentType
 } from '../consts';
 import { Route } from './route';
-import { Training, User, FileData, TrainingBalance } from '../types';
+import { Training, User, FileData, TrainingBalance, TrainingOrders } from '../types';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -154,5 +157,90 @@ export type TrainingForm = {
     description: string | undefined;
     video: string | undefined;
   };
+  isSending: boolean;
+};
+
+export type TrainingInfo = {
+  id: string;
+  coachId: string;
+  title: string;
+  price: string;
+  description: string;
+  isSpecial: boolean;
+  video: FileData | undefined;
+  backgroundImage: string;
+  rating: number;
+  type: string;
+  calories: number;
+  userSex: string;
+  duration: string;
+  coach: User | undefined;
+  balance: number | null;
+  comments: Comment[];
+  isDataLoading: boolean;
+  isDataEditing: boolean;
+  hasError: boolean;
+};
+
+export type CommentForm = {
+  trainingId: string;
+  rating: number;
+  text: string;
+  validationErrors: {
+    text: string | undefined;
+  };
+  isSending: boolean;
+};
+
+export type TrainingsList = {
+  trainings: Training[];
+  price: {
+    min: number;
+    max: number;
+  };
+  calories: {
+    min: number;
+    max: number;
+  };
+  rating: {
+    min: number;
+    max: number;
+  };
+  filter: {
+    price: {
+      min: number | undefined;
+      max: number | undefined;
+    };
+    calories: {
+      min: number | undefined;
+      max: number | undefined;
+    };
+    rating: {
+      min: number;
+      max: number;
+    };
+    duration: string[];
+    types: string[];
+    sorting: string | undefined;
+  };
+  isDataLoading: boolean;
+};
+
+export type OrdersList = {
+  orders: TrainingOrders[];
+  isDataLoading: boolean;
+  sorting: {
+    type: OrdersSortType;
+    directionDown: boolean;
+  };
+};
+
+export type OrderForm = {
+  trainingId: string;
+  price: number;
+  type: OrderType;
+  count: number;
+  totalSum: number;
+  paymentType: PaymentType;
   isSending: boolean;
 };

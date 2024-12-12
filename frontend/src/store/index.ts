@@ -12,3 +12,8 @@ export * from './catalog-data/catalog-data';
 export * from './users-list/users-list';
 export * from './user-info/user-info';
 export * from './training-form/training-form';
+export * from './training-info/training-info';
+export * from './trainings-list/trainings-list';
+export * from './orders-list/orders-list';
+export * from './order-form/order-form';
+export * from './comment-form/comment-form';

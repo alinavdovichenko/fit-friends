@@ -1,4 +1,4 @@
-import { TrainingType } from '../consts';
+import { TrainingType, UserLevel, TrainingDuration, TrainingSexFor } from '../consts';
 import { User } from './user';
 import { FileData } from './file-data';
 
@@ -6,10 +6,15 @@ export type Training = {
   id: string;
   title: string;
   backgroundImage: string;
+  level: UserLevel;
   type: TrainingType;
+  duration: TrainingDuration;
+  price: number;
   calories: number;
   description: string;
-  price: number;
+  userSex: TrainingSexFor;
+  coachId: string;
+  isSpecial: boolean;
   rating: number;
 };
 

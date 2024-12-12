@@ -6,3 +6,4 @@ export * from './user-friends-query';
 export * from './all-users-query';
 export * from './training-form-data';
 export * from './order-form-data';
+export * from './comment-form-data';

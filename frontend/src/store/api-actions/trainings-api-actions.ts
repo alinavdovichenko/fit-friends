@@ -31,7 +31,7 @@ export const createTrainingAction = createAsyncThunk<
 });
 
 export const getTrainingAction = createAsyncThunk<
-FullTraining,
+  FullTraining,
   string,
   AsyncThunkConfig
 >('trainings/get-training', async (trainingId, { extra: api }) => {
