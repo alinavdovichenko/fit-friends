@@ -1,5 +1,5 @@
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { RadioInputType, RadioInputTypeDiffs } from './radio-input.const';
-import { useState } from 'react';
 import lodash from 'lodash';
 import cn from 'classnames';
 
@@ -10,12 +10,17 @@ type RadioInputProps = {
 
 function RadioInput({ type, styleClass }: RadioInputProps): JSX.Element {
   const {
+    valueSelector,
+    setValue,
     optionsArray,
+    optionsLabels,
+    formStatusSelector,
     fieldName,
     styleMode,
   } = RadioInputTypeDiffs[type];
-
-  const [value, setValue] = useState('');
+  const dispatch = useAppDispatch();
+  const value = useAppSelector(valueSelector);
+  const isDisabled = useAppSelector(formStatusSelector);
 
   return (
     <div
@@ -24,21 +29,22 @@ function RadioInput({ type, styleClass }: RadioInputProps): JSX.Element {
         styleMode,
       })}
     >
-      {Object.values(optionsArray).map((option) => (
+      {Object.values(optionsArray).map((option, index) => (
         <div className="custom-toggle-radio__block" key={`option-${option}`}>
           <label>
             <input
               type="radio"
               name={fieldName}
               value={value}
+              disabled={isDisabled}
               checked={value === option}
               onChange={() => {
-                setValue(option);
+                dispatch(setValue(option));
               }}
             />
             <span className="custom-toggle-radio__icon" />
             <span className="custom-toggle-radio__label">
-              {lodash.capitalize(option)}
+              {optionsLabels ? optionsLabels[index] : lodash.capitalize(option)}
             </span>
           </label>
         </div>

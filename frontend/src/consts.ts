@@ -14,13 +14,16 @@ export const AppRoute = {
   Questionary: '/questionary',
   MyPurchases: '/account/my-purchases',
   Orders: '/account/my-orders',
+  Balance: '/account/balance',
   Main: '/main',
+  Friends: '/account/friends',
   Account: '/account',
   TrainingCatalog: '/training-сatalog',
   CardUser: '/card-user',
   Trainings: '/trainings',
   Users: '/users',
   CoachTrainings: '/account/my-trainings',
+  CreateTraining: '/account/create-training',
 } as const;
 
 export enum PopupKey {
@@ -105,6 +108,11 @@ export enum CaloriesValue {
 }
 
 export enum CoachAchievementsLength {
+  Min = 10,
+  Max = 140,
+}
+
+export enum CommentTextLength {
   Min = 10,
   Max = 140,
 }

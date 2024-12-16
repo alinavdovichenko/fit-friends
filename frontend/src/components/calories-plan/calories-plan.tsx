@@ -1,8 +1,10 @@
+import { useAppSelector } from '../../hooks';
+import { getUserDataCalories } from '../../store';
 
 const DAYS_NUMBER = 7;
 
 function CaloriesPlan(): JSX.Element {
-  const calories = 500;
+  const calories = useAppSelector(getUserDataCalories);
   return (
     <form action="#" method="get">
       <div className="personal-account-user__form">

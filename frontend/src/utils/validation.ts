@@ -1,35 +1,94 @@
 import Joi from 'joi';
 import {
-        FeedbackTextLength,
-        TrainingTitleLength,
-        PriceValue,
-        TrainingDescriptionLength
- } from '../consts';
-
-export const REQUIRED_INPUT_MESSAGE = 'Поле обязательно для заполнения';
+  CaloriesValue,
+  CoachAchievementsLength,
+  CommentTextLength,
+  NameLength,
+  PasswordLength,
+  PriceValue,
+  REQUIRED_INPUT_MESSAGE,
+  UserDescriptionLength,
+  TrainingDescriptionLength,
+  TrainingTitleLength,
+} from '../consts';
 
 type ValidationData = {
-  birthDay: string;
-  feedbackText: string;
+  email: string;
+  password: string;
+  name: string;
+  dateOfBirth: string;
+  calories: string;
+  achievements: string;
+  userDescription: string;
   trainingTitle: string;
-  trainingPrice: number;
+  trainingPrice: string;
   trainingDescription: string;
+  commentText: string;
 };
 
-export const ValidationSchema = {
-  birthDay: Joi.date()
+const ValidationSchema = {
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .message('Введите валидный адрес электронной почты')
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  password: Joi.string()
+    .min(PasswordLength.Min)
+    .message(
+      `Рекомендуемая длина пароля ${PasswordLength.Min} - ${PasswordLength.Max} символов`,
+    )
+    .max(PasswordLength.Max)
+    .message(
+      `Рекомендуемая длина пароля ${PasswordLength.Min} - ${PasswordLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  name: Joi.string()
+    .pattern(/^[a-zа-яё]+$/i)
+    .message('Только буквы русского/английского алфавита')
+    .min(NameLength.Min)
+    .message(
+      `Рекомендуемая длина имени ${NameLength.Min} - ${NameLength.Max} символов`,
+    )
+    .max(NameLength.Max)
+    .message(
+      `Рекомендуемая длина имени ${NameLength.Min} - ${NameLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  dateOfBirth: Joi.date()
     .less('now')
     .message('Некорректная дата рождения')
     .required()
     .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
-  feedbackText: Joi.string()
-    .min(FeedbackTextLength.Min)
+  calories: Joi.number()
+    .integer()
+    .message('Введите целое число')
+    .min(CaloriesValue.Min)
+    .message(`Минимальное количество калорий: ${CaloriesValue.Min}`)
+    .max(CaloriesValue.Max)
+    .message(`Минимальное количество калорий: ${CaloriesValue.Max}`)
+    .required()
+    .messages({ 'number.base': REQUIRED_INPUT_MESSAGE }),
+  achievements: Joi.string()
+    .min(CoachAchievementsLength.Min)
     .message(
-      `Рекомендуемая длина ${FeedbackTextLength.Min} - ${FeedbackTextLength.Max} символов`,
+      `Рекомендуемая длина ${CoachAchievementsLength.Min} - ${CoachAchievementsLength.Max} символов`,
     )
-    .max(FeedbackTextLength.Max)
+    .max(CoachAchievementsLength.Max)
     .message(
-      `Рекомендуемая длина ${FeedbackTextLength.Min} - ${FeedbackTextLength.Max} символов`,
+      `Рекомендуемая длина ${CoachAchievementsLength.Min} - ${CoachAchievementsLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  userDescription: Joi.string()
+    .min(UserDescriptionLength.Min)
+    .message(
+      `Рекомендуемая длина ${UserDescriptionLength.Min} - ${UserDescriptionLength.Max} символов`,
+    )
+    .max(UserDescriptionLength.Max)
+    .message(
+      `Рекомендуемая длина ${UserDescriptionLength.Min} - ${UserDescriptionLength.Max} символов`,
     )
     .required()
     .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
@@ -62,6 +121,17 @@ export const ValidationSchema = {
     )
     .required()
     .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
+  commentText: Joi.string()
+    .min(CommentTextLength.Min)
+    .message(
+      `Рекомендуемая длина ${CommentTextLength.Min} - ${CommentTextLength.Max} символов`,
+    )
+    .max(CommentTextLength.Max)
+    .message(
+      `Рекомендуемая длина ${CommentTextLength.Min} - ${CommentTextLength.Max} символов`,
+    )
+    .required()
+    .messages({ 'string.empty': REQUIRED_INPUT_MESSAGE }),
 };
 
 const validateProperty = (
@@ -70,20 +140,25 @@ const validateProperty = (
 ): string | undefined =>
   ValidationSchema[propertyName].validate(value).error?.message;
 
-export const validateBirthDay = (value: unknown) =>
-  validateProperty('birthDay', value);
+export const validateEmail = (value: unknown) =>
+  validateProperty('email', value);
 
-export const validateFeedbackText = (value: unknown) =>
-  validateProperty('feedbackText', value);
+export const validatePassword = (value: unknown) =>
+  validateProperty('password', value);
 
-export const validateEmail = (email: string): boolean =>
-  /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
+export const validateName = (value: unknown) => validateProperty('name', value);
 
-export const validatePassword = (password: string): boolean =>
-  /^[A-Z0-9А-ЯЁ_]{6,12}$/i.test(password);
+export const validateDateOfBirth = (value: unknown) =>
+  validateProperty('dateOfBirth', value);
 
-export const validateName = (name: string): boolean =>
-  /^[A-ZА-ЯЁ]{1,15}$/i.test(name);
+export const validateCalories = (value: unknown) =>
+  validateProperty('calories', value);
+
+export const validateAchievements = (value: unknown) =>
+  validateProperty('achievements', value);
+
+export const validateUserDescription = (value: unknown) =>
+  validateProperty('userDescription', value);
 
 export const validateTrainingTitle = (value: unknown) =>
   validateProperty('trainingTitle', value);
@@ -94,4 +169,5 @@ export const validateTrainingPrice = (value: unknown) =>
 export const validateTrainingDescription = (value: unknown) =>
   validateProperty('trainingDescription', value);
 
-
+export const validateCommentText = (value: unknown) =>
+  validateProperty('commentText', value);

@@ -1,35 +1,79 @@
-import { useState, ChangeEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ChangeEvent, useEffect } from 'react';
 import { CustomInputType, CustomInputTypeDiffs } from './cuctom-input.const';
+import cn from 'classnames';
 
 type CustomInputProps = {
   type: CustomInputType;
+  styleClass?: string;
+  originalValue?: string;
+  isActive?: boolean;
 };
 
 function CustomInput({
   type,
+  styleClass,
+  originalValue,
+  isActive = true,
 }: CustomInputProps): JSX.Element {
-  const {labelText, fieldName, fieldType, validationFunction} = CustomInputTypeDiffs[type];
+  const {
+    valueSelector,
+    errorSelector,
+    validationFunction,
+    formStatusSelector,
+    setError,
+    setValue,
+    fieldName,
+    fieldType,
+    labelText,
+    styleMode,
+    inputSymbol,
+  } = CustomInputTypeDiffs[type];
+  const dispatch = useAppDispatch();
+  const value = useAppSelector(valueSelector);
+  const valueError = useAppSelector(errorSelector);
+  const isDisabled = useAppSelector(formStatusSelector);
 
-  const [value, setValue] = useState('');
-  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValue(evt.target.value);
-  };
+  useEffect(() => {
+    if (originalValue && isActive) {
+      dispatch(setValue(originalValue));
+    }
+  }, [dispatch, setValue, isActive, originalValue]);
 
   return (
-    <div className="custom-input">
+    <div
+      className={cn('custom-input', {
+        'custom-input--error': valueError,
+        'custom-input--readonly': !isActive,
+        [`${styleClass ?? ''}__input`]: styleClass,
+        [`${styleMode ?? ''}`]: styleMode,
+      })}
+    >
       <label>
-        <span className="custom-input__label">{labelText}</span>
+        {labelText ? (
+          <span className="custom-input__label">{labelText}</span>
+        ) : undefined}
         <span className="custom-input__wrapper">
           <input
-            onChange={handleTextChange}
-            value={value}
-            type={fieldType}
+            type={fieldType ? fieldType : 'text'}
             name={fieldName}
+            autoComplete="off"
+            value={isActive ? value : originalValue}
+            disabled={isDisabled || !isActive}
+            onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
+              dispatch(setValue(target.value));
+              if (validationFunction(target.value) !== valueError) {
+                dispatch(setError(validationFunction(target.value)));
+              }
+            }}
           />
-          <p className={!validationFunction(value) ? 'sign-in__error' : 'sign-in__success'}>
-            {!validationFunction(value) ? 'Заполните поле' : 'Поле заполненно правильно!'}
-          </p>
+          {inputSymbol ? (
+            <span className="custom-input__text">{inputSymbol}</span>
+          ) : undefined}
         </span>
+        {valueError && (
+          <span className="custom-input__error">{valueError}</span>
+        )}
       </label>
     </div>
   );

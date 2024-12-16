@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect, useState } from 'react';
 import { SelectInputType, SelectInputTypeDiffs } from './select-input.const';
 import cn from 'classnames';
 
@@ -6,6 +7,7 @@ type SelectInputProps = {
   type: SelectInputType;
   styleClass?: string;
   label?: string;
+  originalValue?: string;
   isActive?: boolean;
 };
 
@@ -13,18 +15,34 @@ function SelectInput({
   type,
   label,
   styleClass,
+  originalValue,
   isActive = true,
 }: SelectInputProps): JSX.Element {
   const {
+    valueSelector,
+    setValue,
     optionsArray,
-    labelText,
     labelFunction,
+    errorSelector,
+    setError,
+    formStatusSelector,
+    labelText,
   } = SelectInputTypeDiffs[type];
+  const dispatch = useAppDispatch();
+  const value = useAppSelector(valueSelector);
+  const valueError = useAppSelector(errorSelector);
+  const isDisabled = useAppSelector(formStatusSelector);
 
-  const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (originalValue && isActive) {
+      dispatch(setValue(originalValue));
+    }
+  }, [dispatch, setValue, isActive, originalValue]);
+
   const getPlaceholder = () => {
-    const text = value;
+    const text = !isActive ? originalValue : value;
     return text ? (
       <div className="custom-select__placeholder">{labelFunction(text)}</div>
     ) : undefined;
@@ -36,6 +54,7 @@ function SelectInput({
         [`${styleClass ?? ''}__input`]: styleClass,
         'custom-select--not-selected': isActive && !value,
         'custom-select--readonly': !isActive,
+        'is-invalid': valueError,
         'is-open': isOpen,
       })}
     >
@@ -45,6 +64,7 @@ function SelectInput({
         className="custom-select__button"
         type="button"
         aria-label="Выберите одну из опций"
+        disabled={isDisabled || !isActive}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="custom-select__text" />
@@ -54,13 +74,14 @@ function SelectInput({
           </svg>
         </span>
       </button>
-      <ul className="custom-select__list">
+      <ul className="custom-select__list" role="listbox">
         {optionsArray.map((option) => (
           <li
             key={`option-${option}`}
             onClick={() => {
+              dispatch(setValue(option));
+              dispatch(setError(undefined));
               setIsOpen(false);
-              setValue(option);
             }}
             className="custom-select__item"
           >
@@ -68,6 +89,9 @@ function SelectInput({
           </li>
         ))}
       </ul>
+      {valueError && !isOpen && (
+        <span className="custom-select__error">{valueError}</span>
+      )}
     </div>
   );
 }
