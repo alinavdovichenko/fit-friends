@@ -29,7 +29,9 @@ export const AppRoute = {
 export enum PopupKey {
   Feedback = 'popup-feedback',
   Buy = 'popup-buy',
+  Locations = 'location-popup',
   DefaultPopup ='popup-default',
+  Certificates = 'certificates-popup',
 }
 
 export const AvatarMaxSize = {
@@ -45,6 +47,8 @@ export enum MetroStation {
   Udelnaya = 'Удельная',
   Zvyozdnaya = 'Звёздная',
 }
+
+export const MAP_ZOOM = 17;
 
 type MetroLocation = {
   [name in MetroStation]: Location;
@@ -231,6 +235,8 @@ export const APIRoute = {
   Login: '/auth/login',
   Register: '/auth/register',
   AuthUser: '/users/my-data',
+  QuestionaryUser: 'users/questionary-user',
+  QuestionaryCoach: 'users/questionary-coach',
   UpdateUser: '/users/update',
   UploadCertificate: '/users/certificates/upload',
   DeleteCertificate: '/users/certificates/delete',

@@ -1,7 +1,33 @@
 import {Helmet} from 'react-helmet-async';
-import { RegisterForm } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { RegisterForm, Preloader } from '../../components';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  isAuthRequesting,
+  isUserAuth,
+  isUserCoach,
+  resetUserForm,
+} from '../../store';
+import { useEffect } from 'react';
+import { AppRoute } from '../../consts';
 
 function RegisterPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isAuth = useAppSelector(isUserAuth);
+  const isCoach = useAppSelector(isUserCoach);
+  const isDataLoading = useAppSelector(isAuthRequesting);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(isCoach ? AppRoute.Account : AppRoute.Main);
+    }
+    dispatch(resetUserForm());
+  }, [navigate, dispatch, isAuth, isCoach]);
+
+  if (isDataLoading) {
+    return <Preloader />;
+  }
 
   return (
     <div className="popup-form popup-form--sign-up">

@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { PopularTraining } from '../../types/popular-training';
-import { AppRoute } from '../../consts';
+import { Training, OrdersInfo } from '../../types';
+import { AppRoute, STATIC_URL } from '../../consts';
 import { TrainingOrders } from '../index';
-import { OrdersInfo } from '../../types/order';
 
 type PopularTrainingsCardProps = {
-  training: PopularTraining;
+  training: Training;
   styleClass: string;
   withButtons?: boolean;
   ordersInfo?: OrdersInfo;
@@ -21,7 +20,7 @@ function PopularTrainingsCard({
     id,
     title,
     backgroundImage,
-    type: workoutType,
+    type: trainingType,
     price,
     calories,
     description,
@@ -37,7 +36,7 @@ function PopularTrainingsCard({
           <div className="thumbnail-training__image">
             <picture>
               <img
-                src={backgroundImage}
+                src={`${STATIC_URL}/${backgroundImage}`}
                 width={330}
                 height={190}
                 alt="Фотография тренировки"
@@ -59,7 +58,7 @@ function PopularTrainingsCard({
             <ul className="thumbnail-training__hashtags-list">
               <li className="thumbnail-training__hashtags-item">
                 <div className="hashtag thumbnail-training__hashtag">
-                  <span>#{workoutType}</span>
+                  <span>#{trainingType}</span>
                 </div>
               </li>
               <li className="thumbnail-training__hashtags-item">

@@ -1,4 +1,7 @@
 import { UserRole, UserStatus } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { isUserCoach } from '../../store';
+import { createTrainingRequestAction } from '../../store/api-actions';
 import cn from 'classnames';
 
 type ActivityBarProp = {
@@ -12,7 +15,8 @@ function ActivityBar({
   userRole,
   isReady,
 }: ActivityBarProp): JSX.Element {
-  const isCoach = true;
+  const dispatch = useAppDispatch();
+  const isCoach = useAppSelector(isUserCoach);
 
   return (
     <div className="thumbnail-friend__activity-bar">
@@ -32,7 +36,7 @@ function ActivityBar({
           })}
           type="button"
           onClick={() => {
-            console.log(userId);
+            dispatch(createTrainingRequestAction(userId));
           }}
         >
           <svg width="43" height="46" aria-hidden="true" focusable="false">

@@ -1,7 +1,14 @@
-import { ReviewCard } from '../index';
-import { reviews } from '../../mocks/reviews';
+import { ReviewCard, Preloader } from '../index';
+import { useAppSelector } from '../../hooks';
+import { getTrainingComments, isTrainingInfoLoading } from '../../store';
 
 function ReviewsList(): JSX.Element {
+  const reviews = useAppSelector(getTrainingComments);
+  const isDataLoading = useAppSelector(isTrainingInfoLoading);
+
+  if (isDataLoading) {
+    return <Preloader />;
+  }
 
   return (
     <div className="reviews-side-bar__container">

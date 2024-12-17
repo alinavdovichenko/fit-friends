@@ -1,5 +1,6 @@
 import { Review } from '../../types/review';
-import { AppRoute } from '../../consts';
+import { AppRoute, IMAGE_PLACEHOLDER } from '../../consts';
+import { getFileUrl } from '../../utils/common';
 import { Link } from 'react-router-dom';
 
 type ReviewCardProps = {
@@ -16,7 +17,7 @@ function ReviewCard({ review }: ReviewCardProps): JSX.Element {
         <div className="review__user-info">
           <div className="review__user-photo">
             <img
-              src={avatar}
+              src={avatar ? getFileUrl(avatar) : IMAGE_PLACEHOLDER}
               width={64}
               height={64}
               alt="Изображение пользователя"

@@ -1,39 +1,81 @@
-
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  getTrainingId,
+  getTrainingPrice,
+  isUserCoach,
+  isTrainingBalanceActive,
+  isTrainingFormDataSending,
+  isTrainingFormHaveErrors,
+  isTrainingInfoEditing,
+  setActivePopup,
+  setOrderForm,
+  setUpdateTrainingRequiredFields,
+  setTrainingEditingStatus,
+} from '../../store';
+import {
+  updateTrainingAction,
+  updateTrainingVideoAction,
+} from '../../store/api-actions';
 import { PopupKey } from '../../consts';
 import {
-  BuyForm,
-  Popup,
   TrainingInput
 } from '../../components';
 import { TrainingInputType } from '../training-input/training-input.const';
+import { Preloader, TrainingVideo } from '../../components';
 import Coach from './coach';
 import Rating from './rating';
 import Hashtags from './hashtags';
 import SpecialStatus from './special-status';
 import cn from 'classnames';
-function TrainingCard(): JSX.Element {
-  const isEdited = true;
-  const isCoach = true;
-  const isBalanceActive = true;
-  let activePopup = PopupKey.DefaultPopup;
 
-  const handleBuyButtonClick = (): void => {
-    activePopup = PopupKey.Buy;
-    //dispatch(setBuyForm({ trainingId: trainingId, price: Number(price) }));
-    //dispatch(setActivePopup(PopupKey.Buy));
-    <Popup type={PopupKey.Buy} title="Купить тренировку" activePopup={activePopup}>
-      <BuyForm />
-    </Popup>;
+function TrainingCard(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isCoach = useAppSelector(isUserCoach);
+  const trainingId = useAppSelector(getTrainingId);
+  const price = useAppSelector(getTrainingPrice);
+  const isBalanceActive = useAppSelector(isTrainingBalanceActive);
+  const isFormHaveError = useAppSelector(isTrainingFormHaveErrors);
+  const isSending = useAppSelector(isTrainingFormDataSending);
+  const isEdited = useAppSelector(isTrainingInfoEditing);
+
+  const [file, setFile] = useState<Blob | null>(null);
+
+  const handleFileUpload = () => {
+    if (file) {
+      dispatch(updateTrainingVideoAction({ trainingId, video: file })).then(
+        () => {
+          setFile(null);
+        },
+      );
+    }
   };
+
   const handleEditButtonClick = (
     evt: React.MouseEvent<HTMLButtonElement>,
   ): void => {
     evt.preventDefault();
     if (!isEdited) {
+      dispatch(setTrainingEditingStatus(true));
       return;
     }
-
+    dispatch(setUpdateTrainingRequiredFields());
+    if (!isFormHaveError) {
+      if (file) {
+        handleFileUpload();
+      }
+      dispatch(updateTrainingAction(trainingId));
+    }
   };
+
+  const handleBuyButtonClick = (): void => {
+    dispatch(setOrderForm({ trainingId: trainingId, price: Number(price) }));
+    dispatch(setActivePopup(PopupKey.Buy));
+  };
+
+  if (isSending) {
+    return <Preloader />;
+  }
 
   return (
     <div
@@ -100,46 +142,11 @@ function TrainingCard(): JSX.Element {
           </form>
         </div>
       </div>
-      <div className="training-video">
-        <h2 className="training-video__title">Видео</h2>
-        <div className="training-video__video">
-          <div className="training-video__thumbnail">
-            <picture>
-              <source
-                type="image/webp"
-                srcSet="img/content/training-video/video-thumbnail.webp, img/content/training-video/video-thumbnail@2x.webp 2x"
-              />
-              <img
-                src="img/content/training-video/video-thumbnail.png"
-                srcSet="img/content/training-video/video-thumbnail@2x.png 2x"
-                width={922}
-                height={566}
-                alt="Обложка видео"
-              />
-            </picture>
-          </div>
-          <button className="training-video__play-button btn-reset">
-            <svg width={18} height={30} aria-hidden="true">
-              <use xlinkHref="#icon-arrow" />
-            </svg>
-          </button>
-        </div>
-        <div className="training-video__buttons-wrapper">
-          <button
-            className="btn training-video__button training-video__button--start"
-            type="button"
-            disabled={isBalanceActive}
-          >
-            Приступить
-          </button>
-          <button
-            className="btn training-video__button training-video__button--stop"
-            type="button"
-          >
-            Закончить
-          </button>
-        </div>
-      </div>
+      <TrainingVideo
+        newVideo={file}
+        setFile={setFile}
+        onSave={handleFileUpload}
+      />
     </div>
   );
 }

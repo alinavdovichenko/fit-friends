@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, SALE_PERCENT } from '../../consts';
+import { AppRoute, SALE_PERCENT, STATIC_URL } from '../../consts';
 import { Training } from '../../types/training';
 
 type SpecialOffersCardProps = {
@@ -17,7 +17,7 @@ function SpecialOffersCard({ training }: SpecialOffersCardProps): JSX.Element {
         <div className="promo-slider__overlay" />
         <div className="promo-slider__image">
           <img
-            src={backgroundImage}
+            src={`${STATIC_URL}/${backgroundImage}`}
             width={1040}
             height={469}
             alt="Фотография тренировки"

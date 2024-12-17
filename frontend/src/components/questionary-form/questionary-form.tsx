@@ -1,10 +1,56 @@
-import { useNavigate } from 'react-router-dom';
-import { AppRoute} from '../../consts';
+import { FormEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  isUserCoach,
+  isUserFormDataSending,
+  isUserFormHaveErrors,
+  setCoachQuestionaryRequiredFields,
+  setCustomerQuestionaryRequiredFields,
+} from '../../store';
+import {
+  questionaryCoachAction,
+  questionaryCustomerAction,
+} from '../../store/api-actions';
+import {
+  CustomInput,
+  CustomInputType,
+  CertificatesInput,
+  StatusInput,
+  StatusInputMode,
+  TextAreaInput,
+  TextAreaInputType,
+  TrainingTypesInput,
+  RadioInput,
+  RadioInputType,
+} from '../../components';
+
+const styleClass = 'questionnaire-user';
+
 function QuestionaryForm(): JSX.Element {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isCoach = useAppSelector(isUserCoach);
+  const isSending = useAppSelector(isUserFormDataSending);
+  const isFormHaveError = useAppSelector(isUserFormHaveErrors);
+
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+    if (isCoach) {
+      dispatch(setCoachQuestionaryRequiredFields());
+      if (!isFormHaveError) {
+        dispatch(questionaryCoachAction({ certificates: files }));
+      }
+      return;
+    }
+    dispatch(setCustomerQuestionaryRequiredFields());
+    if (!isFormHaveError) {
+      dispatch(questionaryCustomerAction());
+    }
+  };
 
   return (
-    <form method="get">
+    <form method="post" onSubmit={handleFormSubmit}>
       <div className="questionnaire-user">
         <h1 className="visually-hidden">Опросник</h1>
         <div className="questionnaire-user__wrapper">
@@ -12,197 +58,73 @@ function QuestionaryForm(): JSX.Element {
             <span className="questionnaire-user__legend">
               Ваша специализация (тип) тренировок
             </span>
-            <div className="specialization-checkbox questionnaire-user__specializations">
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="yoga"
-                  />
-                  <span className="btn-checkbox__btn">Йога</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="running"
-                  />
-                  <span className="btn-checkbox__btn">Бег</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="power"
-                  />
-                  <span className="btn-checkbox__btn">Силовые</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="aerobics"
-                  />
-                  <span className="btn-checkbox__btn">Аэробика</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="crossfit"
-                  />
-                  <span className="btn-checkbox__btn">Кроссфит</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="boxing"
-                  />
-                  <span className="btn-checkbox__btn">Бокс</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="pilates"
-                  />
-                  <span className="btn-checkbox__btn">Пилатес</span>
-                </label>
-              </div>
-              <div className="btn-checkbox">
-                <label>
-                  <input
-                    className="visually-hidden"
-                    type="checkbox"
-                    name="specialisation"
-                    defaultValue="stretching"
-                  />
-                  <span className="btn-checkbox__btn">Стрейчинг</span>
-                </label>
-              </div>
-            </div>
+            <TrainingTypesInput styleClass={styleClass} />
           </div>
-          <div className="questionnaire-user__block">
-            <span className="questionnaire-user__legend">
-              Сколько времени вы готовы уделять на тренировку в день
-            </span>
-            <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="time" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">10-30 мин</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="time" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">30-50 мин</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="time" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">50-80 мин</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="time" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">80-100 мин</span>
-                </label>
-              </div>
+          {isCoach ? (
+            ''
+          ) : (
+            <div className="questionnaire-user__block">
+              <span className="questionnaire-user__legend">
+                Сколько времени вы готовы уделять на тренировку в день
+              </span>
+              <RadioInput
+                type={RadioInputType.TimeForTraining}
+                styleClass={styleClass}
+              />
             </div>
-          </div>
+          )}
           <div className="questionnaire-user__block">
             <span className="questionnaire-user__legend">Ваш уровень</span>
-            <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="level" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Новичок</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="level" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Любитель</span>
-                </label>
-              </div>
-              <div className="custom-toggle-radio__block">
-                <label>
-                  <input type="radio" name="level" />
-                  <span className="custom-toggle-radio__icon" />
-                  <span className="custom-toggle-radio__label">Профессионал</span>
-                </label>
-              </div>
-            </div>
+            <RadioInput type={RadioInputType.Level} styleClass={styleClass} />
           </div>
-          <div className="questionnaire-user__block">
-            <div className="questionnaire-user__calories-lose">
-              <span className="questionnaire-user__legend">
-                Сколько калорий хотите сбросить
-              </span>
-              <div className="custom-input custom-input--with-text-right questionnaire-user__input">
-                <label>
-                  <span className="custom-input__wrapper">
-                    <input type="number" name="calories-lose" />
-                    <span className="custom-input__text">ккал</span>
-                  </span>
-                </label>
+          {isCoach ? (
+            <>
+              <div className="questionnaire-coach__block">
+                <span className="questionnaire-coach__legend">
+                  Ваши дипломы и сертификаты
+                </span>
+                <CertificatesInput setFiles={setFiles} />
+              </div>
+              <div className="questionnaire-coach__block">
+                <span className="questionnaire-coach__legend">
+                  Расскажите о своём опыте, который мы сможем проверить
+                </span>
+                <TextAreaInput type={TextAreaInputType.Achievements} />
+                <StatusInput mode={StatusInputMode.Questionary} />
+              </div>
+            </>
+          ) : (
+            <div className="questionnaire-user__block">
+              <div className="questionnaire-user__calories-lose">
+                <span className="questionnaire-user__legend">
+                  Сколько калорий хотите сбросить
+                </span>
+                <CustomInput
+                  type={CustomInputType.CaloriesToLose}
+                  styleClass={styleClass}
+                />
+              </div>
+              <div className="questionnaire-user__calories-waste">
+                <span className="questionnaire-user__legend">
+                  Сколько калорий тратить в день
+                </span>
+                <CustomInput
+                  type={CustomInputType.CaloriesPerDay}
+                  styleClass={styleClass}
+                />
               </div>
             </div>
-            <div className="questionnaire-user__calories-waste">
-              <span className="questionnaire-user__legend">
-                Сколько калорий тратить в день
-              </span>
-              <div className="custom-input custom-input--with-text-right questionnaire-user__input">
-                <label>
-                  <span className="custom-input__wrapper">
-                    <input type="number" name="calories-waste" />
-                    <span className="custom-input__text">ккал</span>
-                  </span>
-                </label>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
         <button
           className="btn questionnaire-user__button"
           type="submit"
-          onClick={() => navigate(AppRoute.Main)}
+          disabled={isSending}
         >
           Продолжить
         </button>
       </div>
     </form>
-
   );
 }
 

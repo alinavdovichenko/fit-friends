@@ -1,4 +1,6 @@
 import { useCallback, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getActivePopup, setActivePopup } from '../../store';
 import { PopupKey } from '../../consts';
 import FocusLock from 'react-focus-lock';
 import cn from 'classnames';
@@ -8,19 +10,20 @@ type PopupProps = {
   title: string;
   children: JSX.Element;
   extraLabel?: string;
-  activePopup: PopupKey;
 };
 
-function Popup({ type, title, children, extraLabel, activePopup }: PopupProps): JSX.Element {
+function Popup({ type, title, children, extraLabel }: PopupProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const activePopup = useAppSelector(getActivePopup);
   const isActive = activePopup === type;
-  // const activePopup = useAppSelector(getActivePopup);
+
   const handleKeydownEvent = useCallback(
     (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
-        activePopup = PopupKey.DefaultPopup;
+        dispatch(setActivePopup());
       }
     },
-    [activePopup],
+    [dispatch],
   );
 
   useEffect(() => {
@@ -32,7 +35,7 @@ function Popup({ type, title, children, extraLabel, activePopup }: PopupProps): 
     }
     document.body.classList.remove('with-popup');
     document.removeEventListener('keydown', handleKeydownEvent);
-  }, [handleKeydownEvent, isActive]);
+  }, [dispatch, handleKeydownEvent, isActive]);
 
   return (
     <FocusLock disabled={!isActive}>
@@ -63,6 +66,9 @@ function Popup({ type, title, children, extraLabel, activePopup }: PopupProps): 
                 className="btn-icon btn-icon--outlined btn-icon--big"
                 type="button"
                 aria-label="close"
+                onClick={() => {
+                  dispatch(setActivePopup());
+                }}
               >
                 <svg width="20" height="20" aria-hidden="true">
                   <use xlinkHref="#icon-cross"></use>

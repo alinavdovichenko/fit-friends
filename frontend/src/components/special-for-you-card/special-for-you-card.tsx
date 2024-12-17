@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts';
+import { AppRoute, STATIC_URL } from '../../consts';
 import { Training } from '../../types/training';
 
 type SpecialForYouCardProps = {
@@ -21,7 +21,7 @@ function SpecialForYouCard({
         <div className="thumbnail-preview__image">
           <picture>
             <img
-              src={backgroundImage}
+              src={`${STATIC_URL}/${backgroundImage}`}
               width={452}
               height={191}
               alt="Фотография тренировки"

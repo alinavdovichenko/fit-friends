@@ -12,7 +12,7 @@ import {
   PaymentType
 } from '../consts';
 import { Route } from './route';
-import { Training, User, FileData, TrainingBalance, TrainingOrders } from '../types';
+import { Training, User, FileData, TrainingBalance, TrainingOrders, Comment } from '../types';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -132,7 +132,7 @@ export type UserInfo = {
   subscriptionStatus: boolean;
   isDataLoading: boolean;
   isCoachInfoActual: boolean;
-  isWorkoutsLoading: boolean;
+  isTrainingsLoading: boolean;
   hasError: boolean;
 };
 

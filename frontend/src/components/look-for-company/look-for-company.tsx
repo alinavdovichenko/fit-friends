@@ -1,16 +1,21 @@
 import { useRef } from 'react';
-import { SliderButtons, UserCard } from '../index';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { getReadyUsers } from '../../store';
+import { AppRoute } from '../../consts';
+import { SliderButtons, UserCard, UserCardType } from '../index';
 import { SliderConfig, SlidesAmount } from '../../types/slider';
 import Slider from 'react-slick';
-import { users } from '../../mocks/users';
+
 function LookForCompany(): JSX.Element {
+  const users = useAppSelector(getReadyUsers);
+  const navigate = useNavigate();
   const sliderRef = useRef<Slider>(null);
   const settings = {
     ...SliderConfig,
     className: 'look-for-company__list',
     slidesToShow: SlidesAmount.LookForCompany,
   };
-  const isDisabled = true;
   return (
     <section className="look-for-company">
       <div className="container">
@@ -22,7 +27,7 @@ function LookForCompany(): JSX.Element {
             <button
               className="btn-flat btn-flat--light look-for-company__button"
               type="button"
-              disabled={isDisabled}
+              onClick={() => navigate(AppRoute.Users)}
             >
               <span>Смотреть все</span>
               <svg width={14} height={10} aria-hidden="true">
@@ -42,6 +47,9 @@ function LookForCompany(): JSX.Element {
             {users.map((user) => (
               <UserCard
                 user={user}
+                type={UserCardType.Default}
+                styleClass='look-for-company'
+                isDark
                 key={`user-${user.id}`}
               />
             ))}
@@ -49,7 +57,6 @@ function LookForCompany(): JSX.Element {
         </div>
       </div>
     </section>
-
   );
 }
 

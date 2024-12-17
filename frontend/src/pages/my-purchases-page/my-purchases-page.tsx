@@ -1,9 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { isUserCoach, resetCatalogData, resetOrdersSorting, setActiveRoute } from '../../store';
 import { MyPurchasesList, MyPurchasesSorting } from '../../components';
-import { AppRoute } from '../../consts';
+import { useEffect } from 'react';
+import { AppRoute, ListItemsPortion } from '../../consts';
+
 function MyPurchasesPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isCoach = useAppSelector(isUserCoach);
+
+  useEffect(() => {
+    if (!isCoach) {
+      navigate(AppRoute.Main);
+      return;
+    }
+    dispatch(resetCatalogData(ListItemsPortion.CoachOrders));
+    dispatch(resetOrdersSorting());
+    dispatch(setActiveRoute(AppRoute.Orders));
+  }, [navigate, dispatch, isCoach]);
 
   return (
     <section className="my-purchases">

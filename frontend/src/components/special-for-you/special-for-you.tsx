@@ -1,10 +1,12 @@
+import { useAppSelector } from '../../hooks';
+import { getTrainingsForUser } from '../../store';
 import { useRef } from 'react';
 import Slider from 'react-slick';
 import { SliderConfig, SlidesAmount } from '../../types/slider';
 import { SliderButtons, SpecialForYouCard } from '../index';
-import { trainings } from '../../mocks/training';
 
 function SpecialForYou(): JSX.Element {
+  const trainings = useAppSelector(getTrainingsForUser);
   const sliderRef = useRef<Slider>(null);
   const settings = {
     ...SliderConfig,

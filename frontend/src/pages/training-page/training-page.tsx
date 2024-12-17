@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import { AppRoute, PopupKey } from '../../consts';
 import {
@@ -7,18 +6,67 @@ import {
   BuyForm,
   Popup,
   TrainingCard,
+  Preloader,
 } from '../../components';
 
-function TrainingPage(): JSX.Element {
-  const navigate = useNavigate();
-  //const { trainingId } = useParams();
-  let activePopup = PopupKey.DefaultPopup;
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  getTrainingId,
+  isUserHaveAccessToTraining,
+  isTrainingBalanceExists,
+  isTrainingInfoLoading,
+  setActiveRoute,
+  setCommentForm,
+  setActivePopup,
+  isTrainingInfoHasError,
+} from '../../store';
+import {
+  getTrainingAction,
+} from '../../store/api-actions';
+import { useEffect } from 'react';
+import { NotFoundPage } from '../../pages';
 
-  const handleAddReviewButtonClick = () => {
-    activePopup = PopupKey.Feedback;
-    //dispatch(setReviewForm(trainingId as string));
-    //dispatch(setActivePopup(PopupKey.Feedback));
+
+function TrainingPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { trainingId } = useParams();
+  const isUserHaveAccess = useAppSelector(isUserHaveAccessToTraining);
+  const isBalanceExists = useAppSelector(isTrainingBalanceExists);
+  const currentWorkoutId = useAppSelector(getTrainingId);
+  const isDataLoading = useAppSelector(isTrainingInfoLoading);
+  const hasError = useAppSelector(isTrainingInfoHasError);
+
+  useEffect(() => {
+    if (currentWorkoutId !== trainingId && !isDataLoading) {
+      dispatch(getTrainingAction(trainingId as string));
+    }
+    if (!isUserHaveAccess && currentWorkoutId === trainingId) {
+      navigate(AppRoute.Account);
+    }
+    dispatch(setActiveRoute());
+  }, [
+    navigate,
+    dispatch,
+    trainingId,
+    currentWorkoutId,
+    isDataLoading,
+    isUserHaveAccess,
+  ]);
+
+  const handleAddCommentButtonClick = () => {
+    dispatch(setCommentForm(trainingId as string));
+    dispatch(setActivePopup(PopupKey.Feedback));
   };
+
+  if (isDataLoading) {
+    return <Preloader />;
+  }
+
+  if (hasError) {
+    return <NotFoundPage />;
+  }
 
   return (
     <section className="inner-page">
@@ -32,7 +80,7 @@ function TrainingPage(): JSX.Element {
             <button
               className="btn-flat btn-flat--underlined reviews-side-bar__back"
               type="button"
-              onClick={() => navigate(AppRoute.TrainingCatalog)}
+              onClick={() => navigate(AppRoute.Trainings)}
             >
               <svg width={14} height={10} aria-hidden="true">
                 <use xlinkHref="#arrow-left" />
@@ -44,7 +92,9 @@ function TrainingPage(): JSX.Element {
             <button
               className="btn btn--medium reviews-side-bar__button"
               type="button"
-              onClick={handleAddReviewButtonClick}
+              disabled={!isBalanceExists}
+              onClick={handleAddCommentButtonClick}
+              data-testid="commentButton"
             >
               Оставить отзыв
             </button>
@@ -52,10 +102,10 @@ function TrainingPage(): JSX.Element {
           <TrainingCard />
         </div>
       </div>
-      <Popup type={PopupKey.Feedback} title="Оставить отзыв" activePopup={activePopup}>
+      <Popup type={PopupKey.Feedback} title="Оставить отзыв">
         <FeedbackForm />
       </Popup>
-      <Popup type={PopupKey.Buy} title="Купить тренировку" activePopup={activePopup}>
+      <Popup type={PopupKey.Buy} title="Купить тренировку">
         <BuyForm />
       </Popup>
     </section>

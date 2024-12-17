@@ -1,4 +1,3 @@
-
 import { CatalogButtons, TrainingCatalogCard } from '../index';
 import { myPurchases } from '../../mocks/my-purchases';
 

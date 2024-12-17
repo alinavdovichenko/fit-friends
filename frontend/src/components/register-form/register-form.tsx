@@ -8,25 +8,43 @@ import {
   RoleInput
 } from '../../components';
 import { AppRoute} from '../../consts';
-import { FormEvent, useState } from 'react';
 import { CustomInputType } from '../custom-input/cuctom-input.const';
 import { SelectInputType } from '../select-input/select-input.const';
 import { RadioInputType } from '../radio-input/radio-input.const';
+import { FormEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  isUserFormDataSending,
+  isUserFormHaveErrors,
+  setRegisterRequiredFields,
+} from '../../store';
+import { registerAction } from '../../store/api-actions';
+
 function RegisterForm(): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isAgree, setAgreement] = useState(false);
+  const isSending = useAppSelector(isUserFormDataSending);
+  const isFormHaveError = useAppSelector(isUserFormHaveErrors);
+  const [isAgree, setAgreement] = useState(true);
   const [file, setFile] = useState<Blob | null>(null);
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    console.log(file);
+    dispatch(setRegisterRequiredFields());
+    if (!isFormHaveError && file) {
+      dispatch(registerAction({ avatar: file })).then((res) => {
+        if (res.meta.requestStatus === 'fulfilled') {
+          navigate(AppRoute.Questionary);
+        }
+      });
+    }
   };
 
   return (
-    <form method="post" onSubmit={handleFormSubmit}>
+    <form method="post" onSubmit={handleFormSubmit} role="form">
       <div className="sign-up">
         <div className="sign-up__load-photo">
-          <AvatarInput setFile={setFile}/>
+          <AvatarInput setFile={setFile} />
           <div className="sign-up__description">
             <h2 className="sign-up__legend">Загрузите фото профиля</h2>
             <span className="sign-up__text">
@@ -41,7 +59,7 @@ function RegisterForm(): JSX.Element {
           <SelectInput
             type={SelectInputType.Location}
             label="Ваша локация"
-            styleClass="sing-up"
+            styleClass="sing-up__input"
           />
           <CustomInput type={CustomInputType.Password} />
           <div className="sign-up__radio">
@@ -56,6 +74,7 @@ function RegisterForm(): JSX.Element {
               type="checkbox"
               defaultValue="user-agreement"
               name="user-agreement"
+              disabled={isSending}
               checked={isAgree}
               onChange={() => {
                 setAgreement(!isAgree);
@@ -74,8 +93,7 @@ function RegisterForm(): JSX.Element {
         <button
           className="btn sign-up__button"
           type="submit"
-          disabled={!isAgree}
-          onClick={() => navigate(AppRoute.Main)}
+          disabled={isSending || !isAgree}
         >
           Продолжить
         </button>

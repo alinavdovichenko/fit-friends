@@ -1,80 +1,37 @@
-import { AuthUser } from '../../types/user';
-import { useState, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute} from '../../consts';
-import { validateEmail, validatePassword } from '../../utils/validation';
+import { FormEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  isUserFormDataSending,
+  isUserFormHaveErrors,
+  setLoginRequiredFields,
+} from '../../store';
+import { loginAction } from '../../store/api-actions';
+import { CustomInput, CustomInputType } from '../../components';
 
-const validate = (formData: AuthUser): boolean => {
-  if (!validateEmail(formData.email)) {
-    return false;
-  }
+const inputStyleClass = 'sign-in';
 
-  if (!validatePassword(formData.password)) {
-    return false;
-  }
-
-  return true;
-};
 function LoginForm(): JSX.Element {
-  const navigate = useNavigate();
-  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
-  const [formData, setFormData] = useState<AuthUser>({
-    email: '',
-    password: '',
-  });
+  const dispatch = useAppDispatch();
+  const isSending = useAppSelector(isUserFormDataSending);
+  const isFormHaveError = useAppSelector(isUserFormHaveErrors);
 
-  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
-    if (validate({ ...formData, [name]: value })) {
-      setIsSubmitButtonOk(true);
-    } else {
-      setIsSubmitButtonOk(false);
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+    evt.preventDefault();
+    dispatch(setLoginRequiredFields());
+    if (!isFormHaveError) {
+      dispatch(loginAction());
     }
   };
 
   return (
-    <form method="post" action="/">
+    <form method="post" onSubmit={handleFormSubmit}>
       <div className="sign-in">
-        <div className="custom-input sign-in__input">
-          <label>
-            <span className="custom-input__label">E-mail</span>
-            <span className="custom-input__wrapper">
-              <input
-                onChange={handleTextChange}
-                value={formData.email}
-                type="email"
-                name="email"
-                required
-              />
-              <p className={!validateEmail(formData.email) ? 'sign-in__error' : 'sign-in__success'}>
-                {!validateEmail(formData.email) ? 'Заполните поле' : 'Поле заполненно правильно!'}
-              </p>
-            </span>
-          </label>
-        </div>
-        <div className="custom-input sign-in__input">
-          <label>
-            <span className="custom-input__label">Пароль</span>
-            <span className="custom-input__wrapper">
-              <input
-                onChange={handleTextChange}
-                value={formData.password}
-                type="password"
-                name="password"
-                required
-              />
-              <p className={!validatePassword(formData.password) ? 'sign-in__error' : 'sign-in__success'}>
-                {!validatePassword(formData.password) ? 'Заполните поле' : 'Поле заполненно правильно!'}
-              </p>
-            </span>
-          </label>
-        </div>
+        <CustomInput type={CustomInputType.Email} styleClass={inputStyleClass} />
+        <CustomInput type={CustomInputType.Password} styleClass={inputStyleClass} />
         <button
           className="btn sign-in__button"
           type="submit"
-          disabled={!isSubmitButtonOk}
-          onClick={() => navigate(AppRoute.Main)}
+          disabled={isSending}
         >
           Продолжить
         </button>

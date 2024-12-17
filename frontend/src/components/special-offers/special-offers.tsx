@@ -1,9 +1,11 @@
 import Slider from 'react-slick';
 import { useRef } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getSpecialTrainings } from '../../store';
 import { SliderConfig, SlidesAmount } from '../../types/slider';
-import { SliderDots, SpecialOffersCard } from '../index';
-import { specialTrainings } from '../../mocks/training';
+import { SliderDots, SpecialOffersCard, NewFeatureFiller } from '../index';
 function SpecialOffers(): JSX.Element {
+  const specialTrainings = useAppSelector(getSpecialTrainings);
   const sliderRef = useRef<Slider>(null);
   const settings = {
     ...SliderConfig,
@@ -30,6 +32,7 @@ function SpecialOffers(): JSX.Element {
               styleClass="special-offers"
             />
           </div>
+          <NewFeatureFiller />
         </div>
       </div>
     </section>

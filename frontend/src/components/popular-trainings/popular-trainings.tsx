@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { popularTrainings } from '../../mocks/popular-training';
 import { AppRoute} from '../../consts';
 import { SliderButtons, PopularTrainingsCard } from '../index';
 import { SliderConfig, SlidesAmount } from '../../types/slider';
+import { useAppSelector } from '../../hooks';
+import { getPopularTrainings } from '../../store';
 import Slider from 'react-slick';
 function PopularTrainings(): JSX.Element {
+  const popularTrainings = useAppSelector(getPopularTrainings);
   const sliderRef = useRef<Slider>(null);
   const settings = {
     ...SliderConfig,

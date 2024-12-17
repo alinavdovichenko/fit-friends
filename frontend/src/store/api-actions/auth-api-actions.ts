@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoggedUser, UserFiles } from '../../types';
+import { LoggedUser, UserFiles, CertificatesFiles } from '../../types';
 import { APIRoute, AppRoute, UserRole } from '../../consts';
 import { saveTokens } from '../../services/token';
 import { redirectToRoute } from '../actions';
 import {
   getRegisterData,
+  getCustomerQuestionaryData,
+  getCoachQuestionaryData
 } from '../../utils/user-form-data';
 import { AsyncThunkConfig } from './async-thunk-config';
 
@@ -48,3 +50,30 @@ export const registerAction = createAsyncThunk<
   saveTokens(accessToken, refreshToken);
   return data;
 });
+
+export const questionaryCustomerAction = createAsyncThunk<
+  void,
+  undefined,
+  AsyncThunkConfig
+>(
+  'auth/questionary-customer',
+  async (_arg, { getState, dispatch, extra: api }) => {
+    const formData = getCustomerQuestionaryData(getState());
+    await api.patch(APIRoute.QuestionaryUser, formData);
+    dispatch(redirectToRoute(AppRoute.Main));
+  },
+);
+
+export const questionaryCoachAction = createAsyncThunk<
+  void,
+  CertificatesFiles,
+  AsyncThunkConfig
+>(
+  'auth/questionary-coach',
+  async (files, { getState, dispatch, extra: api }) => {
+    const formData = getCoachQuestionaryData(getState(), files.certificates);
+    await api.patch(APIRoute.QuestionaryCoach, formData);
+    dispatch(redirectToRoute(AppRoute.Account));
+  },
+);
+
