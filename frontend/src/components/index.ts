@@ -14,6 +14,8 @@ export { default as RegisterForm } from './register-form/register-form';
 export { default as QuestionaryForm } from './questionary-form/questionary-form';
 export { default as UserForm } from './user-form/user-form';
 export { default as Popup } from './popup/popup';
+export { default as OrdersList } from './orders-list/orders-list';
+export { default as OrdersSorting } from './orders-sorting/orders-sorting';
 export { default as TrainingsFilter } from './trainings-filter/trainings-filter';
 export { default as AvatarInput } from './avatar-input/avatar-input';
 export { default as CustomInput } from './custom-input/custom-input';

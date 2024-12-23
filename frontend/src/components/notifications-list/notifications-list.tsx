@@ -1,8 +1,10 @@
-import { notifications } from '../../mocks/notifications';
 import NotificationCard from '../notification-card/notification-card';
 import cn from 'classnames';
+import { useAppSelector } from '../../hooks';
+import { getNotifications } from '../../store';
 
 function NotificationsList(): JSX.Element {
+  const notifications = useAppSelector(getNotifications);
   return (
     <li
       className={cn('main-nav__item main-nav__item--notifications', {

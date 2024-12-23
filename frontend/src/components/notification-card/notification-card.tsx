@@ -1,4 +1,6 @@
-import { Notification } from '../../types/notification';
+import { useAppDispatch } from '../../hooks';
+import { deleteNotificationAction } from '../../store/api-actions';
+import { Notification } from '../../types';
 import dayjs from 'dayjs';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
@@ -30,14 +32,19 @@ type NotificationCardProps = {
 function NotificationCard({
   notification,
 }: NotificationCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id, text, date } = notification;
-  console.log(id);
+
+  const handleNotificationClick = () => {
+    dispatch(deleteNotificationAction(id));
+  };
 
   return (
     <li className="main-nav__subitem">
       <a
         className="notification is-active"
         type="button"
+        onClick={handleNotificationClick}
       >
         <p className="notification__text">{text}</p>
         <time className="notification__time" dateTime={date.toString()}>

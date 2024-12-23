@@ -1,7 +1,11 @@
 import { CatalogButtons, TrainingCatalogCard } from '../index';
-import { myPurchases } from '../../mocks/my-purchases';
+import { useAppSelector } from '../../hooks';
+import {
+  getTrainingsList,
+} from '../../store';
 
 function MyPurchasesList(): JSX.Element {
+  const myPurchases = useAppSelector(getTrainingsList);
   const onlyActive = true;
 
   if (!myPurchases.length) {
@@ -19,9 +23,9 @@ function MyPurchasesList(): JSX.Element {
       <ul className="my-purchases__list">
         {myPurchases.map((myPurchase) => (
           <TrainingCatalogCard
-            training={myPurchase.training}
+            training={myPurchase}
             styleClass="my-purchases__item"
-            key={`training-${myPurchase.training.id}`}
+            key={`training-${myPurchase.id}`}
           />
         ))}
       </ul>

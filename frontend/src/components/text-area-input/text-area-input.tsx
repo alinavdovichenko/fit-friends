@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { ChangeEvent, useEffect } from 'react';
 import { TextAreaInputType, TextAreaInputTypeDiffs } from './text-area-input.const';
 import cn from 'classnames';
 
@@ -15,19 +16,30 @@ function TextAreaInput({
 }: TextAreaInputProps): JSX.Element {
   const {
     styleClass,
+    valueSelector,
+    errorSelector,
     validationFunction,
+    setError,
+    formStatusSelector,
+    setValue,
     fieldName,
     labelText,
   } = TextAreaInputTypeDiffs[type];
+  const dispatch = useAppDispatch();
+  const value = useAppSelector(valueSelector);
+  const valueError = useAppSelector(errorSelector);
+  const isDisabled = useAppSelector(formStatusSelector);
 
-  const [value, setValue] = useState('');
-  const handleTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(evt.target.value);
-  };
+  useEffect(() => {
+    if (originalValue && isActive) {
+      dispatch(setValue(originalValue));
+    }
+  }, [dispatch, setValue, isActive, originalValue]);
 
   return (
     <div
       className={cn('custom-textarea', styleClass ?? '', {
+        'custom-textarea--error': valueError,
         'custom-textarea--readonly': !isActive,
       })}
     >
@@ -39,11 +51,17 @@ function TextAreaInput({
           name={fieldName}
           placeholder=" "
           value={isActive ? value : originalValue}
-          onChange={handleTextChange}
+          disabled={isDisabled || !isActive}
+          onInput={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+            dispatch(setValue(target.value));
+            if (validationFunction(target.value) !== valueError) {
+              dispatch(setError(validationFunction(target.value)));
+            }
+          }}
         />
-        <p className={!validationFunction(value) ? 'sign-in__error' : 'sign-in__success'}>
-          {!validationFunction(value) ? 'Заполните поле' : 'Поле заполненно правильно!'}
-        </p>
+        {valueError && (
+          <span className="custom-textarea__error">{valueError}</span>
+        )}
       </label>
     </div>
   );

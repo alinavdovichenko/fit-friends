@@ -1,13 +1,18 @@
 import { SALE_PERCENT } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getTrainingFormSpecialFlag, setIsSpecial } from '../../store';
 
 function SpecialStatus(): JSX.Element {
-  const status = true;
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(getTrainingFormSpecialFlag);
 
   return (
     <button
       className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
       type="button"
-      onClick={() => {}}
+      onClick={() => {
+        dispatch(setIsSpecial());
+      }}
     >
       <svg width="14" height="14" aria-hidden="true">
         <use xlinkHref="#icon-discount"></use>

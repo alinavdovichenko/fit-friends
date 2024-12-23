@@ -1,5 +1,5 @@
 import { NameSpace, PopupKey, AuthorizationStatus, UserRole } from '../../consts';
-import { Route, State } from '../../types';
+import { Route, State, Notification } from '../../types';
 
 export const isUserAuth = (state: Pick<State, NameSpace.AppData>): boolean =>
   state[NameSpace.AppData].authStatus === AuthorizationStatus.Auth;
@@ -15,6 +15,10 @@ export const isUserCoach = (state: Pick<State, NameSpace.AppData>): boolean =>
 export const getCurrentPage = (
   state: Pick<State, NameSpace.AppData>,
 ): Route | undefined => state[NameSpace.AppData].activePage;
+
+export const getNotifications = (
+  state: Pick<State, NameSpace.AppData>,
+): Notification[] => state[NameSpace.AppData].notifications;
 
 export const hasNotifications = (
   state: Pick<State, NameSpace.AppData>,

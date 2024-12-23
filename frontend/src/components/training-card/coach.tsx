@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
-import { users } from '../../mocks/users';
-import { AppRoute } from '../../consts';
+import { useAppSelector } from '../../hooks';
+import { getTrainingCoach } from '../../store';
+import { getFileUrl } from '../../utils/common';
+import { AppRoute, IMAGE_PLACEHOLDER } from '../../consts';
 
 function Coach(): JSX.Element {
-  const coach = users[1];
+  const coach = useAppSelector(getTrainingCoach);
 
   return (
     <div className="training-info__coach">
       <div className="training-info__photo">
         <picture>
           <img
-            src={coach.avatar}
+            src={coach && coach.avatar ? getFileUrl(coach.avatar) : IMAGE_PLACEHOLDER}
             width={64}
             height={64}
             alt="Изображение тренера"

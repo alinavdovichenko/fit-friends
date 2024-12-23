@@ -25,5 +25,6 @@ export * from './trainings-list/selectors';
 export * from './orders-list/orders-list';
 export * from './orders-list/selectors';
 export * from './order-form/order-form';
+export * from './order-form/selectors';
 export * from './comment-form/comment-form';
 export * from './comment-form/selectors';
