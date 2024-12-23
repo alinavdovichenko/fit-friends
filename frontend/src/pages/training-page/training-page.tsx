@@ -94,7 +94,6 @@ function TrainingPage(): JSX.Element {
               type="button"
               disabled={!isBalanceExists}
               onClick={handleAddCommentButtonClick}
-              data-testid="commentButton"
             >
               Оставить отзыв
             </button>

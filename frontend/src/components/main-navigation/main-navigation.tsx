@@ -1,12 +1,24 @@
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { getCurrentPage, isUserCoach } from '../../store';
 import { Link } from 'react-router-dom';
-import { UserLinks } from './main-navigation.const';
+import { UserLinks, CoachLinks } from './main-navigation.const';
+import { getUserNotificationsAction } from '../../store/api-actions/notifications-api-actions';
 import { NotificationsList } from '../index';
 import cn from 'classnames';
 
 function MainNavigation(): JSX.Element {
 
+  const dispatch = useAppDispatch();
+  const isCoach = useAppSelector(isUserCoach);
+  const activePage = useAppSelector(getCurrentPage);
+
+  useEffect(() => {
+    dispatch(getUserNotificationsAction());
+  }, [dispatch, activePage]);
+
   const getMainLinks = () => {
-    const list = UserLinks;
+    const list = isCoach ? CoachLinks : UserLinks;
     return list.map((link) => (
       <li
         className="main-nav__item"
@@ -15,7 +27,7 @@ function MainNavigation(): JSX.Element {
         <Link
           to={link.Route}
           className={cn('main-nav__link', {
-            'is-active': link.Icon === '#icon-friends',
+            'is-active': activePage === link.Route,
           })}
           aria-label={link.Label}
         >

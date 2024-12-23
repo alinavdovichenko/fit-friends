@@ -16,7 +16,6 @@ function Certificate({ file }: CertificateProps): JSX.Element {
           width="auto"
           height="100%"
           style={{ border: 'none' }}
-          data-testid="certificate"
         />
       </div>
     </li>

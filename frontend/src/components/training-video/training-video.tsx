@@ -54,7 +54,6 @@ function TrainingVideo({
         'training-video--load': isEdited && !hasVideo,
         'training-video--stop': isWorkoutActive,
       })}
-      data-testid="videoBlock"
     >
       <h2 className="training-video__title">Видео</h2>
       <div className="training-video__video">

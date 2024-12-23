@@ -128,7 +128,6 @@ function UserInfo(): JSX.Element {
           type="button"
           disabled={isCoach && !isFriend}
           onClick={handleFriendButtonClick}
-          data-testid="friendButton"
         >
           {isFriend ? 'Удалить из друзей' : 'Добавить в друзья'}
         </button>

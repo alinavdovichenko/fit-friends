@@ -23,7 +23,6 @@ function VideoControls(): JSX.Element {
         onClick={() => {
           dispatch(decreaseTrainingBalanceAction(trainingId));
         }}
-        data-testid="startButton"
       >
         Приступить
       </button>

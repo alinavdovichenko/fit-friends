@@ -8,7 +8,7 @@ import { IntroPage,
   MainPage,
   LoginPage,
   RegisterPage,
-  QuestionaryUserPage,
+  QuestionaryPage,
   AccountPage,
   TrainingCatalogPage,
   MyPurchasesPage,
@@ -27,7 +27,7 @@ function App(): JSX.Element {
             <Route path={AppRoute.Register} element={<RegisterPage />} />
             <Route
               path={AppRoute.Questionary}
-              element={ <QuestionaryUserPage />}
+              element={ <QuestionaryPage />}
             />
           </Route>
           <Route element={<Layout />} >

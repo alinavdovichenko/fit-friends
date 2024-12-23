@@ -12,7 +12,7 @@ import {
   PaymentType
 } from '../consts';
 import { Route } from './route';
-import { Training, User, FileData, TrainingBalance, TrainingOrders, Comment } from '../types';
+import { Training, User, FileData, TrainingBalance, TrainingOrders, Comment, Notification } from '../types';
 
 export type State = ReturnType<typeof store.getState>;
 

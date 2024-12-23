@@ -1,33 +1,57 @@
-import { useState, ChangeEvent } from 'react';
-import { validateBirthDay } from '../../utils/validation';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  getUserFormDateOfBirth,
+  getUserFormDateOfBirthError,
+  isUserFormDataSending,
+  setDateOfBirth,
+  setUserFormError,
+} from '../../store';
+import { ChangeEvent } from 'react';
+import { validateDateOfBirth } from '../../utils/validation';
+import cn from 'classnames';
 import dayjs from 'dayjs';
 
 const DATA_FORMAT = 'YYYY-MM-DD';
 
 function BirthDayInput(): JSX.Element {
-  const [value, setValue] = useState('');
-  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    setValue(evt.target.value);
-  };
+  const dispatch = useAppDispatch();
+  const dateOfBirth = useAppSelector(getUserFormDateOfBirth);
+  const dateOfBirthError = useAppSelector(getUserFormDateOfBirthError);
+  const isDisabled = useAppSelector(isUserFormDataSending);
 
   return (
-    <div className="custom-input">
+    <div
+      className={cn('custom-input sign-in__input', {
+        'custom-input--error': dateOfBirthError,
+      })}
+    >
       <label>
         <span className="custom-input__label">Дата рождения</span>
         <span className="custom-input__wrapper">
           <input
-            onChange={handleTextChange}
             type="date"
-            name="birthday"
+            name="dateOfBirth"
             value={
-              value ? String(dayjs(value).format(DATA_FORMAT)) : ''
+              dateOfBirth ? String(dayjs(dateOfBirth).format(DATA_FORMAT)) : ''
             }
             max="2099-12-31"
+            disabled={isDisabled}
+            onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
+              dispatch(setDateOfBirth(target.value));
+              if (validateDateOfBirth(target.value) !== dateOfBirthError) {
+                dispatch(
+                  setUserFormError([
+                    'dateOfBirth',
+                    validateDateOfBirth(target.value),
+                  ])
+                );
+              }
+            }}
           />
-          {!validateBirthDay(value) && (
-            <span className="custom-input__error">validateBirthDay(value)</span>
-          )}
         </span>
+        {dateOfBirthError && (
+          <span className="custom-input__error">{dateOfBirthError}</span>
+        )}
       </label>
     </div>
   );

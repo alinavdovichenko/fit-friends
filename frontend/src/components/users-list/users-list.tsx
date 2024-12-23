@@ -61,7 +61,7 @@ function UsersList({ type }: UsersListProps): JSX.Element {
 
   return (
     <>
-      <ul className={`${styleClass}__list`} data-testid="usersList">
+      <ul className={`${styleClass}__list`}>
         {users.map((user) => (
           <UserCard
             type={cardType}

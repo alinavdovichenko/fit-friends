@@ -33,7 +33,7 @@ function FeedbackForm(): JSX.Element {
           Поделитесь своими впечатлениями о тренировке
         </h3>
         <div className="popup__feedback-textarea">
-          <TextAreaInput type={TextAreaInputType.FeedbackText} />
+          <TextAreaInput type={TextAreaInputType.CommentText} />
         </div>
       </div>
       <div className="popup__button">

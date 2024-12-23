@@ -264,6 +264,7 @@ export const APIRoute = {
   UpdateTrainingRequest: '/training-requests',
   SubscribeTo: '/subscribe/add',
   UnsubscribeFrom: '/subscribe/remove',
+  Notifications: '/notifications',
 } as const;
 
 export enum TrainingsSortType {

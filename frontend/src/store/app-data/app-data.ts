@@ -57,7 +57,7 @@ export const appData = createSlice({
         state.userId = action.payload.id;
       })
       .addCase(decreaseTrainingBalanceAction.fulfilled, (state, action) => {
-        state.activeTraining = action.payload.workoutId;
+        state.activeTraining = action.payload.trainingId;
       })
       .addCase(getUserNotificationsAction.fulfilled, (state, action) => {
         state.notifications = action.payload;

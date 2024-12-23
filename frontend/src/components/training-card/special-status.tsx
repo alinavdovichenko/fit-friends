@@ -8,7 +8,6 @@ function SpecialStatus(): JSX.Element {
       className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
       type="button"
       onClick={() => {}}
-      data-testid="discountButton"
     >
       <svg width="14" height="14" aria-hidden="true">
         <use xlinkHref="#icon-discount"></use>
