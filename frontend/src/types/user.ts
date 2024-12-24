@@ -46,7 +46,7 @@ export type FullUser = User &
     certificates?: FileData[];
   };
 
-  export type AuthUser = FullUser & {
+export type AuthUser = FullUser & {
     caloriesToLose?: number;
     caloriesPerDay?: number;
     certificates?: FileData[];

@@ -9,4 +9,9 @@ export { default as MyPurchasesPage } from './my-purchases-page/my-purchases-pag
 export { default as UserPage } from './user-page/user-page';
 export { default as TrainingPage } from './training-page/training-page';
 export { default as NotFoundPage } from './not-found-page/not-found-page';
-
+export { default as FriendsPage } from './friends-page/friends-page';
+export { default as BalancePage } from './balance-page/balance-page';
+export { default as CoachTrainingsPage } from './coach-trainings-page/coach-trainings-page';
+export { default as OrdersPage } from './orders-page/orders-page';
+export { default as CreateTrainingPage } from './create-training-page/create-training-page';
+export { default as UsersCatalogPage } from './users-catalog-page/users-catalog-page';

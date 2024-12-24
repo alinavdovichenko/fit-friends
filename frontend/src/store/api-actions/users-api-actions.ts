@@ -52,6 +52,6 @@ export const getCoachDataAction = createAsyncThunk<
   );
   return {
     ...subscriptionStatus,
-    workouts: trainingsData.trainings,
+    trainings: trainingsData.trainings,
   };
 });
