@@ -2,8 +2,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../consts';
 import {
   appData,
-  mainData,
   userForm,
+  mainData,
   userData,
   balancesList,
   catalogData,

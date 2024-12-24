@@ -36,21 +36,6 @@ export type MainData = {
   isDataLoading: boolean;
 };
 
-export type CatalogData = {
-  limit: number;
-  totalPages: number;
-  totalItems: number;
-  currentPage: number;
-  itemsPerPage: number;
-  isDataLoading: boolean;
-};
-
-export type BalancesList = {
-  balances: TrainingBalance[];
-  isDataLoading: boolean;
-  isOnlyActive: boolean;
-};
-
 export type UserForm = {
   email: string;
   password: string;
@@ -86,6 +71,21 @@ export type UserForm = {
     description: string | undefined;
   };
   isSending: boolean;
+};
+
+export type CatalogData = {
+  limit: number;
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  itemsPerPage: number;
+  isDataLoading: boolean;
+};
+
+export type BalancesList = {
+  balances: TrainingBalance[];
+  isDataLoading: boolean;
+  isOnlyActive: boolean;
 };
 
 export type UserData = {
