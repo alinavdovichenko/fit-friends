@@ -1,6 +1,7 @@
 import { TrainingType, UserLevel, TrainingDuration, TrainingSexFor } from '../consts';
 import { User } from './user';
 import { FileData } from './file-data';
+import { Comment } from './comment';
 
 export type Training = {
   id: string;

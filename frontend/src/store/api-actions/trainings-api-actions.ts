@@ -44,12 +44,11 @@ export const getTrainingAction = createAsyncThunk<
   const { data: commentsData } = await api.get<CommentsWithPagination>(
     `${APIRoute.Comments}/${trainingId}`,
   );
-  console.info(commentsData.comments);
-  console.info(balancedData.count);
+
   return {
     ...data,
-    //balance: balancedData.count,
-    //comments: commentsData.comments,
+    balance: balancedData.count,
+    comments: commentsData.comments,
   };
 });
 
