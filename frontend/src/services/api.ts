@@ -14,7 +14,7 @@ import {
   setPendingStatus,
 } from './token';
 import { StatusCodes } from 'http-status-codes';
-import { LoggedUser } from '../types/logged-user';
+import { LoggedUser } from '../types';
 import { toast } from 'react-toastify';
 
 const StatusCodeMapping: Record<number, boolean> = {

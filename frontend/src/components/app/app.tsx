@@ -4,7 +4,8 @@ import { AppRoute } from '../../consts';
 import { Layout, SignLayout, PrivateRoute } from '../index';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../browser-history';
-import { IntroPage,
+import {
+  IntroPage,
   MainPage,
   LoginPage,
   RegisterPage,
