@@ -1,5 +1,6 @@
 import { User } from '../../types/user';
-import { AppRoute } from '../../consts';
+import { AppRoute, IMAGE_PLACEHOLDER } from '../../consts';
+import { getFileUrl } from '../../utils/common';
 import { Link } from 'react-router-dom';
 import { UserCardType, UserCardTypeDiffs } from './user-card.const';
 
@@ -9,12 +10,12 @@ type UserCardInnerProps = {
 };
 
 function UserCardInner({ type, user }: UserCardInnerProps): JSX.Element {
-  const { styleClass } =
+  const { styleClass, hashtagsListClass, hashtagsItemsClass } =
     UserCardTypeDiffs[type];
-  const { id, avatar, name, location } = user;
+  const { id, avatar, name, location, trainingTypes } = user;
 
   const userLink = `${AppRoute.Users}/${id}`;
-  const avatarUrl = avatar;
+  const avatarUrl = avatar ? getFileUrl(avatar) : IMAGE_PLACEHOLDER;
 
   const getAvatarImage = () =>
     type === UserCardType.Friend ? (
@@ -45,6 +46,17 @@ function UserCardInner({ type, user }: UserCardInnerProps): JSX.Element {
           </address>
         </div>
       </div>
+      {trainingTypes.length ? (
+        <ul className={hashtagsListClass}>
+          {trainingTypes.map((trainingType) => (
+            <li className={hashtagsItemsClass} key={`training-${trainingType}`}>
+              <div className={`hashtag ${styleClass}__hashtag`}>
+                <span>#{trainingType}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : undefined}
     </>
   );
 }

@@ -26,7 +26,7 @@ const initialState: UserInfo = {
   subscriptionStatus: false,
   isDataLoading: false,
   isCoachInfoActual: true,
-  isWorkoutsLoading: false,
+  isTrainingsLoading: false,
   hasError: false,
 };
 
@@ -65,17 +65,17 @@ export const userInfo = createSlice({
         state.hasError = false;
       })
       .addCase(getCoachDataAction.pending, (state) => {
-        state.isWorkoutsLoading = true;
+        state.isTrainingsLoading = true;
       })
       .addCase(getCoachDataAction.rejected, (state) => {
         state.isCoachInfoActual = true;
-        state.isWorkoutsLoading = false;
+        state.isTrainingsLoading = false;
       })
       .addCase(getCoachDataAction.fulfilled, (state, action) => {
         state.subscriptionStatus = action.payload.subscriptionStatus;
         state.trainings = action.payload.trainings;
         state.isCoachInfoActual = true;
-        state.isWorkoutsLoading = false;
+        state.isTrainingsLoading = false;
       })
       .addCase(addUserToFriendsAction.fulfilled, (state) => {
         state.isFriend = true;
