@@ -13,6 +13,11 @@ import {
   loginAction,
   registerAction,
 } from '../api-actions/auth-api-actions';
+import {
+  questionaryCoachAction,
+  questionaryCustomerAction,
+  updateUserAction,
+} from '../api-actions';
 
 const initialState: UserForm = {
   email: '',
@@ -191,6 +196,27 @@ export const userForm = createSlice({
       })
       .addCase(registerAction.fulfilled, () => ({ ...initialState }))
       .addCase(registerAction.rejected, (state) => {
+        state.isSending = false;
+      })
+      .addCase(questionaryCustomerAction.pending, (state) => {
+        state.isSending = true;
+      })
+      .addCase(questionaryCustomerAction.fulfilled, () => ({ ...initialState }))
+      .addCase(questionaryCustomerAction.rejected, (state) => {
+        state.isSending = false;
+      })
+      .addCase(questionaryCoachAction.pending, (state) => {
+        state.isSending = true;
+      })
+      .addCase(questionaryCoachAction.fulfilled, () => ({ ...initialState }))
+      .addCase(questionaryCoachAction.rejected, (state) => {
+        state.isSending = false;
+      })
+      .addCase(updateUserAction.pending, (state) => {
+        state.isSending = true;
+      })
+      .addCase(updateUserAction.fulfilled, () => ({ ...initialState }))
+      .addCase(updateUserAction.rejected, (state) => {
         state.isSending = false;
       });
   },
