@@ -3,7 +3,7 @@ import {Helmet} from 'react-helmet-async';
 import {
   CaloriesPlan,
   AccountCertificates,
-  UserForm,
+  EditUserForm,
   NewFeatureFiller,
   Preloader
 } from '../../components';
@@ -62,7 +62,7 @@ function AccountPage(): JSX.Element {
       <div className="container">
         <div className="inner-page__wrapper">
           <h1 className="visually-hidden">Личный кабинет</h1>
-          <UserForm />
+          <EditUserForm />
           <div className="inner-page__content">
             <div className={`personal-account-${isCoach ? 'coach' : 'user'}`}>
               {isCoach ? (
