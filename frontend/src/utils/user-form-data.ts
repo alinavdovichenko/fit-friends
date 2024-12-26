@@ -52,7 +52,7 @@ export function getCoachQuestionaryData(
   formData.append('level', level);
   formData.append('achievements', achievements);
   trainingTypes.forEach((type) => {
-    formData.append('workoutTypes[]', type);
+    formData.append('trainingTypes[]', type);
   });
   certificates.forEach((certificate) => {
     formData.append('certificates', certificate);
@@ -102,7 +102,7 @@ export function getUpdateUserDataWithAvatar(
       [...new Set(trainingTypes.concat(newTrainingTypes))].length
   ) {
     newTrainingTypes.forEach((type) => {
-      formData.append('workoutTypes[]', type);
+      formData.append('trainingTypes[]', type);
     });
   }
   if (!avatar) {

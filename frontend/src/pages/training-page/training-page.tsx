@@ -34,15 +34,15 @@ function TrainingPage(): JSX.Element {
   const { trainingId } = useParams();
   const isUserHaveAccess = useAppSelector(isUserHaveAccessToTraining);
   const isBalanceExists = useAppSelector(isTrainingBalanceExists);
-  const currentWorkoutId = useAppSelector(getTrainingId);
+  const currentTrainingId = useAppSelector(getTrainingId);
   const isDataLoading = useAppSelector(isTrainingInfoLoading);
   const hasError = useAppSelector(isTrainingInfoHasError);
 
   useEffect(() => {
-    if (currentWorkoutId !== trainingId && !isDataLoading) {
+    if (currentTrainingId !== trainingId && !isDataLoading) {
       dispatch(getTrainingAction(trainingId as string));
     }
-    if (!isUserHaveAccess && currentWorkoutId === trainingId) {
+    if (!isUserHaveAccess && currentTrainingId === trainingId) {
       navigate(AppRoute.Account);
     }
     dispatch(setActiveRoute());
@@ -50,7 +50,7 @@ function TrainingPage(): JSX.Element {
     navigate,
     dispatch,
     trainingId,
-    currentWorkoutId,
+    currentTrainingId,
     isDataLoading,
     isUserHaveAccess,
   ]);
