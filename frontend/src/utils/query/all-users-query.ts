@@ -13,7 +13,7 @@ export function getAllUsersQuery(state: State): URLSearchParams {
   }
   if (types.length) {
     types.forEach((item) => {
-      params.append('workoutTypes', item);
+      params.append('trainingTypes', item);
     });
   }
   if (level) {
