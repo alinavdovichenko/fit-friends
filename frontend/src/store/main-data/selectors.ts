@@ -1,17 +1,17 @@
-import { NameSpace } from '../../consts';
-import { State, User, Training } from '../../types';
+import { NameSpace } from '../../const';
+import { State, User, Workout } from '../../types';
 
-export const getTrainingsForUser = (
+export const getWorkoutsForUser = (
   state: Pick<State, NameSpace.MainData>,
-): Training[] => state[NameSpace.MainData].trainingsForUser;
+): Workout[] => state[NameSpace.MainData].workoutsForUser;
 
-export const getSpecialTrainings = (
+export const getSpecialWorkouts = (
   state: Pick<State, NameSpace.MainData>,
-): Training[] => state[NameSpace.MainData].specialTrainings;
+): Workout[] => state[NameSpace.MainData].specialWorkouts;
 
-export const getPopularTrainings = (
+export const getPopularWorkouts = (
   state: Pick<State, NameSpace.MainData>,
-): Training[] => state[NameSpace.MainData].popularTrainings;
+): Workout[] => state[NameSpace.MainData].popularWorkouts;
 
 export const getReadyUsers = (state: Pick<State, NameSpace.MainData>): User[] =>
   state[NameSpace.MainData].readyUsers;

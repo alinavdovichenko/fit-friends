@@ -1,9 +1,9 @@
-import { NameSpace, OrdersSortType } from '../../consts';
-import { State, TrainingOrders } from '../../types';
+import { NameSpace, OrdersSortType } from '../../const';
+import { State, WorkoutOrders } from '../../types';
 
 export const getOrdersList = (
   state: Pick<State, NameSpace.OrdersList>,
-): TrainingOrders[] => state[NameSpace.OrdersList].orders;
+): WorkoutOrders[] => state[NameSpace.OrdersList].orders;
 
 export const getOrdersListSortType = (
   state: Pick<State, NameSpace.OrdersList>,

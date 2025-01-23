@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MainData } from '../../types';
-import { NameSpace } from '../../consts';
+import { NameSpace } from '../../const';
 import { getMainPageDataAction } from '../api-actions';
 
 const initialState: MainData = {
-  trainingsForUser: [],
-  specialTrainings: [],
-  popularTrainings: [],
+  workoutsForUser: [],
+  specialWorkouts: [],
+  popularWorkouts: [],
   readyUsers: [],
   isDataLoading: false,
 };
@@ -24,12 +24,11 @@ export const mainData = createSlice({
         state.isDataLoading = false;
       })
       .addCase(getMainPageDataAction.fulfilled, (state, action) => {
-        state.trainingsForUser = action.payload.trainingsForUser;
-        state.specialTrainings = action.payload.specialTrainings;
-        state.popularTrainings = action.payload.popularTrainings;
+        state.workoutsForUser = action.payload.workoutsForUser;
+        state.specialWorkouts = action.payload.specialWorkouts;
+        state.popularWorkouts = action.payload.popularWorkouts;
         state.readyUsers = action.payload.readyUsers;
         state.isDataLoading = false;
       });
   },
 });
-

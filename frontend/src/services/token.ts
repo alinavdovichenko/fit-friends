@@ -2,8 +2,8 @@ import {
   ACCESS_TOKEN_KEY_NAME,
   REFRESH_PENDING_KEY_NAME,
   REFRESH_TOKEN_KEY_NAME,
-} from './api.const';
-import { AuthToken } from '../types/auth-token';
+} from '../const';
+import { AuthToken } from '../types';
 
 export const getAccessToken = (): AuthToken => {
   const token = localStorage.getItem(ACCESS_TOKEN_KEY_NAME);

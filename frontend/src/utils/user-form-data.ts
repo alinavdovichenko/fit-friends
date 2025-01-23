@@ -23,20 +23,20 @@ export function getRegisterData(state: State, avatar?: Blob): FormData {
 export function getCustomerQuestionaryData(state: State) {
   const {
     level,
-    trainingTypes,
-    timeForTraining,
+    workoutTypes,
+    timeForWorkout,
     caloriesPerDay,
     caloriesToLose,
   } = state.USER_FORM;
-  if (!trainingTypes.length || !caloriesPerDay || !caloriesToLose) {
+  if (!workoutTypes.length || !caloriesPerDay || !caloriesToLose) {
     throw new Error('Not enough data for customer questionary');
   }
   return {
     level,
-    timeForTraining,
+    timeForWorkout,
     caloriesPerDay: Number(caloriesPerDay),
     caloriesToLose: Number(caloriesToLose),
-    trainingTypes,
+    workoutTypes,
   };
 }
 
@@ -44,15 +44,15 @@ export function getCoachQuestionaryData(
   state: State,
   certificates?: Blob[],
 ): FormData {
-  const { level, trainingTypes, achievements, status } = state.USER_FORM;
+  const { level, workoutTypes, achievements, status } = state.USER_FORM;
   const formData = new FormData();
-  if (!trainingTypes.length || !certificates?.length) {
+  if (!workoutTypes.length || !certificates?.length) {
     throw new Error('Not enough data for coach questionary');
   }
   formData.append('level', level);
   formData.append('achievements', achievements);
-  trainingTypes.forEach((type) => {
-    formData.append('trainingTypes[]', type);
+  workoutTypes.forEach((type) => {
+    formData.append('workoutTypes[]', type);
   });
   certificates.forEach((certificate) => {
     formData.append('certificates', certificate);
@@ -65,14 +65,14 @@ export function getUpdateUserDataWithAvatar(
   state: State,
   newAvatar: Blob,
 ): FormData {
-  const { name, sex, isReady, level, trainingTypes, location, description } =
+  const { name, sex, isReady, level, workoutTypes, location, description } =
     state.USER_DATA;
   const {
     name: newName,
     sex: newSex,
     status,
     level: newLevel,
-    trainingTypes: newTrainingTypes,
+    workoutTypes: newWorkoutTypes,
     location: newLocation,
     description: newDescription,
     avatar,
@@ -97,12 +97,12 @@ export function getUpdateUserDataWithAvatar(
     formData.append('description', newDescription);
   }
   if (
-    trainingTypes.length !== newTrainingTypes.length ||
-    trainingTypes.length !==
-      [...new Set(trainingTypes.concat(newTrainingTypes))].length
+    workoutTypes.length !== newWorkoutTypes.length ||
+    workoutTypes.length !==
+      [...new Set(workoutTypes.concat(newWorkoutTypes))].length
   ) {
-    newTrainingTypes.forEach((type) => {
-      formData.append('trainingTypes[]', type);
+    newWorkoutTypes.forEach((type) => {
+      formData.append('workoutTypes[]', type);
     });
   }
   if (!avatar) {
@@ -113,14 +113,14 @@ export function getUpdateUserDataWithAvatar(
 }
 
 export function getUpdateUserData(state: State) {
-  const { name, sex, isReady, level, trainingTypes, location, description } =
+  const { name, sex, isReady, level, workoutTypes, location, description } =
     state.USER_DATA;
   const {
     name: newName,
     sex: newSex,
     status,
     level: newLevel,
-    trainingTypes: newTrainingTypes,
+    workoutTypes: newWorkoutTypes,
     location: newLocation,
     description: newDescription,
     avatar,
@@ -132,13 +132,12 @@ export function getUpdateUserData(state: State) {
     level: newLevel !== level ? newLevel : undefined,
     location: newLocation && newLocation !== location ? newLocation : undefined,
     description: newDescription !== description ? newDescription : undefined,
-    trainingTypes:
-      trainingTypes.length !== newTrainingTypes.length ||
-      trainingTypes.length !==
-        [...new Set(trainingTypes.concat(newTrainingTypes))].length
-        ? newTrainingTypes
+    workoutTypes:
+      workoutTypes.length !== newWorkoutTypes.length ||
+      workoutTypes.length !==
+        [...new Set(workoutTypes.concat(newWorkoutTypes))].length
+        ? newWorkoutTypes
         : undefined,
     avatar: avatar === null ? null : undefined,
   };
 }
-

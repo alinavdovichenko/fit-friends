@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FriendsWithPagination, TrainingRequest } from '../../types';
-import { APIRoute } from '../../consts';
-import { getUserFriendsQuery } from '../../utils/query';
+import { FriendsWithPagination, WorkoutRequest } from '../../types';
+import { APIRoute } from '../../const';
+import { getUserFriendsQuery } from '../../utils';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getUserFriendsAction = createAsyncThunk<
@@ -36,24 +36,24 @@ export const removeUserFromFriendsAction = createAsyncThunk<
   });
 });
 
-export const updateTrainingRequestAction = createAsyncThunk<
-TrainingRequest,
-TrainingRequest,
+export const updateWorkoutRequestAction = createAsyncThunk<
+  WorkoutRequest,
+  WorkoutRequest,
   AsyncThunkConfig
 >('friends/update-request', async (request, { extra: api }) => {
-  await api.patch(APIRoute.UpdateTrainingRequest, {
+  await api.patch(APIRoute.UpdateWorkoutRequest, {
     requestId: request.id,
     status: request.status,
   });
   return request;
 });
 
-export const createTrainingRequestAction = createAsyncThunk<
+export const createWorkoutRequestAction = createAsyncThunk<
   void,
   string,
   AsyncThunkConfig
 >('friends/create-request', async (userId, { extra: api }) => {
-  await api.post(APIRoute.CreateTrainingRequest, {
+  await api.post(APIRoute.CreateWorkoutRequest, {
     userToId: userId,
   });
 });

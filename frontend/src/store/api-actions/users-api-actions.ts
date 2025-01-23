@@ -5,10 +5,10 @@ import {
   FullUser,
   SubscriptionStatus,
   UsersWithPagination,
-  TrainingsWithPagination,
+  WorkoutsWithPagination,
 } from '../../types';
-import { APIRoute } from '../../consts';
-import { getAllUsersQuery } from '../../utils/query';
+import { APIRoute } from '../../const';
+import { getAllUsersQuery } from '../../utils';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getAllUsersAction = createAsyncThunk<
@@ -47,11 +47,11 @@ export const getCoachDataAction = createAsyncThunk<
   const { data: subscriptionStatus } = await api.get<SubscriptionStatus>(
     `${APIRoute.CheckSubscription}/${coachId}`,
   );
-  const { data: trainingsData } = await api.get<TrainingsWithPagination>(
-    `${APIRoute.TrainingsFromCoach}/${coachId}`,
+  const { data: workoutsData } = await api.get<WorkoutsWithPagination>(
+    `${APIRoute.WorkoutsFromCoach}/${coachId}`,
   );
   return {
     ...subscriptionStatus,
-    trainings: trainingsData.trainings,
+    workouts: workoutsData.workouts,
   };
 });

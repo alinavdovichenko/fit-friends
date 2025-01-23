@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UsersList } from '../../types';
-import { NameSpace, UserLevel } from '../../consts';
+import { NameSpace, UserLevel } from '../../const';
 import {
   getAllUsersAction,
   getUserFriendsAction,
-  updateTrainingRequestAction,
+  updateWorkoutRequestAction,
 } from '../api-actions';
 
 const initialState: UsersList = {
@@ -62,11 +62,11 @@ export const usersList = createSlice({
           currentPage === 1 ? friends : [...state.users, ...friends];
         state.isDataLoading = false;
       })
-      .addCase(updateTrainingRequestAction.fulfilled, (state, action) => {
+      .addCase(updateWorkoutRequestAction.fulfilled, (state, action) => {
         const { id, status } = action.payload;
         state.users = state.users.map((user) => {
-          if (user.trainingRequest?.id === id) {
-            user.trainingRequest.status = status;
+          if (user.workoutRequest?.id === id) {
+            user.workoutRequest.status = status;
           }
           return user;
         });

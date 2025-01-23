@@ -1,4 +1,4 @@
-import { NameSpace } from '../../consts';
+import { NameSpace } from '../../const';
 import { State } from '../../types';
 
 export const getCommentRating = (

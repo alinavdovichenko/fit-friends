@@ -6,16 +6,14 @@ import {
   UserLevel,
   UserRole,
   UserSex,
-  TrainingDuration,
-  TrainingType,
-} from '../../consts';
+  WorkoutDuration,
+  WorkoutType,
+} from '../../const';
 import {
   loginAction,
-  registerAction,
-} from '../api-actions/auth-api-actions';
-import {
   questionaryCoachAction,
   questionaryCustomerAction,
+  registerAction,
   updateUserAction,
 } from '../api-actions';
 
@@ -30,8 +28,8 @@ const initialState: UserForm = {
   avatar: undefined,
   level: UserLevel.Amateur,
   status: true,
-  trainingTypes: [],
-  timeForTraining: TrainingDuration.Medium,
+  workoutTypes: [],
+  timeForWorkout: WorkoutDuration.Medium,
   caloriesToLose: '',
   caloriesPerDay: '',
   certificatesAmount: 0,
@@ -46,7 +44,7 @@ const initialState: UserForm = {
     location: undefined,
     avatar: undefined,
     level: undefined,
-    trainingTypes: undefined,
+    workoutTypes: undefined,
     caloriesToLose: undefined,
     caloriesPerDay: undefined,
     certificatesAmount: undefined,
@@ -91,21 +89,21 @@ export const userForm = createSlice({
     setStatus: (state, action: PayloadAction<boolean>) => {
       state.status = action.payload;
     },
-    setTrainingTypes: (
+    setWorkoutTypes: (
       state,
-      action: PayloadAction<TrainingType | TrainingType[]>,
+      action: PayloadAction<WorkoutType | WorkoutType[]>,
     ) => {
       if (typeof action.payload === 'object') {
-        state.trainingTypes = action.payload;
+        state.workoutTypes = action.payload;
         return;
       }
       const type = action.payload;
-      state.trainingTypes = state.trainingTypes.includes(type)
-        ? state.trainingTypes.filter((item) => item !== type)
-        : [...state.trainingTypes, type];
+      state.workoutTypes = state.workoutTypes.includes(type)
+        ? state.workoutTypes.filter((item) => item !== type)
+        : [...state.workoutTypes, type];
     },
-    setTimeForTraining: (state, action: PayloadAction<string>) => {
-      state.timeForTraining = action.payload;
+    setTimeForWorkout: (state, action: PayloadAction<string>) => {
+      state.timeForWorkout = action.payload;
     },
     setCaloriesToLose: (state, action: PayloadAction<string>) => {
       state.caloriesToLose = action.payload;
@@ -160,8 +158,8 @@ export const userForm = createSlice({
       }
     },
     setCustomerQuestionaryRequiredFields: (state) => {
-      if (!state.trainingTypes.length) {
-        state.validationErrors.trainingTypes = REQUIRED_INPUT_MESSAGE;
+      if (!state.workoutTypes.length) {
+        state.validationErrors.workoutTypes = REQUIRED_INPUT_MESSAGE;
       }
       if (!state.caloriesPerDay) {
         state.validationErrors.caloriesPerDay = REQUIRED_INPUT_MESSAGE;
@@ -171,8 +169,8 @@ export const userForm = createSlice({
       }
     },
     setCoachQuestionaryRequiredFields: (state) => {
-      if (!state.trainingTypes.length) {
-        state.validationErrors.trainingTypes = REQUIRED_INPUT_MESSAGE;
+      if (!state.workoutTypes.length) {
+        state.validationErrors.workoutTypes = REQUIRED_INPUT_MESSAGE;
       }
       if (!state.achievements) {
         state.validationErrors.achievements = REQUIRED_INPUT_MESSAGE;
@@ -234,8 +232,8 @@ export const {
   setAvatar,
   setLevel,
   setStatus,
-  setTrainingTypes,
-  setTimeForTraining,
+  setWorkoutTypes,
+  setTimeForWorkout,
   setCaloriesToLose,
   setCaloriesPerDay,
   setCertificatesAmount,

@@ -1,4 +1,4 @@
-import { NameSpace } from '../../consts';
+import { NameSpace } from '../../const';
 import { State, User } from '../../types';
 
 export const getUsersList = (state: Pick<State, NameSpace.UsersList>): User[] =>

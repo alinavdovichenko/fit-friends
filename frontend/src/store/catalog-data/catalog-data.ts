@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CatalogData } from '../../types';
-import { ListItemsPortion, NameSpace } from '../../consts';
+import { ListItemsPortion, NameSpace } from '../../const';
 import {
   getAllUsersAction,
-  getAllTrainingsAction,
+  getAllWorkoutsAction,
   getCoachOrdersAction,
-  getCoachTrainingsAction,
+  getCoachWorkoutsAction,
   getUserBalancesAction,
   getUserFriendsAction,
 } from '../api-actions';
@@ -39,10 +39,10 @@ export const catalogData = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getAllTrainingsAction.pending, (state) => {
+      .addCase(getAllWorkoutsAction.pending, (state) => {
         state.isDataLoading = true;
       })
-      .addCase(getCoachTrainingsAction.pending, (state) => {
+      .addCase(getCoachWorkoutsAction.pending, (state) => {
         state.isDataLoading = true;
       })
       .addCase(getCoachOrdersAction.pending, (state) => {
@@ -57,14 +57,14 @@ export const catalogData = createSlice({
       .addCase(getAllUsersAction.pending, (state) => {
         state.isDataLoading = true;
       })
-      .addCase(getAllTrainingsAction.fulfilled, (state, action) => {
+      .addCase(getAllWorkoutsAction.fulfilled, (state, action) => {
         const { itemsPerPage, totalItems, totalPages } = action.payload;
         state.itemsPerPage = itemsPerPage;
         state.totalPages = totalPages;
         state.totalItems = totalItems;
         state.isDataLoading = false;
       })
-      .addCase(getCoachTrainingsAction.fulfilled, (state, action) => {
+      .addCase(getCoachWorkoutsAction.fulfilled, (state, action) => {
         const { itemsPerPage, totalItems, totalPages } = action.payload;
         state.itemsPerPage = itemsPerPage;
         state.totalPages = totalPages;
@@ -99,10 +99,10 @@ export const catalogData = createSlice({
         state.totalItems = totalItems;
         state.isDataLoading = false;
       })
-      .addCase(getAllTrainingsAction.rejected, (state) => {
+      .addCase(getAllWorkoutsAction.rejected, (state) => {
         state.isDataLoading = false;
       })
-      .addCase(getCoachTrainingsAction.rejected, (state) => {
+      .addCase(getCoachWorkoutsAction.rejected, (state) => {
         state.isDataLoading = false;
       })
       .addCase(getCoachOrdersAction.rejected, (state) => {

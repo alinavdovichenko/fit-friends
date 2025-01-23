@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LoggedUser, UserFiles, CertificatesFiles } from '../../types';
-import { APIRoute, AppRoute, UserRole } from '../../consts';
+import { APIRoute, AppRoute, UserRole } from '../../const';
 import { saveTokens } from '../../services/token';
 import { redirectToRoute } from '../actions';
 import {
-  getRegisterData,
+  getCoachQuestionaryData,
   getCustomerQuestionaryData,
-  getCoachQuestionaryData
-} from '../../utils/user-form-data';
+  getRegisterData,
+} from '../../utils';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const checkAuthAction = createAsyncThunk<
@@ -76,4 +76,3 @@ export const questionaryCoachAction = createAsyncThunk<
     dispatch(redirectToRoute(AppRoute.Account));
   },
 );
-
