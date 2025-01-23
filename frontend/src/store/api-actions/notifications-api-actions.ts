@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Notification } from '../../types';
-import { APIRoute } from '../../const';
+import { APIRoute } from '../../consts';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getUserNotificationsAction = createAsyncThunk<

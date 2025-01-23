@@ -1,6 +1,5 @@
-import { NameSpace, PopupKey } from '../../const';
-import { Notification, Route, State } from '../../types';
-import { AuthorizationStatus, UserRole } from '../../const';
+import { NameSpace, PopupKey, AuthorizationStatus, UserRole } from '../../consts';
+import { Route, State, Notification } from '../../types';
 
 export const isUserAuth = (state: Pick<State, NameSpace.AppData>): boolean =>
   state[NameSpace.AppData].authStatus === AuthorizationStatus.Auth;

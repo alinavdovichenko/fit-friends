@@ -1,9 +1,9 @@
-import { NameSpace } from '../../const';
-import { State, WorkoutBalance } from '../../types';
+import { NameSpace } from '../../consts';
+import { State, TrainingBalance } from '../../types';
 
 export const getBalancesList = (
   state: Pick<State, NameSpace.BalancesList>,
-): WorkoutBalance[] => state[NameSpace.BalancesList].balances;
+): TrainingBalance[] => state[NameSpace.BalancesList].balances;
 
 export const isOnlyActiveBalances = (
   state: Pick<State, NameSpace.BalancesList>,

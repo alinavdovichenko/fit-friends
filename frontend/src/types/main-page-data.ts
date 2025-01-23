@@ -1,9 +1,9 @@
 import { User } from './user';
-import { Workout } from './workout';
+import { Training } from './training';
 
 export type MainPageData = {
-  workoutsForUser: Workout[];
-  specialWorkouts: Workout[];
-  popularWorkouts: Workout[];
+  trainingsForUser: Training[];
+  specialTrainings: Training[];
+  popularTrainings: Training[];
   readyUsers: User[];
-};
+}

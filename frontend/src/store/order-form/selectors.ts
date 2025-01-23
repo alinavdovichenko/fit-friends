@@ -1,4 +1,4 @@
-import { NameSpace, PaymentType } from '../../const';
+import { NameSpace, PaymentType } from '../../consts';
 import { State } from '../../types';
 
 export const getOrderCount = (

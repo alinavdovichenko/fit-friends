@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { OrdersWithPagination, WorkoutBalanceStatus } from '../../types';
-import { APIRoute } from '../../const';
-import { getCoachOrdersQuery, getOrderData } from '../../utils';
+import { OrdersWithPagination, TrainingBalanceStatus } from '../../types';
+import { APIRoute } from '../../consts';
+import { getCoachOrdersQuery, getOrderData } from '../../utils/query';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getCoachOrdersAction = createAsyncThunk<
@@ -23,8 +23,8 @@ export const createOrderAction = createAsyncThunk<
 >('orders/create', async (_arg, { getState, extra: api }) => {
   const formData = getOrderData(getState());
   await api.post(APIRoute.CreateOrder, formData);
-  const { data } = await api.get<WorkoutBalanceStatus>(
-    `${APIRoute.Balances}/${formData.workoutId}`,
+  const { data } = await api.get<TrainingBalanceStatus>(
+    `${APIRoute.Balances}/${formData.trainingId}`,
   );
   return { newBalance: data.count };
 });

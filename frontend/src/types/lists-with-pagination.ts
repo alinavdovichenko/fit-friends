@@ -1,8 +1,5 @@
-import { Comment } from './comment';
 import { User } from './user';
-import { Workout } from './workout';
-import { WorkoutBalance } from './workout-balance';
-import { WorkoutOrders } from './workout-orders';
+import { Training, TrainingOrders, TrainingBalance, Comment } from '../types';
 
 export type FieldRange = [min: number, max: number];
 
@@ -13,8 +10,8 @@ type BasePagination = {
   itemsPerPage: number;
 };
 
-export type WorkoutsWithPagination = BasePagination & {
-  workouts: Workout[];
+export type TrainingsWithPagination = BasePagination & {
+  trainings: Training[];
   priceRange: FieldRange;
   caloriesRange: FieldRange;
 };
@@ -24,11 +21,11 @@ export type UsersWithPagination = BasePagination & {
 };
 
 export type OrdersWithPagination = BasePagination & {
-  orders: WorkoutOrders[];
+  orders: TrainingOrders[];
 };
 
 export type BalancesWithPagination = BasePagination & {
-  balances: WorkoutBalance[];
+  balances: TrainingBalance[];
 };
 
 export type FriendsWithPagination = BasePagination & {

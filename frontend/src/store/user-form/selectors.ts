@@ -1,4 +1,4 @@
-import { NameSpace, UserRole, WorkoutType } from '../../const';
+import { NameSpace, UserRole, TrainingType } from '../../consts';
 import { State } from '../../types';
 
 export const getUserFormEmail = (
@@ -41,13 +41,13 @@ export const getUserFormStatus = (
   state: Pick<State, NameSpace.UserForm>,
 ): boolean => state[NameSpace.UserForm].status;
 
-export const getUserFormWorkoutTypes = (
+export const getUserFormTrainingTypes = (
   state: Pick<State, NameSpace.UserForm>,
-): WorkoutType[] => state[NameSpace.UserForm].workoutTypes;
+): TrainingType[] => state[NameSpace.UserForm].trainingTypes;
 
-export const getUserFormTimeForWorkout = (
+export const getUserFormTimeForTraining = (
   state: Pick<State, NameSpace.UserForm>,
-): string => state[NameSpace.UserForm].timeForWorkout;
+): string => state[NameSpace.UserForm].timeForTraining;
 
 export const getUserFormCaloriesToLose = (
   state: Pick<State, NameSpace.UserForm>,
@@ -101,10 +101,10 @@ export const getUserFormLevelError = (
   state: Pick<State, NameSpace.UserForm>,
 ): string | undefined => state[NameSpace.UserForm].validationErrors.level;
 
-export const getUserFormWorkoutTypesError = (
+export const getUserFormTrainingTypesError = (
   state: Pick<State, NameSpace.UserForm>,
 ): string | undefined =>
-  state[NameSpace.UserForm].validationErrors.workoutTypes;
+  state[NameSpace.UserForm].validationErrors.trainingTypes;
 
 export const getUserFormCaloriesToLoseError = (
   state: Pick<State, NameSpace.UserForm>,

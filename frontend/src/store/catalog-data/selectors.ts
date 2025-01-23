@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace } from '../../consts';
 import { State } from '../../types';
 
 export const getCatalogPage = (

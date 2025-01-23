@@ -1,4 +1,4 @@
-import { UserRole } from '../const';
+import { UserRole } from '../consts';
 
 export type LoggedUser = {
   id: string;

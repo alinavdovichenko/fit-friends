@@ -1,2 +1,2 @@
 export * from './common';
-export { default as useMap } from './use-map';
+export * from './use-map';

@@ -4,11 +4,12 @@ import {
   UserLevel,
   UserRole,
   UserSex,
-  WorkoutType,
-} from '../const';
+  TrainingType,
+} from '../consts';
 import { FileData } from './file-data';
+import { Training } from './training';
 
-export type WorkoutRequest = {
+export type TrainingRequest = {
   id: string;
   status: RequestStatus;
 };
@@ -22,6 +23,31 @@ export type User = {
   isReady: boolean;
   location: MetroStation;
   level: UserLevel;
-  workoutTypes: WorkoutType[];
-  workoutRequest?: WorkoutRequest;
+  trainingTypes: TrainingType[];
+  trainingRequest?: TrainingRequest;
 };
+
+export type SubscriptionStatus = {
+  subscriptionStatus: boolean;
+};
+
+export type FriendshipStatus = {
+  isFriend: boolean;
+};
+
+export type CoachInfo = SubscriptionStatus & {
+  trainings: Training[];
+};
+
+export type FullUser = User &
+  FriendshipStatus & {
+    description: string;
+    backgroundImage: FileData;
+    certificates?: FileData[];
+  };
+
+export type AuthUser = FullUser & {
+    caloriesToLose?: number;
+    caloriesPerDay?: number;
+    certificates?: FileData[];
+  };

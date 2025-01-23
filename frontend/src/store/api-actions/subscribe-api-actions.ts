@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute } from '../../const';
+import { APIRoute } from '../../consts';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const subscribeToCoachAction = createAsyncThunk<

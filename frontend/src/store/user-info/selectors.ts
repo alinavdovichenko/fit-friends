@@ -3,9 +3,9 @@ import {
   NameSpace,
   UserLevel,
   UserRole,
-  WorkoutType,
-} from '../../const';
-import { FileData, State, Workout } from '../../types';
+  TrainingType,
+} from '../../consts';
+import { FileData, State, Training } from '../../types';
 
 export const getUserId = (state: Pick<State, NameSpace.UserInfo>): string =>
   state[NameSpace.UserInfo].id;
@@ -29,9 +29,9 @@ export const getUserImages = (
   state: Pick<State, NameSpace.UserInfo>,
 ): FileData[] => state[NameSpace.UserInfo].images;
 
-export const getUserWorkoutTypes = (
+export const getUserTrainingTypes = (
   state: Pick<State, NameSpace.UserInfo>,
-): WorkoutType[] => state[NameSpace.UserInfo].workoutTypes;
+): TrainingType[] => state[NameSpace.UserInfo].trainingTypes;
 
 export const getUserLevel = (
   state: Pick<State, NameSpace.UserInfo>,
@@ -53,9 +53,9 @@ export const getUserCertificates = (
   state: Pick<State, NameSpace.UserInfo>,
 ): FileData[] => state[NameSpace.UserInfo].certificates;
 
-export const getUserWorkouts = (
+export const getUserTrainings = (
   state: Pick<State, NameSpace.UserInfo>,
-): Workout[] => state[NameSpace.UserInfo].workouts;
+): Training[] => state[NameSpace.UserInfo].trainings;
 
 export const isUserLoading = (
   state: Pick<State, NameSpace.UserInfo>,
@@ -69,6 +69,6 @@ export const isCoachInfoReady = (
   state: Pick<State, NameSpace.UserInfo>,
 ): boolean => state[NameSpace.UserInfo].isCoachInfoActual;
 
-export const isCoachWorkoutsLoading = (
+export const isCoachTrainingsLoading = (
   state: Pick<State, NameSpace.UserInfo>,
-): boolean => state[NameSpace.UserInfo].isWorkoutsLoading;
+): boolean => state[NameSpace.UserInfo].isTrainingsLoading;

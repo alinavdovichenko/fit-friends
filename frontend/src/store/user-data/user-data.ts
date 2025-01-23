@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserData } from '../../types';
-import { MetroStation, NameSpace, UserLevel, UserSex } from '../../const';
+import { MetroStation, NameSpace, UserLevel, UserSex } from '../../consts';
 import {
   deleteCertificateAction,
   getAuthUserAction,
@@ -17,7 +17,7 @@ const initialState: UserData = {
   level: UserLevel.Amateur,
   description: '',
   isReady: false,
-  workoutTypes: [],
+  trainingTypes: [],
   caloriesToLose: 0,
   caloriesPerDay: 0,
   certificates: [],
@@ -44,7 +44,7 @@ export const userData = createSlice({
         state.sex = action.payload.sex;
         state.isReady = action.payload.isReady;
         state.description = action.payload.description ?? '';
-        state.workoutTypes = action.payload.workoutTypes;
+        state.trainingTypes = action.payload.trainingTypes;
         if (action.payload.caloriesToLose) {
           state.caloriesToLose = action.payload.caloriesToLose;
         }
@@ -69,7 +69,7 @@ export const userData = createSlice({
         state.sex = action.payload.sex;
         state.isReady = action.payload.isReady;
         state.description = action.payload.description;
-        state.workoutTypes = action.payload.workoutTypes;
+        state.trainingTypes = action.payload.trainingTypes;
         state.avatar = action.payload.avatar;
         state.isDataUpdating = false;
         state.isDataEditing = false;

@@ -1,24 +1,18 @@
 import { store } from '../store/index';
 import {
   AuthorizationStatus,
-  MetroStation,
-  OrderType,
-  OrdersSortType,
-  PaymentType,
   PopupKey,
-  UserLevel,
   UserRole,
+  TrainingType,
+  MetroStation,
+  UserLevel,
   UserSex,
-  WorkoutType,
-} from '../const';
-import { FileData } from './file-data';
-import { Workout } from './workout';
-import { WorkoutOrders } from './workout-orders';
-import { WorkoutBalance } from './workout-balance';
-import { User } from './user';
-import { Comment } from './comment';
+  OrdersSortType,
+  OrderType,
+  PaymentType
+} from '../consts';
 import { Route } from './route';
-import { Notification } from './notification';
+import { Training, User, FileData, TrainingBalance, TrainingOrders, Comment, Notification } from '../types';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -29,25 +23,16 @@ export type AppData = {
   userRole: UserRole | undefined;
   userId: string;
   notifications: Notification[];
-  activeWorkout: string | undefined;
+  activeTraining: string | undefined;
   activePage: Route | undefined;
   activePopup: PopupKey | undefined;
 };
 
 export type MainData = {
-  workoutsForUser: Workout[];
-  specialWorkouts: Workout[];
-  popularWorkouts: Workout[];
+  trainingsForUser: Training[];
+  specialTrainings: Training[];
+  popularTrainings: Training[];
   readyUsers: User[];
-  isDataLoading: boolean;
-};
-
-export type CatalogData = {
-  limit: number;
-  totalPages: number;
-  totalItems: number;
-  currentPage: number;
-  itemsPerPage: number;
   isDataLoading: boolean;
 };
 
@@ -62,8 +47,8 @@ export type UserForm = {
   avatar: string | undefined;
   level: string;
   status: boolean;
-  workoutTypes: WorkoutType[];
-  timeForWorkout: string;
+  trainingTypes: TrainingType[];
+  timeForTraining: string;
   caloriesToLose: string;
   caloriesPerDay: string;
   certificatesAmount: number;
@@ -78,7 +63,7 @@ export type UserForm = {
     location: string | undefined;
     avatar: string | undefined;
     level: string | undefined;
-    workoutTypes: string | undefined;
+    trainingTypes: string | undefined;
     caloriesToLose: string | undefined;
     caloriesPerDay: string | undefined;
     certificatesAmount: string | undefined;
@@ -86,6 +71,21 @@ export type UserForm = {
     description: string | undefined;
   };
   isSending: boolean;
+};
+
+export type CatalogData = {
+  limit: number;
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  itemsPerPage: number;
+  isDataLoading: boolean;
+};
+
+export type BalancesList = {
+  balances: TrainingBalance[];
+  isDataLoading: boolean;
+  isOnlyActive: boolean;
 };
 
 export type UserData = {
@@ -96,7 +96,7 @@ export type UserData = {
   sex: UserSex;
   isReady: boolean;
   description: string;
-  workoutTypes: WorkoutType[];
+  trainingTypes: TrainingType[];
   caloriesToLose: number;
   caloriesPerDay: number;
   certificates: FileData[];
@@ -105,7 +105,38 @@ export type UserData = {
   isDataEditing: boolean;
 };
 
-export type WorkoutForm = {
+export type UsersList = {
+  users: User[];
+  filter: {
+    locations: string[];
+    types: string[];
+    level: string;
+    role: string | undefined;
+  };
+  isDataLoading: boolean;
+};
+
+export type UserInfo = {
+  id: string;
+  name: string;
+  location: MetroStation;
+  role: UserRole;
+  isReady: boolean;
+  description: string;
+  trainingTypes: TrainingType[];
+  level: UserLevel;
+  isFriend: boolean;
+  images: FileData[];
+  certificates: FileData[];
+  trainings: Training[];
+  subscriptionStatus: boolean;
+  isDataLoading: boolean;
+  isCoachInfoActual: boolean;
+  isTrainingsLoading: boolean;
+  hasError: boolean;
+};
+
+export type TrainingForm = {
   title: string;
   type: string | undefined;
   duration: string | undefined;
@@ -129,8 +160,40 @@ export type WorkoutForm = {
   isSending: boolean;
 };
 
-export type WorkoutsList = {
-  workouts: Workout[];
+export type TrainingInfo = {
+  id: string;
+  coachId: string;
+  title: string;
+  price: string;
+  description: string;
+  isSpecial: boolean;
+  video: FileData | undefined;
+  backgroundImage: string;
+  rating: number;
+  type: string;
+  calories: number;
+  userSex: string;
+  duration: string;
+  coach: User | undefined;
+  balance: number | null;
+  comments: Comment[];
+  isDataLoading: boolean;
+  isDataEditing: boolean;
+  hasError: boolean;
+};
+
+export type CommentForm = {
+  trainingId: string;
+  rating: number;
+  text: string;
+  validationErrors: {
+    text: string | undefined;
+  };
+  isSending: boolean;
+};
+
+export type TrainingsList = {
+  trainings: Training[];
   price: {
     min: number;
     max: number;
@@ -164,7 +227,7 @@ export type WorkoutsList = {
 };
 
 export type OrdersList = {
-  orders: WorkoutOrders[];
+  orders: TrainingOrders[];
   isDataLoading: boolean;
   sorting: {
     type: OrdersSortType;
@@ -172,77 +235,8 @@ export type OrdersList = {
   };
 };
 
-export type BalancesList = {
-  balances: WorkoutBalance[];
-  isDataLoading: boolean;
-  isOnlyActive: boolean;
-};
-
-export type UsersList = {
-  users: User[];
-  filter: {
-    locations: string[];
-    types: string[];
-    level: string;
-    role: string | undefined;
-  };
-  isDataLoading: boolean;
-};
-
-export type WorkoutInfo = {
-  id: string;
-  coachId: string;
-  title: string;
-  price: string;
-  description: string;
-  isSpecial: boolean;
-  video: FileData | undefined;
-  backgroundImage: string;
-  rating: number;
-  type: string;
-  calories: number;
-  userSex: string;
-  duration: string;
-  coach: User | undefined;
-  balance: number | null;
-  comments: Comment[];
-  isDataLoading: boolean;
-  isDataEditing: boolean;
-  hasError: boolean;
-};
-
-export type UserInfo = {
-  id: string;
-  name: string;
-  location: MetroStation;
-  role: UserRole;
-  isReady: boolean;
-  description: string;
-  workoutTypes: WorkoutType[];
-  level: UserLevel;
-  isFriend: boolean;
-  images: FileData[];
-  certificates: FileData[];
-  workouts: Workout[];
-  subscriptionStatus: boolean;
-  isDataLoading: boolean;
-  isCoachInfoActual: boolean;
-  isWorkoutsLoading: boolean;
-  hasError: boolean;
-};
-
-export type CommentForm = {
-  workoutId: string;
-  rating: number;
-  text: string;
-  validationErrors: {
-    text: string | undefined;
-  };
-  isSending: boolean;
-};
-
 export type OrderForm = {
-  workoutId: string;
+  trainingId: string;
   price: number;
   type: OrderType;
   count: number;

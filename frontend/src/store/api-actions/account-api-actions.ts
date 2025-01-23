@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AuthUser, FileData, UserFiles } from '../../types';
-import { APIRoute } from '../../const';
-import { getUpdateUserData, getUpdateUserDataWithAvatar } from '../../utils';
+import { APIRoute } from '../../consts';
+import { getUpdateUserData, getUpdateUserDataWithAvatar } from '../../utils/user-form-data';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getAuthUserAction = createAsyncThunk<
