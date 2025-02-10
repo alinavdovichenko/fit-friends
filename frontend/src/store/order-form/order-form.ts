@@ -6,11 +6,11 @@ import {
   OrderType,
   PaymentType,
   PriceValue,
-} from '../../consts';
+} from '../../const';
 import { createOrderAction } from '../api-actions';
 
 const initialState: OrderForm = {
-  trainingId: '',
+  workoutId: '',
   price: PriceValue.Min,
   type: OrderType.Default,
   count: OrderCountValue.Min,
@@ -25,10 +25,10 @@ export const orderForm = createSlice({
   reducers: {
     setOrderForm: (
       _,
-      action: PayloadAction<{ trainingId: string; price: number }>,
+      action: PayloadAction<{ workoutId: string; price: number }>,
     ) => ({
       ...initialState,
-      trainingId: action.payload.trainingId,
+      workoutId: action.payload.workoutId,
       price: action.payload.price,
       totalSum: action.payload.price * OrderCountValue.Min,
     }),

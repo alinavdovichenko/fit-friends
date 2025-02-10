@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { OrdersList } from '../../types';
-import { NameSpace, OrdersSortType } from '../../consts';
+import { NameSpace, OrdersSortType } from '../../const';
 import { getCoachOrdersAction } from '../api-actions';
 
 const initialState: OrdersList = {

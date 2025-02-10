@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { BalancesList } from '../../types';
-import { NameSpace } from '../../consts';
+import { NameSpace } from '../../const';
 import { getUserBalancesAction } from '../api-actions';
 
 const initialState: BalancesList = {

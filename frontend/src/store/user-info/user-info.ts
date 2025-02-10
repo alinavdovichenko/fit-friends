@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserInfo } from '../../types';
-import { MetroStation, NameSpace, UserLevel, UserRole } from '../../consts';
+import { MetroStation, NameSpace, UserLevel, UserRole } from '../../const';
 import {
   addUserToFriendsAction,
   getCoachDataAction,
@@ -17,16 +17,16 @@ const initialState: UserInfo = {
   role: UserRole.Default,
   isReady: false,
   description: '',
-  trainingTypes: [],
+  workoutTypes: [],
   level: UserLevel.Amateur,
   isFriend: false,
   images: [],
   certificates: [],
-  trainings: [],
+  workouts: [],
   subscriptionStatus: false,
   isDataLoading: false,
   isCoachInfoActual: true,
-  isTrainingsLoading: false,
+  isWorkoutsLoading: false,
   hasError: false,
 };
 
@@ -51,7 +51,7 @@ export const userInfo = createSlice({
         state.role = action.payload.role;
         state.isReady = action.payload.isReady;
         state.description = action.payload.description;
-        state.trainingTypes = action.payload.trainingTypes;
+        state.workoutTypes = action.payload.workoutTypes;
         state.level = action.payload.level;
         state.isFriend = action.payload.isFriend;
         state.images = [action.payload.backgroundImage];
@@ -65,17 +65,17 @@ export const userInfo = createSlice({
         state.hasError = false;
       })
       .addCase(getCoachDataAction.pending, (state) => {
-        state.isTrainingsLoading = true;
+        state.isWorkoutsLoading = true;
       })
       .addCase(getCoachDataAction.rejected, (state) => {
         state.isCoachInfoActual = true;
-        state.isTrainingsLoading = false;
+        state.isWorkoutsLoading = false;
       })
       .addCase(getCoachDataAction.fulfilled, (state, action) => {
         state.subscriptionStatus = action.payload.subscriptionStatus;
-        state.trainings = action.payload.trainings;
+        state.workouts = action.payload.workouts;
         state.isCoachInfoActual = true;
-        state.isTrainingsLoading = false;
+        state.isWorkoutsLoading = false;
       })
       .addCase(addUserToFriendsAction.fulfilled, (state) => {
         state.isFriend = true;

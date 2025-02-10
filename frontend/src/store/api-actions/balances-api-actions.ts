@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { BalancesWithPagination, TrainingBalanceStatus } from '../../types';
-import { APIRoute } from '../../consts';
-import { getUserBalancesQuery } from '../../utils/query/user-balance-query';
+import { BalancesWithPagination, WorkoutBalanceStatus } from '../../types';
+import { APIRoute } from '../../const';
+import { getUserBalancesQuery } from '../../utils';
 import { AsyncThunkConfig } from './async-thunk-config';
 
 export const getUserBalancesAction = createAsyncThunk<
@@ -19,13 +19,13 @@ export const getUserBalancesAction = createAsyncThunk<
   return data;
 });
 
-export const decreaseTrainingBalanceAction = createAsyncThunk<
-TrainingBalanceStatus & { trainingId: string },
+export const decreaseWorkoutBalanceAction = createAsyncThunk<
+  WorkoutBalanceStatus & { workoutId: string },
   string,
   AsyncThunkConfig
->('balances/decrease-balance', async (trainingId, { extra: api }) => {
-  const { data } = await api.patch<TrainingBalanceStatus>(
-    `${APIRoute.DecreaseBalance}/${trainingId}`,
+>('balances/decrease-balance', async (workoutId, { extra: api }) => {
+  const { data } = await api.patch<WorkoutBalanceStatus>(
+    `${APIRoute.DecreaseBalance}/${workoutId}`,
   );
-  return { ...data, trainingId };
+  return { ...data, workoutId };
 });

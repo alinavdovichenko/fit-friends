@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CommentForm } from '../../types';
-import { NameSpace, REQUIRED_INPUT_MESSAGE, RatingValue } from '../../consts';
+import { NameSpace, REQUIRED_INPUT_MESSAGE, RatingValue } from '../../const';
 import { sendCommentAction } from '../api-actions';
 
 const initialState: CommentForm = {
-  trainingId: '',
+  workoutId: '',
   rating: RatingValue.Max,
   text: '',
   validationErrors: {
@@ -19,7 +19,7 @@ export const commentForm = createSlice({
   reducers: {
     setCommentForm: (_, action: PayloadAction<string>) => ({
       ...initialState,
-      trainingId: action.payload,
+      workoutId: action.payload,
     }),
     setRating: (state, action: PayloadAction<number>) => {
       state.rating = action.payload;

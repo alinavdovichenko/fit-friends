@@ -1,9 +1,9 @@
 import { DivIcon, Map, Marker, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
-import { Location } from '../types/location';
-import { MAP_ZOOM } from '../consts';
+import { Location } from '../types';
+import { MAP_ZOOM } from '../const';
 
-export function useMap(
+function useMap(
   containerRef: MutableRefObject<HTMLElement | null>,
   location: Location,
   icon: DivIcon,
@@ -40,3 +40,4 @@ export function useMap(
   return map;
 }
 
+export default useMap;

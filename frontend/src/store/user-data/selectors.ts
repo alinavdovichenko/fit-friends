@@ -3,8 +3,8 @@ import {
   NameSpace,
   UserLevel,
   UserSex,
-  TrainingType,
-} from '../../consts';
+  WorkoutType,
+} from '../../const';
 import { FileData, State } from '../../types';
 
 export const getUserDataAvatar = (
@@ -31,9 +31,9 @@ export const getUserDataLevel = (
   state: Pick<State, NameSpace.UserData>,
 ): UserLevel => state[NameSpace.UserData].level;
 
-export const getUserDataTrainingTypes = (
+export const getUserDataWorkoutTypes = (
   state: Pick<State, NameSpace.UserData>,
-): TrainingType[] => state[NameSpace.UserData].trainingTypes;
+): WorkoutType[] => state[NameSpace.UserData].workoutTypes;
 
 export const getUserDataDescription = (
   state: Pick<State, NameSpace.UserData>,

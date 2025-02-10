@@ -1,4 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Route } from '../types/route';
+import { Route } from '../types';
 
 export const redirectToRoute = createAction<Route>('app/redirectToRoute');

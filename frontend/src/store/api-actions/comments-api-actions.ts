@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute } from '../../consts';
+import { APIRoute } from '../../const';
 import { AsyncThunkConfig } from './async-thunk-config';
-import { Comment, FullTraining } from '../../types';
-import { getCommentData } from '../../utils/query';
+import { Comment, FullWorkout } from '../../types';
+import { getCommentData } from '../../utils';
 
 export const sendCommentAction = createAsyncThunk<
   { comment: Comment; rating: number },
@@ -14,8 +14,8 @@ export const sendCommentAction = createAsyncThunk<
     APIRoute.Comments,
     formData,
   );
-  const { data: training } = await api.get<FullTraining>(
-    `${APIRoute.Trainings}/${formData.trainingId}`,
+  const { data: workout } = await api.get<FullWorkout>(
+    `${APIRoute.Workouts}/${formData.workoutId}`,
   );
-  return { comment: newComment, rating: training.rating };
+  return { comment: newComment, rating: workout.rating };
 });

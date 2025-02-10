@@ -4,7 +4,7 @@ import axios, {
   AxiosRequestConfig,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../consts';
+import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import {
   dropPendingStatus,
   getAccessToken,
